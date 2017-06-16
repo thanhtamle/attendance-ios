@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA27BCA8936DE0739A462AC4 /* Pods_Attendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D8078975417919BE82806 /* Pods_Attendance.framework */; };
 		E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8D11EF3952D00C91617 /* AppDelegate.swift */; };
 		E645D8D41EF3952D00C91617 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8D31EF3952D00C91617 /* ViewController.swift */; };
 		E645D8D71EF3952D00C91617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E645D8D51EF3952D00C91617 /* Main.storyboard */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		194D8078975417919BE82806 /* Pods_Attendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Attendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.release.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.release.xcconfig"; sourceTree = "<group>"; };
+		A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.debug.xcconfig"; sourceTree = "<group>"; };
 		E645D8CE1EF3952D00C91617 /* Attendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E645D8D11EF3952D00C91617 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E645D8D31EF3952D00C91617 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA27BCA8936DE0739A462AC4 /* Pods_Attendance.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D162527C4045C5B80909324 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */,
+				5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AD854013071DDA824890FD7D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				194D8078975417919BE82806 /* Pods_Attendance.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E645D8C51EF3952D00C91617 = {
 			isa = PBXGroup;
 			children = (
 				E645D8D01EF3952D00C91617 /* Attendance */,
 				E645D8CF1EF3952D00C91617 /* Products */,
+				4D162527C4045C5B80909324 /* Pods */,
+				AD854013071DDA824890FD7D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E645D8E01EF3952D00C91617 /* Build configuration list for PBXNativeTarget "Attendance" */;
 			buildPhases = (
+				2ABC73CF6A3C3E01AAA71C49 /* [CP] Check Pods Manifest.lock */,
 				E645D8CA1EF3952D00C91617 /* Sources */,
 				E645D8CB1EF3952D00C91617 /* Frameworks */,
 				E645D8CC1EF3952D00C91617 /* Resources */,
+				09A78229D9FB21867F7A6182 /* [CP] Embed Pods Frameworks */,
+				3AB5A14DCA0CC85883C508BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09A78229D9FB21867F7A6182 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Attendance/Pods-Attendance-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2ABC73CF6A3C3E01AAA71C49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3AB5A14DCA0CC85883C508BE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Attendance/Pods-Attendance-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E645D8CA1EF3952D00C91617 /* Sources */ = {
@@ -260,6 +335,7 @@
 		};
 		E645D8E11EF3952D00C91617 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Attendance/Info.plist;
@@ -272,6 +348,7 @@
 		};
 		E645D8E21EF3952D00C91617 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Attendance/Info.plist;
