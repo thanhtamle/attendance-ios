@@ -9,10 +9,38 @@
 /* Begin PBXBuildFile section */
 		AA27BCA8936DE0739A462AC4 /* Pods_Attendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D8078975417919BE82806 /* Pods_Attendance.framework */; };
 		E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8D11EF3952D00C91617 /* AppDelegate.swift */; };
-		E645D8D41EF3952D00C91617 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8D31EF3952D00C91617 /* ViewController.swift */; };
-		E645D8D71EF3952D00C91617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E645D8D51EF3952D00C91617 /* Main.storyboard */; };
 		E645D8D91EF3952D00C91617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E645D8D81EF3952D00C91617 /* Assets.xcassets */; };
 		E645D8DC1EF3952D00C91617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E645D8DA1EF3952D00C91617 /* LaunchScreen.storyboard */; };
+		E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8E81EF3981B00C91617 /* CaptureButton.swift */; };
+		E645D8F81EF3981B00C91617 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8E91EF3981B00C91617 /* Global.swift */; };
+		E645D8FA1EF3981B00C91617 /* SizeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8EB1EF3981B00C91617 /* SizeUtils.swift */; };
+		E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8ED1EF3981B00C91617 /* Utils.swift */; };
+		E645D9251EF3982700C91617 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D90F1EF3982700C91617 /* Dictionary.swift */; };
+		E645D9261EF3982700C91617 /* NSArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9101EF3982700C91617 /* NSArray.swift */; };
+		E645D9271EF3982700C91617 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9111EF3982700C91617 /* NSData.swift */; };
+		E645D9281EF3982700C91617 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9121EF3982700C91617 /* NSDate.swift */; };
+		E645D9291EF3982700C91617 /* NSDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9131EF3982700C91617 /* NSDictionary.swift */; };
+		E645D92A1EF3982700C91617 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9141EF3982700C91617 /* NSObject.swift */; };
+		E645D92B1EF3982700C91617 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9151EF3982700C91617 /* String.swift */; };
+		E645D92C1EF3982700C91617 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9161EF3982700C91617 /* UIColor.swift */; };
+		E645D92D1EF3982700C91617 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9171EF3982700C91617 /* UIImage.swift */; };
+		E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9181EF3982700C91617 /* UIImageView.swift */; };
+		E645D92F1EF3982700C91617 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9191EF3982700C91617 /* UITableView.swift */; };
+		E645D9301EF3982700C91617 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D91A1EF3982700C91617 /* UITextField.swift */; };
+		E645D9311EF3982700C91617 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D91B1EF3982700C91617 /* UIView.swift */; };
+		E645D9321EF3982700C91617 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D91C1EF3982700C91617 /* UIViewController.swift */; };
+		E645D93F1EF3983500C91617 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9341EF3983500C91617 /* UserDefaultManager.swift */; };
+		E645D9421EF3983500C91617 /* OpenSans-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E645D93A1EF3983500C91617 /* OpenSans-bold.ttf */; };
+		E645D9431EF3983500C91617 /* OpenSans-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E645D93B1EF3983500C91617 /* OpenSans-light.ttf */; };
+		E645D9441EF3983500C91617 /* OpenSans-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E645D93C1EF3983500C91617 /* OpenSans-semibold.ttf */; };
+		E645D9451EF3983500C91617 /* OpenSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E645D93D1EF3983500C91617 /* OpenSans.ttf */; };
+		E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D94D1EF398DE00C91617 /* AIDatePickerController.m */; };
+		E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9501EF398DE00C91617 /* SWRevealViewController.m */; };
+		E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9541EF398DE00C91617 /* MTViewHighlighter.m */; };
+		E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9561EF398DE00C91617 /* MTCompoundButton.m */; };
+		E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */; };
+		E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D95E1EF39B7100C91617 /* MainViewController.swift */; };
+		E645D9611EF39B7D00C91617 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9601EF39B7D00C91617 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,11 +49,45 @@
 		A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.debug.xcconfig"; sourceTree = "<group>"; };
 		E645D8CE1EF3952D00C91617 /* Attendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E645D8D11EF3952D00C91617 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E645D8D31EF3952D00C91617 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E645D8D61EF3952D00C91617 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E645D8D81EF3952D00C91617 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E645D8DB1EF3952D00C91617 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E645D8DD1EF3952D00C91617 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E645D8E81EF3981B00C91617 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
+		E645D8E91EF3981B00C91617 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		E645D8EB1EF3981B00C91617 /* SizeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeUtils.swift; sourceTree = "<group>"; };
+		E645D8ED1EF3981B00C91617 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E645D90F1EF3982700C91617 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		E645D9101EF3982700C91617 /* NSArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSArray.swift; sourceTree = "<group>"; };
+		E645D9111EF3982700C91617 /* NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSData.swift; sourceTree = "<group>"; };
+		E645D9121EF3982700C91617 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
+		E645D9131EF3982700C91617 /* NSDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDictionary.swift; sourceTree = "<group>"; };
+		E645D9141EF3982700C91617 /* NSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
+		E645D9151EF3982700C91617 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		E645D9161EF3982700C91617 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E645D9171EF3982700C91617 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		E645D9181EF3982700C91617 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		E645D9191EF3982700C91617 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
+		E645D91A1EF3982700C91617 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		E645D91B1EF3982700C91617 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		E645D91C1EF3982700C91617 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		E645D9341EF3983500C91617 /* UserDefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
+		E645D93A1EF3983500C91617 /* OpenSans-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-bold.ttf"; sourceTree = "<group>"; };
+		E645D93B1EF3983500C91617 /* OpenSans-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-light.ttf"; sourceTree = "<group>"; };
+		E645D93C1EF3983500C91617 /* OpenSans-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-semibold.ttf"; sourceTree = "<group>"; };
+		E645D93D1EF3983500C91617 /* OpenSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenSans.ttf; sourceTree = "<group>"; };
+		E645D9461EF398CC00C91617 /* Attendance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Attendance-Bridging-Header.h"; sourceTree = "<group>"; };
+		E645D94C1EF398DE00C91617 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDatePickerController.h; sourceTree = "<group>"; };
+		E645D94D1EF398DE00C91617 /* AIDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDatePickerController.m; sourceTree = "<group>"; };
+		E645D94F1EF398DE00C91617 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		E645D9501EF398DE00C91617 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		E645D9531EF398DE00C91617 /* MTViewHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTViewHighlighter.h; sourceTree = "<group>"; };
+		E645D9541EF398DE00C91617 /* MTViewHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTViewHighlighter.m; sourceTree = "<group>"; };
+		E645D9551EF398DE00C91617 /* MTCompoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCompoundButton.h; sourceTree = "<group>"; };
+		E645D9561EF398DE00C91617 /* MTCompoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCompoundButton.m; sourceTree = "<group>"; };
+		E645D9571EF398DE00C91617 /* UIView+TouchHighlighting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TouchHighlighting.h"; sourceTree = "<group>"; };
+		E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchHighlighting.m"; sourceTree = "<group>"; };
+		E645D95E1EF39B7100C91617 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E645D9601EF39B7D00C91617 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +140,152 @@
 		E645D8D01EF3952D00C91617 /* Attendance */ = {
 			isa = PBXGroup;
 			children = (
+				E645D94A1EF398DE00C91617 /* Libraries */,
+				E645D90E1EF3982700C91617 /* Extension */,
+				E645D8E71EF3981B00C91617 /* Utils */,
+				E645D9351EF3983500C91617 /* Models */,
+				E645D9331EF3983500C91617 /* Manager */,
+				E645D8EE1EF3981B00C91617 /* Views */,
+				E645D9051EF3982700C91617 /* Controllers */,
+				E645D9381EF3983500C91617 /* Resources */,
 				E645D8D11EF3952D00C91617 /* AppDelegate.swift */,
-				E645D8D31EF3952D00C91617 /* ViewController.swift */,
-				E645D8D51EF3952D00C91617 /* Main.storyboard */,
 				E645D8D81EF3952D00C91617 /* Assets.xcassets */,
 				E645D8DA1EF3952D00C91617 /* LaunchScreen.storyboard */,
 				E645D8DD1EF3952D00C91617 /* Info.plist */,
+				E645D9461EF398CC00C91617 /* Attendance-Bridging-Header.h */,
 			);
 			path = Attendance;
+			sourceTree = "<group>";
+		};
+		E645D8E71EF3981B00C91617 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E645D8E81EF3981B00C91617 /* CaptureButton.swift */,
+				E645D8E91EF3981B00C91617 /* Global.swift */,
+				E645D8EB1EF3981B00C91617 /* SizeUtils.swift */,
+				E645D8ED1EF3981B00C91617 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E645D8EE1EF3981B00C91617 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E645D9601EF39B7D00C91617 /* MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E645D9051EF3982700C91617 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E645D90E1EF3982700C91617 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E645D90F1EF3982700C91617 /* Dictionary.swift */,
+				E645D9101EF3982700C91617 /* NSArray.swift */,
+				E645D9111EF3982700C91617 /* NSData.swift */,
+				E645D9121EF3982700C91617 /* NSDate.swift */,
+				E645D9131EF3982700C91617 /* NSDictionary.swift */,
+				E645D9141EF3982700C91617 /* NSObject.swift */,
+				E645D9151EF3982700C91617 /* String.swift */,
+				E645D9161EF3982700C91617 /* UIColor.swift */,
+				E645D9171EF3982700C91617 /* UIImage.swift */,
+				E645D9181EF3982700C91617 /* UIImageView.swift */,
+				E645D9191EF3982700C91617 /* UITableView.swift */,
+				E645D91A1EF3982700C91617 /* UITextField.swift */,
+				E645D91B1EF3982700C91617 /* UIView.swift */,
+				E645D91C1EF3982700C91617 /* UIViewController.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E645D9331EF3983500C91617 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E645D9341EF3983500C91617 /* UserDefaultManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		E645D9351EF3983500C91617 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E645D9381EF3983500C91617 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E645D9391EF3983500C91617 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E645D9391EF3983500C91617 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E645D93A1EF3983500C91617 /* OpenSans-bold.ttf */,
+				E645D93B1EF3983500C91617 /* OpenSans-light.ttf */,
+				E645D93C1EF3983500C91617 /* OpenSans-semibold.ttf */,
+				E645D93D1EF3983500C91617 /* OpenSans.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E645D94A1EF398DE00C91617 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				E645D94B1EF398DE00C91617 /* AIDatePickerController */,
+				E645D94E1EF398DE00C91617 /* SWRevealViewController */,
+				E645D9511EF398DE00C91617 /* UIView+TouchHighlighting */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		E645D94B1EF398DE00C91617 /* AIDatePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				E645D94C1EF398DE00C91617 /* AIDatePickerController.h */,
+				E645D94D1EF398DE00C91617 /* AIDatePickerController.m */,
+			);
+			path = AIDatePickerController;
+			sourceTree = "<group>";
+		};
+		E645D94E1EF398DE00C91617 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E645D94F1EF398DE00C91617 /* SWRevealViewController.h */,
+				E645D9501EF398DE00C91617 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		E645D9511EF398DE00C91617 /* UIView+TouchHighlighting */ = {
+			isa = PBXGroup;
+			children = (
+				E645D9521EF398DE00C91617 /* Internal */,
+				E645D9551EF398DE00C91617 /* MTCompoundButton.h */,
+				E645D9561EF398DE00C91617 /* MTCompoundButton.m */,
+				E645D9571EF398DE00C91617 /* UIView+TouchHighlighting.h */,
+				E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */,
+			);
+			path = "UIView+TouchHighlighting";
+			sourceTree = "<group>";
+		};
+		E645D9521EF398DE00C91617 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				E645D9531EF398DE00C91617 /* MTViewHighlighter.h */,
+				E645D9541EF398DE00C91617 /* MTViewHighlighter.m */,
+			);
+			path = Internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +323,7 @@
 				TargetAttributes = {
 					E645D8CD1EF3952D00C91617 = {
 						CreatedOnToolsVersion = 8.3.2;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -150,9 +351,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E645D9421EF3983500C91617 /* OpenSans-bold.ttf in Resources */,
 				E645D8DC1EF3952D00C91617 /* LaunchScreen.storyboard in Resources */,
+				E645D9441EF3983500C91617 /* OpenSans-semibold.ttf in Resources */,
+				E645D9431EF3983500C91617 /* OpenSans-light.ttf in Resources */,
 				E645D8D91EF3952D00C91617 /* Assets.xcassets in Resources */,
-				E645D8D71EF3952D00C91617 /* Main.storyboard in Resources */,
+				E645D9451EF3983500C91617 /* OpenSans.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,22 +415,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E645D8D41EF3952D00C91617 /* ViewController.swift in Sources */,
+				E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */,
+				E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */,
+				E645D9271EF3982700C91617 /* NSData.swift in Sources */,
+				E645D9261EF3982700C91617 /* NSArray.swift in Sources */,
+				E645D92A1EF3982700C91617 /* NSObject.swift in Sources */,
+				E645D9281EF3982700C91617 /* NSDate.swift in Sources */,
+				E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */,
+				E645D92D1EF3982700C91617 /* UIImage.swift in Sources */,
+				E645D92F1EF3982700C91617 /* UITableView.swift in Sources */,
+				E645D8FA1EF3981B00C91617 /* SizeUtils.swift in Sources */,
+				E645D9321EF3982700C91617 /* UIViewController.swift in Sources */,
+				E645D93F1EF3983500C91617 /* UserDefaultManager.swift in Sources */,
+				E645D92B1EF3982700C91617 /* String.swift in Sources */,
+				E645D9311EF3982700C91617 /* UIView.swift in Sources */,
+				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
+				E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */,
+				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
+				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
+				E645D9611EF39B7D00C91617 /* MainView.swift in Sources */,
+				E645D9291EF3982700C91617 /* NSDictionary.swift in Sources */,
+				E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */,
+				E645D92C1EF3982700C91617 /* UIColor.swift in Sources */,
+				E645D9251EF3982700C91617 /* Dictionary.swift in Sources */,
+				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,
+				E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */,
+				E645D8F81EF3981B00C91617 /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E645D8D51EF3952D00C91617 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E645D8D61EF3952D00C91617 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E645D8DA1EF3952D00C91617 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -338,10 +559,14 @@
 			baseConfigurationReference = A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Attendance/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = citynow.Attendance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Attendance/Attendance-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -351,10 +576,13 @@
 			baseConfigurationReference = 5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Attendance/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = citynow.Attendance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Attendance/Attendance-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -378,6 +606,7 @@
 				E645D8E21EF3952D00C91617 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
