@@ -41,6 +41,10 @@
 		E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */; };
 		E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D95E1EF39B7100C91617 /* MainViewController.swift */; };
 		E645D9611EF39B7D00C91617 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9601EF39B7D00C91617 /* MainView.swift */; };
+		E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035B81F009EF4000C5FA5 /* LoginView.swift */; };
+		E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */; };
+		E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */; };
+		E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +92,10 @@
 		E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchHighlighting.m"; sourceTree = "<group>"; };
 		E645D95E1EF39B7100C91617 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E645D9601EF39B7D00C91617 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E67035B81F009EF4000C5FA5 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				E645D9601EF39B7D00C91617 /* MainView.swift */,
+				E67035B81F009EF4000C5FA5 /* LoginView.swift */,
+				E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
+				E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */,
+				E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -423,6 +435,7 @@
 				E645D9281EF3982700C91617 /* NSDate.swift in Sources */,
 				E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */,
 				E645D92D1EF3982700C91617 /* UIImage.swift in Sources */,
+				E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */,
 				E645D92F1EF3982700C91617 /* UITableView.swift in Sources */,
 				E645D8FA1EF3981B00C91617 /* SizeUtils.swift in Sources */,
 				E645D9321EF3982700C91617 /* UIViewController.swift in Sources */,
@@ -432,11 +445,14 @@
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
 				E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */,
+				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
 				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
+				E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */,
 				E645D9611EF39B7D00C91617 /* MainView.swift in Sources */,
 				E645D9291EF3982700C91617 /* NSDictionary.swift in Sources */,
 				E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */,
+				E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */,
 				E645D92C1EF3982700C91617 /* UIColor.swift in Sources */,
 				E645D9251EF3982700C91617 /* Dictionary.swift in Sources */,
 				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,

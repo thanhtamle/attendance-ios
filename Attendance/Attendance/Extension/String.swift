@@ -94,7 +94,7 @@ extension String {
         let components = self.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
         let decimalString = components.joined(separator: "")
         
-        let PHONE_REGEX = "^((\\+)|())[0-9]{7,8}$"
+        let PHONE_REGEX = "^((\\+)|())[0-9]{3,20}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result =  phoneTest.evaluate(with: decimalString)
         return result
