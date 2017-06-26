@@ -47,6 +47,12 @@
 		E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */; };
 		E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C01F00C93C000C5FA5 /* ForgotPasswordView.swift */; };
 		E67035C31F00C956000C5FA5 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */; };
+		E67035C51F00FC70000C5FA5 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C41F00FC70000C5FA5 /* MenuView.swift */; };
+		E67035C71F00FCA7000C5FA5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C61F00FCA7000C5FA5 /* MenuViewController.swift */; };
+		E67035C91F00FCC4000C5FA5 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C81F00FCC4000C5FA5 /* Menu.swift */; };
+		E67035CB1F00FD02000C5FA5 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */; };
+		E67035CD1F00FD15000C5FA5 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */; };
+		E67035CF1F00FF73000C5FA5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035CE1F00FF73000C5FA5 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +106,12 @@
 		E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E67035C01F00C93C000C5FA5 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		E67035C41F00FC70000C5FA5 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		E67035C61F00FCA7000C5FA5 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E67035C81F00FCC4000C5FA5 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
+		E67035CE1F00FF73000C5FA5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +199,9 @@
 				E67035B81F009EF4000C5FA5 /* LoginView.swift */,
 				E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */,
 				E67035C01F00C93C000C5FA5 /* ForgotPasswordView.swift */,
+				E67035C41F00FC70000C5FA5 /* MenuView.swift */,
+				E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */,
+				E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,6 +213,7 @@
 				E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */,
 				E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */,
 				E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */,
+				E67035C61F00FCA7000C5FA5 /* MenuViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -234,6 +250,8 @@
 		E645D9351EF3983500C91617 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E67035C81F00FCC4000C5FA5 /* Menu.swift */,
+				E67035CE1F00FF73000C5FA5 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -439,12 +457,15 @@
 				E645D9271EF3982700C91617 /* NSData.swift in Sources */,
 				E645D9261EF3982700C91617 /* NSArray.swift in Sources */,
 				E645D92A1EF3982700C91617 /* NSObject.swift in Sources */,
+				E67035C91F00FCC4000C5FA5 /* Menu.swift in Sources */,
 				E645D9281EF3982700C91617 /* NSDate.swift in Sources */,
+				E67035C51F00FC70000C5FA5 /* MenuView.swift in Sources */,
 				E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */,
 				E645D92D1EF3982700C91617 /* UIImage.swift in Sources */,
 				E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */,
 				E645D92F1EF3982700C91617 /* UITableView.swift in Sources */,
 				E645D8FA1EF3981B00C91617 /* SizeUtils.swift in Sources */,
+				E67035CD1F00FD15000C5FA5 /* MenuHeaderView.swift in Sources */,
 				E645D9321EF3982700C91617 /* UIViewController.swift in Sources */,
 				E645D93F1EF3983500C91617 /* UserDefaultManager.swift in Sources */,
 				E645D92B1EF3982700C91617 /* String.swift in Sources */,
@@ -456,13 +477,16 @@
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
 				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
+				E67035CF1F00FF73000C5FA5 /* User.swift in Sources */,
 				E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */,
 				E645D9611EF39B7D00C91617 /* MainView.swift in Sources */,
 				E645D9291EF3982700C91617 /* NSDictionary.swift in Sources */,
 				E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */,
 				E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */,
 				E645D92C1EF3982700C91617 /* UIColor.swift in Sources */,
+				E67035CB1F00FD02000C5FA5 /* MenuTableViewCell.swift in Sources */,
 				E645D9251EF3982700C91617 /* Dictionary.swift in Sources */,
+				E67035C71F00FCA7000C5FA5 /* MenuViewController.swift in Sources */,
 				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,
 				E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */,
 				E645D8F81EF3981B00C91617 /* Global.swift in Sources */,
