@@ -65,7 +65,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
     }
 
     func actionTapToForgotButton() {
-
+        let nav = UINavigationController(rootViewController: ForgotPasswordViewController())
+        present(nav, animated: true, completion: nil)
     }
 
     func actionTapToCloseButton() {
