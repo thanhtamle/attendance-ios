@@ -39,5 +39,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>OpenSans-bold.ttf</string>
+		<string>OpenSans-light.ttf</string>
+		<string>OpenSans-semibold.ttf</string>
+		<string>OpenSans.ttf</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

@@ -31,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         //init structure
-        self.window?.rootViewController = MainViewController()
+        let nav = UINavigationController(rootViewController: LoginViewController())
+        self.window?.rootViewController = nav
         
         return true
     }
