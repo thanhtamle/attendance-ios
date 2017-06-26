@@ -40,7 +40,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let height: CGFloat = 50 + 45 + 30 + 20 + 20 + 40 + 10 + 40 + 30 + 40 + 10 + 30 + 10 + 40 + 20 + 30 + 20
+        var buttonSize: CGFloat = 40
+        var fieldSize: CGFloat = 40
+
+        if DeviceType.IS_IPAD {
+            buttonSize = 50
+            fieldSize = 50
+        }
+
+        let height: CGFloat = 50 + 45 + 30 + 20 + 20 + fieldSize + 10 + fieldSize + 30 + buttonSize + 10 + 30 + 10 + buttonSize + 20 + 30 + 20
 
         loginView.containerView.autoSetDimension(.height, toSize: height)
         loginView.scrollView.contentSize = loginView.containerView.bounds.size
