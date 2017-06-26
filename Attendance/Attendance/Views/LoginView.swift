@@ -150,7 +150,17 @@ class LoginView: UIView {
             containerView.autoPinEdgesToSuperviewEdges()
             containerView.autoMatch(.width, to: .width, of: self)
 
-            let alpha: CGFloat = 40
+            var alpha: CGFloat = 40
+            var buttonSize: CGFloat = 40
+            var fieldSize: CGFloat = 40
+            var fieldAlign: CGFloat = 12
+
+            if DeviceType.IS_IPAD {
+                alpha = 100
+                buttonSize = 50
+                fieldSize = 50
+                fieldAlign = 17
+            }
 
             iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 50)
             iconImgView.autoSetDimensions(to: CGSize(width: 300, height: 45))
@@ -168,19 +178,19 @@ class LoginView: UIView {
             mailView.autoPinEdge(.top, to: .bottom, of: errorLabel, withOffset: 20)
             mailView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             mailView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
-            mailView.autoSetDimension(.height, toSize: 40)
+            mailView.autoSetDimension(.height, toSize: fieldSize)
 
             mailField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             mailField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             mailField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            mailField.autoSetDimension(.height, toSize: 40)
+            mailField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             mailAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             mailAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             mailAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             mailAbstract.autoSetDimension(.width, toSize: 25)
 
-            mailImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            mailImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             mailImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             mailImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -194,19 +204,19 @@ class LoginView: UIView {
             passwordView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             passwordView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
             passwordView.autoPinEdge(.top, to: .bottom, of: mailView, withOffset: 10)
-            passwordView.autoSetDimension(.height, toSize: 40)
+            passwordView.autoSetDimension(.height, toSize: fieldSize)
 
             passwordField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             passwordField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             passwordField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            passwordField.autoSetDimension(.height, toSize: 40)
+            passwordField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             passwordAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             passwordAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             passwordAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             passwordAbstract.autoSetDimension(.width, toSize: 25)
 
-            keyImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            keyImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             keyImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             keyImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -220,7 +230,7 @@ class LoginView: UIView {
             signInButton.autoPinEdge(toSuperviewEdge: .left, withInset: alpha - 2)
             signInButton.autoPinEdge(toSuperviewEdge: .right, withInset: alpha - 2)
             signInButton.autoPinEdge(.top, to: .bottom, of: passwordView, withOffset: 30)
-            signInButton.autoSetDimension(.height, toSize: 40)
+            signInButton.autoSetDimension(.height, toSize: buttonSize)
 
             //---------------------------------------------------------------------------
 
@@ -234,7 +244,7 @@ class LoginView: UIView {
             newUserButton.autoPinEdge(toSuperviewEdge: .left, withInset: alpha - 2)
             newUserButton.autoPinEdge(toSuperviewEdge: .right, withInset: alpha - 2)
             newUserButton.autoPinEdge(.top, to: .bottom, of: orLabel, withOffset: 10)
-            newUserButton.autoSetDimension(.height, toSize: 40)
+            newUserButton.autoSetDimension(.height, toSize: buttonSize)
 
             //---------------------------------------------------------------------------
 

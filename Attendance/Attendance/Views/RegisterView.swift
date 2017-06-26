@@ -204,7 +204,17 @@ class RegisterView: UIView {
             containerView.autoPinEdgesToSuperviewEdges()
             containerView.autoMatch(.width, to: .width, of: self)
 
-            let alpha: CGFloat = 40
+            var alpha: CGFloat = 40
+            var buttonSize: CGFloat = 40
+            var fieldSize: CGFloat = 40
+            var fieldAlign: CGFloat = 12
+
+            if DeviceType.IS_IPAD {
+                alpha = 100
+                buttonSize = 50
+                fieldSize = 50
+                fieldAlign = 17
+            }
 
             iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 50)
             iconImgView.autoSetDimensions(to: CGSize(width: 200, height: 45))
@@ -222,19 +232,19 @@ class RegisterView: UIView {
             nameView.autoPinEdge(.top, to: .bottom, of: errorLabel, withOffset: 20)
             nameView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             nameView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
-            nameView.autoSetDimension(.height, toSize: 40)
+            nameView.autoSetDimension(.height, toSize: fieldSize)
 
             nameField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             nameField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             nameField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            nameField.autoSetDimension(.height, toSize: 40)
+            nameField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             nameAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             nameAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             nameAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             nameAbstract.autoSetDimension(.width, toSize: 25)
 
-            userImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            userImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             userImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             userImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -248,19 +258,19 @@ class RegisterView: UIView {
             mailView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             mailView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
             mailView.autoPinEdge(.top, to: .bottom, of: nameView, withOffset: 10)
-            mailView.autoSetDimension(.height, toSize: 40)
+            mailView.autoSetDimension(.height, toSize: fieldSize)
 
             mailField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             mailField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             mailField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            mailField.autoSetDimension(.height, toSize: 40)
+            mailField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             mailAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             mailAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             mailAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             mailAbstract.autoSetDimension(.width, toSize: 25)
 
-            mailImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            mailImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             mailImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             mailImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -275,19 +285,19 @@ class RegisterView: UIView {
             phoneView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             phoneView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
             phoneView.autoPinEdge(.top, to: .bottom, of: mailView, withOffset: 10)
-            phoneView.autoSetDimension(.height, toSize: 40)
+            phoneView.autoSetDimension(.height, toSize: fieldSize)
 
             phoneField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             phoneField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             phoneField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            phoneField.autoSetDimension(.height, toSize: 40)
+            phoneField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             phoneAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             phoneAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             phoneAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             phoneAbstract.autoSetDimension(.width, toSize: 25)
 
-            phoneImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            phoneImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             phoneImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             phoneImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -301,19 +311,19 @@ class RegisterView: UIView {
             passwordView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             passwordView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
             passwordView.autoPinEdge(.top, to: .bottom, of: phoneView, withOffset: 10)
-            passwordView.autoSetDimension(.height, toSize: 40)
+            passwordView.autoSetDimension(.height, toSize: fieldSize)
 
             passwordField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             passwordField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             passwordField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            passwordField.autoSetDimension(.height, toSize: 40)
+            passwordField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             passwordAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             passwordAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             passwordAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             passwordAbstract.autoSetDimension(.width, toSize: 25)
 
-            keyImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            keyImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             keyImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             keyImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -328,7 +338,7 @@ class RegisterView: UIView {
             createAccountButton.autoPinEdge(toSuperviewEdge: .left, withInset: alpha - 2)
             createAccountButton.autoPinEdge(toSuperviewEdge: .right, withInset: alpha - 2)
             createAccountButton.autoPinEdge(.top, to: .bottom, of: passwordView, withOffset: 30)
-            createAccountButton.autoSetDimension(.height, toSize: 40)
+            createAccountButton.autoSetDimension(.height, toSize: buttonSize)
 
             //---------------------------------------------------------------------------
 

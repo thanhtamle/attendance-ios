@@ -125,7 +125,17 @@ class ForgotPasswordView: UIView {
             containerView.autoPinEdgesToSuperviewEdges()
             containerView.autoMatch(.width, to: .width, of: self)
 
-            let alpha: CGFloat = 40
+            var alpha: CGFloat = 40
+            var buttonSize: CGFloat = 40
+            var fieldSize: CGFloat = 40
+            var fieldAlign: CGFloat = 12
+
+            if DeviceType.IS_IPAD {
+                alpha = 100
+                buttonSize = 50
+                fieldSize = 50
+                fieldAlign = 17
+            }
 
             iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 50)
             iconImgView.autoSetDimensions(to: CGSize(width: 200, height: 45))
@@ -149,19 +159,19 @@ class ForgotPasswordView: UIView {
             mailView.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             mailView.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
             mailView.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 20)
-            mailView.autoSetDimension(.height, toSize: 40)
+            mailView.autoSetDimension(.height, toSize: fieldSize)
 
             mailField.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             mailField.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             mailField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            mailField.autoSetDimension(.height, toSize: 40)
+            mailField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
             mailAbstract.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             mailAbstract.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
             mailAbstract.autoPinEdge(toSuperviewEdge: .bottom, withInset: 1)
             mailAbstract.autoSetDimension(.width, toSize: 25)
 
-            mailImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 12)
+            mailImgView.autoPinEdge(toSuperviewEdge: .top, withInset: fieldAlign)
             mailImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 1)
             mailImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
 
@@ -175,7 +185,7 @@ class ForgotPasswordView: UIView {
             recoverPasswordButton.autoPinEdge(toSuperviewEdge: .left, withInset: alpha - 2)
             recoverPasswordButton.autoPinEdge(toSuperviewEdge: .right, withInset: alpha - 2)
             recoverPasswordButton.autoPinEdge(.top, to: .bottom, of: mailView, withOffset: 40)
-            recoverPasswordButton.autoSetDimension(.height, toSize: 40)
+            recoverPasswordButton.autoSetDimension(.height, toSize: buttonSize)
 
             //---------------------------------------------------------------------------
 

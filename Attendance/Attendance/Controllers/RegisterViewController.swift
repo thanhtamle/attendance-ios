@@ -45,7 +45,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SWRevealVie
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let height: CGFloat = 50 + 45 + 30 + 20 + 20 + 40 + 10 + 40 + 10 + 40 + 10 + 40 + 30 + 40 + 20 + 30 + 20
+        var buttonSize: CGFloat = 40
+        var fieldSize: CGFloat = 40
+
+        if DeviceType.IS_IPAD {
+            buttonSize = 50
+            fieldSize = 50
+        }
+
+        let height: CGFloat = 50 + 45 + 30 + 20 + 20 + fieldSize + 10 + fieldSize + 10 + fieldSize + 10 + fieldSize + 30 + buttonSize + 20 + 30 + 20
 
         registerView.containerView.autoSetDimension(.height, toSize: height)
         registerView.scrollView.contentSize = registerView.containerView.bounds.size
