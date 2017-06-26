@@ -111,14 +111,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SWRevealVie
         case registerView.passwordField:
             if checkInput(textField: textField, value: textField.text) {
                 textField.resignFirstResponder()
-                return true
-            }
-        default:
-            if checkInput(textField: textField, value: textField.text) {
-                textField.resignFirstResponder()
                 actionTapToCreateAccountButton()
                 return true
             }
+        default:
+            return true
         }
         return false
     }

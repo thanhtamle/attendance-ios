@@ -122,7 +122,7 @@ class RegisterView: UIView {
         passwordField.textAlignment = .center
         passwordField.placeholder = "Password"
         passwordField.textColor = UIColor.black
-        passwordField.returnKeyType = .next
+        passwordField.returnKeyType = .go
         passwordField.keyboardType = .namePhonePad
         passwordField.isSecureTextEntry = true
         passwordField.inputAccessoryView = UIView()
@@ -149,7 +149,7 @@ class RegisterView: UIView {
         alreadyAccountButton.sizeToFit()
         alreadyAccountButton.contentHorizontalAlignment = .center
 
-        signInButton.setTitle("LogIn", for: .normal)
+        signInButton.setTitle("LOGIN", for: .normal)
         signInButton.setTitleColor(Global.colorMain, for: .normal)
         signInButton.setTitleColor(Global.colorSelected, for: .highlighted)
         signInButton.titleLabel?.font = UIFont(name: "OpenSans", size: 15)
@@ -212,9 +212,9 @@ class RegisterView: UIView {
 
             //---------------------------------------------------------------------------
 
-            errorLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 30)
+            errorLabel.autoPinEdge(.top, to: .bottom, of: iconImgView, withOffset: 30)
+            errorLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
             errorLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-            errorLabel.autoPinEdge(.top, to: .bottom, of: iconImgView, withOffset: 15)
             errorLabel.autoSetDimension(.height, toSize: 20)
 
             //---------------------------------------------------------------------------

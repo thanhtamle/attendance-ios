@@ -45,6 +45,8 @@
 		E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */; };
 		E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */; };
 		E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */; };
+		E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C01F00C93C000C5FA5 /* ForgotPasswordView.swift */; };
+		E67035C31F00C956000C5FA5 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		E67035C01F00C93C000C5FA5 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,7 @@
 				E645D9601EF39B7D00C91617 /* MainView.swift */,
 				E67035B81F009EF4000C5FA5 /* LoginView.swift */,
 				E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */,
+				E67035C01F00C93C000C5FA5 /* ForgotPasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
 				E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */,
 				E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */,
+				E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 			files = (
 				E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */,
 				E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */,
+				E67035C31F00C956000C5FA5 /* ForgotPasswordViewController.swift in Sources */,
 				E645D9271EF3982700C91617 /* NSData.swift in Sources */,
 				E645D9261EF3982700C91617 /* NSArray.swift in Sources */,
 				E645D92A1EF3982700C91617 /* NSObject.swift in Sources */,
@@ -445,6 +452,7 @@
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
 				E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */,
+				E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */,
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
 				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
