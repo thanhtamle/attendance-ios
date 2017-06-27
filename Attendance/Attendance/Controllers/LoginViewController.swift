@@ -54,7 +54,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
         loginView.scrollView.contentSize = loginView.containerView.bounds.size
     }
 
+    var isSaving = false
+
     func actionTapToSignInButton() {
+
+        if isSaving {
+            return
+        }
 
         if loginView.mailField.text == "" {
             Utils.showAlert(title: "Error", message: "Email can not be empty!", viewController: self)
@@ -65,6 +71,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
             Utils.showAlert(title: "Error", message: "Password can not be empty!", viewController: self)
             return
         }
+
+        isSaving = true
+
+        let menuViewController = MenuViewController()
+
+        let mainViewController = MainViewController()
+        let mainViewNavigationController = UINavigationController(rootViewController: mainViewController)
+
+        let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
+        revealViewController?.delegate = self
+        revealViewController?.frontViewShadowOpacity = 0.5
+        revealViewController?.frontViewShadowRadius = 1
+        present(revealViewController!, animated: true, completion: nil)
     }
 
     func actionTapToCreateNewAccountButton() {
