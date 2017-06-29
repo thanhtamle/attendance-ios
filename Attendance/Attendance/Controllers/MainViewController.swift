@@ -29,8 +29,9 @@ class MainViewController: UIViewController {
 
         title = "HOME"
 
-        let revealController = revealViewController()
-        let menuBarButton = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: revealViewController, action: #selector(revealController?.revealToggle))
+        revealViewController()?.frontViewShadowOpacity = 0.5
+        revealViewController()?.frontViewShadowRadius = 1
+        let menuBarButton = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: revealViewController, action: #selector(revealViewController()?.revealToggle))
         menuBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = menuBarButton
 
@@ -38,8 +39,8 @@ class MainViewController: UIViewController {
         cameraBarButton.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = cameraBarButton
 
-        view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        view.addGestureRecognizer(revealViewController().panGestureRecognizer())
+        view.addGestureRecognizer(revealViewController().tapGestureRecognizer())
     }
 
     func actionTapToCameraButton() {

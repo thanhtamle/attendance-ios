@@ -30,7 +30,7 @@ class MenuHeaderView: UITableViewCell {
 
         iconImgView.clipsToBounds = true
         iconImgView.contentMode = .scaleAspectFit
-        iconImgView.image = UIImage(named: "ic_user")
+        iconImgView.image = UIImage(named: "admin")
         iconImgView.layer.borderColor = UIColor.white.cgColor
         iconImgView.layer.borderWidth = 3
         iconImgView.layer.cornerRadius = 40
