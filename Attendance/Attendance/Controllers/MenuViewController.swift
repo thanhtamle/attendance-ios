@@ -31,17 +31,29 @@ class MenuViewController: UIViewController, AlertDelegate {
 
     func loadData() {
 
-        user.name = "Thanh-Tam Le"
+        user.name = "Phan Thi Ngoc"
         user.thumbnailUrl = ""
 
         var menu = Menu()
         menu.id = 0
+        menu.title = "Home"
+        menu.icon = UIImage(named: "ic_home")
+        menus.append(menu)
+
+        menu = Menu()
+        menu.id = 1
+        menu.title = "Employee"
+        menu.icon = UIImage(named: "ic_list")
+        menus.append(menu)
+
+        menu = Menu()
+        menu.id = 2
         menu.title = "Export"
         menu.icon = UIImage(named: "ic_import_export")
         menus.append(menu)
 
         menu = Menu()
-        menu.id = 1
+        menu.id = 3
         menu.title = "Logout"
         menu.icon = UIImage(named: "ic_exit_to_app")
         menus.append(menu)
@@ -101,6 +113,16 @@ extension MenuViewController: UITableViewDelegate {
         self.revealViewController().rightRevealToggle(animated: true)
 
         if menus[indexPath.row].id == 0 {
+            let viewController = MainViewController()
+            let nav = UINavigationController(rootViewController: viewController)
+            revealViewController()?.setFront(nav, animated: true)
+        }
+        else if menus[indexPath.row].id == 1 {
+            let viewController = EmployeeViewController()
+            let nav = UINavigationController(rootViewController: viewController)
+            revealViewController()?.setFront(nav, animated: true)
+        }
+        else if menus[indexPath.row].id == 2 {
 
         }
         else {

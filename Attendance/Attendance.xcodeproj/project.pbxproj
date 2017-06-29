@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AA27BCA8936DE0739A462AC4 /* Pods_Attendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D8078975417919BE82806 /* Pods_Attendance.framework */; };
+		E6377D7C1F021AFB00023222 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D7B1F021AFB00023222 /* Employee.swift */; };
+		E6377D7E1F021D4900023222 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D7D1F021D4900023222 /* EmployeeView.swift */; };
+		E6377D801F021D6300023222 /* EmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D7F1F021D6300023222 /* EmployeeViewController.swift */; };
+		E6377D821F021D7000023222 /* EmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */; };
 		E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8D11EF3952D00C91617 /* AppDelegate.swift */; };
 		E645D8D91EF3952D00C91617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E645D8D81EF3952D00C91617 /* Assets.xcassets */; };
 		E645D8DC1EF3952D00C91617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E645D8DA1EF3952D00C91617 /* LaunchScreen.storyboard */; };
@@ -59,6 +63,10 @@
 		194D8078975417919BE82806 /* Pods_Attendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Attendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.release.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.release.xcconfig"; sourceTree = "<group>"; };
 		A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.debug.xcconfig"; sourceTree = "<group>"; };
+		E6377D7B1F021AFB00023222 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
+		E6377D7D1F021D4900023222 /* EmployeeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
+		E6377D7F1F021D6300023222 /* EmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeViewController.swift; sourceTree = "<group>"; };
+		E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeTableViewCell.swift; sourceTree = "<group>"; };
 		E645D8CE1EF3952D00C91617 /* Attendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E645D8D11EF3952D00C91617 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E645D8D81EF3952D00C91617 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -202,6 +210,8 @@
 				E67035C41F00FC70000C5FA5 /* MenuView.swift */,
 				E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */,
 				E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */,
+				E6377D7D1F021D4900023222 /* EmployeeView.swift */,
+				E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +224,7 @@
 				E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */,
 				E67035C21F00C956000C5FA5 /* ForgotPasswordViewController.swift */,
 				E67035C61F00FCA7000C5FA5 /* MenuViewController.swift */,
+				E6377D7F1F021D6300023222 /* EmployeeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -252,6 +263,7 @@
 			children = (
 				E67035C81F00FCC4000C5FA5 /* Menu.swift */,
 				E67035CE1F00FF73000C5FA5 /* User.swift */,
+				E6377D7B1F021AFB00023222 /* Employee.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -473,6 +485,7 @@
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
 				E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */,
+				E6377D7E1F021D4900023222 /* EmployeeView.swift in Sources */,
 				E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */,
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
@@ -484,11 +497,14 @@
 				E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */,
 				E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */,
 				E645D92C1EF3982700C91617 /* UIColor.swift in Sources */,
+				E6377D7C1F021AFB00023222 /* Employee.swift in Sources */,
 				E67035CB1F00FD02000C5FA5 /* MenuTableViewCell.swift in Sources */,
 				E645D9251EF3982700C91617 /* Dictionary.swift in Sources */,
 				E67035C71F00FCA7000C5FA5 /* MenuViewController.swift in Sources */,
 				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,
 				E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */,
+				E6377D821F021D7000023222 /* EmployeeTableViewCell.swift in Sources */,
+				E6377D801F021D6300023222 /* EmployeeViewController.swift in Sources */,
 				E645D8F81EF3981B00C91617 /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

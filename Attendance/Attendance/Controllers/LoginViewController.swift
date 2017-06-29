@@ -62,15 +62,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
             return
         }
 
-        if loginView.mailField.text == "" {
-            Utils.showAlert(title: "Error", message: "Email can not be empty!", viewController: self)
-            return
-        }
-
-        if loginView.passwordField.text == "" {
-            Utils.showAlert(title: "Error", message: "Password can not be empty!", viewController: self)
-            return
-        }
+//        if loginView.mailField.text == "" {
+//            Utils.showAlert(title: "Error", message: "Email can not be empty!", viewController: self)
+//            return
+//        }
+//
+//        if loginView.passwordField.text == "" {
+//            Utils.showAlert(title: "Error", message: "Password can not be empty!", viewController: self)
+//            return
+//        }
 
         isSaving = true
 
@@ -81,8 +81,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
 
         let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
         revealViewController?.delegate = self
-        revealViewController?.frontViewShadowOpacity = 0.5
-        revealViewController?.frontViewShadowRadius = 1
         present(revealViewController!, animated: true, completion: nil)
     }
 
