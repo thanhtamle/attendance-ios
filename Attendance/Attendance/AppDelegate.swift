@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManager
+import STPopup
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,12 +30,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //set light status bar for whole ViewController
         UIApplication.shared.statusBarStyle = .lightContent
-        
+
+        // set STPopupNavigationBar
+        STPopupNavigationBar.appearance().tintColor = UIColor.white
+        STPopupNavigationBar.appearance().barTintColor = Global.colorMain
+        STPopupNavigationBar.appearance().barStyle = .default
+        STPopupNavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        STPopupNavigationBar.appearance().isTranslucent = false
+        STPopupNavigationBar.appearance().shadowImage = UIImage()
+
         //init structure
         let nav = UINavigationController(rootViewController: LoginViewController())
         self.window?.rootViewController = nav
-        
+
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+
         return true
+    }
+
+    var isInit = false
+
+    func rotated() {
+
+        if isInit {
+            return
+        }
+
+        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            Global.SCREEN_WIDTH = UIScreen.main.bounds.size.height
+            Global.SCREEN_HEIGHT = UIScreen.main.bounds.size.width
+            isInit = true
+        }
+
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+            Global.SCREEN_WIDTH = UIScreen.main.bounds.size.width
+            Global.SCREEN_HEIGHT = UIScreen.main.bounds.size.height
+            isInit = true
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

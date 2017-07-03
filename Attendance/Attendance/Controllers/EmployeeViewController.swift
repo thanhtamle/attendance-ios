@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import STPopup
+import DZNEmptyDataSet
 
 class EmployeeViewController: UIViewController {
 
@@ -22,28 +24,22 @@ class EmployeeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.barTintColor = Global.colorMain
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
+        //enable swipe back when it changed leftBarButtonItem
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        title = "EMPLOYEES"
+        title = "Citynow Floor-1"
 
-        let menuBarButton = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: revealViewController, action: #selector(revealViewController()?.revealToggle))
-        menuBarButton.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = menuBarButton
+        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(cancel))
+        backBarButton.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = backBarButton
 
         let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
         addBarButton.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = addBarButton
 
-        view.addGestureRecognizer(revealViewController().panGestureRecognizer())
-        view.addGestureRecognizer(revealViewController().tapGestureRecognizer())
-
         employeeView.tableView.delegate = self
         employeeView.tableView.dataSource = self
+        employeeView.tableView.emptyDataSetSource = self
 
         loadData()
     }
@@ -67,8 +63,29 @@ class EmployeeViewController: UIViewController {
         employeeView.tableView.reloadData()
     }
 
-    func actionTapToAddEmployeeButton() {
+    var viewPopupController: STPopupController!
 
+    func actionTapToAddEmployeeButton() {
+        let viewController = AddEmployeeViewController()
+        viewController.addEmployeeDelegate = self
+        viewPopupController = STPopupController(rootViewController: viewController)
+        viewPopupController.containerView.layer.cornerRadius = 4
+        viewPopupController.present(in: self)
+    }
+
+    func cancel() {
+        _ = navigationController?.popViewController(animated: true)
+    }
+}
+
+extension EmployeeViewController: AddEmployeeDelegate {
+
+    func actionTapToAddButton() {
+        viewPopupController.dismiss()
+    }
+
+    func actionTapToCancelButton() {
+        viewPopupController.dismiss()
     }
 }
 
@@ -82,17 +99,36 @@ extension EmployeeViewController: UITableViewDataSource {
         return employees.count
     }
 
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+
+        let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
+
+        }
+        delete.backgroundColor = Global.colorDeleteBtn
+
+        let edit = UITableViewRowAction(style: .normal, title: "EDIT") { action, index in
+
+        }
+        edit.backgroundColor = Global.colorEditBtn
+        
+        return [edit, delete]
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let employee = employees[indexPath.row]
 
-        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
 
-        let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
-        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
-        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
         var height: CGFloat = rectEmployeeID.height + rectName.height + rectDob.height + rectGender.height + 16 + 10 + 10
 
@@ -119,5 +155,15 @@ extension EmployeeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
+    }
+}
+
+extension EmployeeViewController: DZNEmptyDataSetSource {
+
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No employee list found"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
+                     NSForegroundColorAttributeName: Global.colorSelected]
+        return NSAttributedString(string: text, attributes: attrs)
     }
 }

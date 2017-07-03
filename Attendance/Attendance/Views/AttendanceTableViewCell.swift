@@ -1,22 +1,21 @@
 //
-//  EmployeeTableViewCell.swift
+//  AttendanceTableViewCell.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 6/27/17.
+//  Created by Thanh-Tam Le on 7/3/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
 
-class EmployeeTableViewCell: UITableViewCell {
+class AttendanceTableViewCell: UITableViewCell {
 
     let iconImgView = UIImageView()
     let employeeIDLabel = UILabel()
     let nameLabel = UILabel()
     let lineView = UIView()
-    let dobLabel = UILabel()
-    let genderLabel = UILabel()
-    let arrowRightImgView = UIButton()
+    let checkInTimeLabel = UILabel()
+    let checkOutTimeLabel = UILabel()
 
     var constraintAdded = false
 
@@ -52,29 +51,24 @@ class EmployeeTableViewCell: UITableViewCell {
         nameLabel.lineBreakMode = .byWordWrapping
         nameLabel.numberOfLines = 0
 
-        dobLabel.font = UIFont(name: "OpenSans", size: 16)
-        dobLabel.textAlignment = .left
-        dobLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        dobLabel.lineBreakMode = .byWordWrapping
-        dobLabel.numberOfLines = 0
+        checkInTimeLabel.font = UIFont(name: "OpenSans", size: 17)
+        checkInTimeLabel.textAlignment = .left
+        checkInTimeLabel.textColor = UIColor.black.withAlphaComponent(0.8)
+        checkInTimeLabel.lineBreakMode = .byWordWrapping
+        checkInTimeLabel.numberOfLines = 0
 
-        genderLabel.font = UIFont(name: "OpenSans", size: 16)
-        genderLabel.textAlignment = .left
-        genderLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        genderLabel.lineBreakMode = .byWordWrapping
-        genderLabel.numberOfLines = 0
-
-        arrowRightImgView.clipsToBounds = true
-        arrowRightImgView.contentMode = .scaleAspectFit
-        arrowRightImgView.setImage(UIImage(named: "ArrowRight"), for: .normal)
+        checkOutTimeLabel.font = UIFont(name: "OpenSans", size: 17)
+        checkOutTimeLabel.textAlignment = .left
+        checkOutTimeLabel.textColor = UIColor.black.withAlphaComponent(0.8)
+        checkOutTimeLabel.lineBreakMode = .byWordWrapping
+        checkOutTimeLabel.numberOfLines = 0
 
         addSubview(iconImgView)
         addSubview(employeeIDLabel)
         addSubview(nameLabel)
         addSubview(lineView)
-        addSubview(dobLabel)
-        addSubview(genderLabel)
-        addSubview(arrowRightImgView)
+        addSubview(checkInTimeLabel)
+        addSubview(checkOutTimeLabel)
         setNeedsUpdateConstraints()
     }
 
@@ -88,7 +82,7 @@ class EmployeeTableViewCell: UITableViewCell {
             iconImgView.autoSetDimensions(to: CGSize(width: 80, height: 80))
 
             employeeIDLabel.autoPinEdge(.left, to: .right, of: iconImgView, withOffset: 10)
-            employeeIDLabel.autoPinEdge(.right, to: .left, of: arrowRightImgView, withOffset: -10)
+            employeeIDLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
             employeeIDLabel.autoPinEdge(.bottom, to: .top, of: nameLabel, withOffset: -4)
 
             nameLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
@@ -100,24 +94,35 @@ class EmployeeTableViewCell: UITableViewCell {
             lineView.autoPinEdge(toSuperviewEdge: .right)
             lineView.autoSetDimension(.height, toSize: 2)
 
-            dobLabel.autoPinEdge(.top, to: .bottom, of: lineView, withOffset: 1)
-            dobLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            dobLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
+            checkInTimeLabel.autoPinEdge(.top, to: .bottom, of: lineView, withOffset: 1)
+            checkInTimeLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
+            checkInTimeLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
 
-            genderLabel.autoPinEdge(.top, to: .bottom, of: dobLabel, withOffset: 4)
-            genderLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            genderLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
+            checkOutTimeLabel.autoPinEdge(.top, to: .bottom, of: checkInTimeLabel, withOffset: 4)
+            checkOutTimeLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
+            checkOutTimeLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
 
-            arrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-            arrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-            arrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
         }
     }
-    
+
     func bindingData(employee: Employee) {
         employeeIDLabel.text = employee.employeeID
         nameLabel.text = employee.name
-        dobLabel.text = employee.dob
-        genderLabel.text = employee.gender
+
+        let checkInTime = "Check-in Time: "
+        let checkInTimeValue = "08:00 AM"
+
+        let checkOutTime = "Check-out Time: "
+        let checkOutTimeValue = "18:00 PM"
+
+        let checkInStr = "\(checkInTime) \(checkInTimeValue)"
+        let checkInAttributedString = NSMutableAttributedString(string: checkInStr)
+        checkInAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: (checkInStr as NSString).range(of: checkInTime))
+        self.checkInTimeLabel.attributedText = checkInAttributedString
+
+        let checkOutStr = "\(checkOutTime) \(checkOutTimeValue)"
+        let checkOutAttributedString = NSMutableAttributedString(string: checkOutStr)
+        checkOutAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: (checkOutStr as NSString).range(of: checkOutTime))
+        self.checkOutTimeLabel.attributedText = checkOutAttributedString
     }
 }
