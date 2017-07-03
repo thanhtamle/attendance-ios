@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MenuViewController: UIViewController, AlertDelegate {
 
@@ -62,9 +63,20 @@ class MenuViewController: UIViewController, AlertDelegate {
     }
 
     func okAlertActionClicked() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let nav = UINavigationController(rootViewController: LoginViewController())
-        appDelegate.window?.rootViewController = nav
+        if Auth.auth().currentUser != nil {
+            do {
+                try Auth.auth().signOut()
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let nav = UINavigationController(rootViewController: LoginViewController())
+                appDelegate.window?.rootViewController = nav
+            }
+            catch let error as NSError {
+                Utils.showAlertAction(title: "Logout", message: error.localizedDescription, viewController: self, alertDelegate: self)
+            }
+        }
+        else {
+            Utils.showAlertAction(title: "Logout", message: "Logout error. Please try again!", viewController: self, alertDelegate: self)
+        }
     }
 }
 

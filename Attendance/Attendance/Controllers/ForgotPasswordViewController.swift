@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import SwiftOverlays
+import Firebase
 
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, SWRevealViewControllerDelegate {
 
     let forgotPasswordView = ForgotPasswordView()
+    let usersRef = Database.database().reference(withPath: "users")
 
     override func loadView() {
         view = forgotPasswordView
@@ -64,6 +67,34 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, SWRev
             Utils.showAlert(title: "Error", message: "Email can not be empty!", viewController: self)
             return
         }
+
+        SwiftOverlays.showBlockingWaitOverlay()
+        usersRef.queryOrdered(byChild: "email").observe(.value, with: { snapshot in
+            var flag = false
+            for item in snapshot.children {
+                let user = User(item as! DataSnapshot)
+                if user.email == self.forgotPasswordView.mailField.text {
+                    flag = true
+                    break
+                }
+            }
+
+            if flag {
+                Auth.auth().sendPasswordReset(withEmail: self.forgotPasswordView.mailField.text!) { error in
+                    if error == nil {
+                        Utils.showAlert(title: "Successfully", message: "Your new password has been sent to " + self.forgotPasswordView.mailField.text! + ". Please check your email!", viewController: self)
+                    }
+                    else {
+                        Utils.showAlert(title: "Error", message: "Could not connect to server. Please try again!", viewController: self)
+                    }
+                    SwiftOverlays.removeAllBlockingOverlays()
+                }
+            }
+            else {
+                SwiftOverlays.removeAllBlockingOverlays()
+                Utils.showAlert(title: "Error", message: "This email have not yet registered. Please try again!", viewController: self)
+            }
+        })
     }
     func actionTapToLogInButton() {
         dismiss(animated: true, completion: nil)

@@ -45,8 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         STPopupNavigationBar.appearance().shadowImage = UIImage()
 
         //init structure
-        let nav = UINavigationController(rootViewController: LoginViewController())
-        self.window?.rootViewController = nav
+        self.window?.rootViewController = SplashScreenViewController()
 
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 
