@@ -6,7 +6,7 @@
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
-import UIKit
+import Firebase
 
 class User: NSObject {
 
@@ -15,4 +15,33 @@ class User: NSObject {
     var name: String?
     var phone: String?
     var thumbnailUrl: String?
+
+    convenience init(user: User) {
+        self.init()
+        id = user.id
+        name = user.name
+        email = user.email
+        phone = user.phone
+        thumbnailUrl = user.thumbnailUrl
+    }
+
+    convenience init(_ snapshot: DataSnapshot) {
+        self.init()
+        id = snapshot.key
+        if let snapshotValue = snapshot.value as? [String:Any] {
+            name = snapshotValue["name"] as? String
+            email = snapshotValue["email"] as? String
+            phone = snapshotValue["phone"] as? String
+            thumbnailUrl = snapshotValue["thumbnailUrl"] as? String
+        }
+    }
+
+    func toAny() -> Any {
+        return [
+            "name": name ?? "",
+            "email": email ?? "",
+            "phone": phone ?? "",
+            "thumbnailUrl": thumbnailUrl ?? ""
+        ]
+    }
 }

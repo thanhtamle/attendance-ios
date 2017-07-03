@@ -9,6 +9,7 @@
 import UIKit
 import IQKeyboardManager
 import STPopup
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.black
         self.window?.makeKeyAndVisible()
-        
+
+        //Firebase
+        FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
+
         // keyboard
         let keyboardManager = IQKeyboardManager.shared()
         keyboardManager.isEnabled = true
