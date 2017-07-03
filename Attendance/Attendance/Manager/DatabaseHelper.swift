@@ -7,15 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
-class DatabaseHelper: UIView {
+class DatabaseHelper: NSObject {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    static let shared = DatabaseHelper()
+
+    private let databaseRef = Database.database().reference()
+    private let storageRef = Storage.storage().reference()
 
 }
