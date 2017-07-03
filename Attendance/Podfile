@@ -11,4 +11,6 @@ target 'Attendance' do
     pod 'DZNEmptyDataSet'
     pod 'SDWebImage'
     pod 'Alamofire'
+    pod 'DropDown'
+    pod 'INSPhotoGallery'
 end

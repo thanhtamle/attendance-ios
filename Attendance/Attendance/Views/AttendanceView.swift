@@ -1,14 +1,14 @@
 //
-//  MainView.swift
+//  AttendanceView.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 6/16/17.
+//  Created by Thanh-Tam Le on 7/3/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
 
-class MainView: UIView {
+class AttendanceView: UIView {
 
     var constraintsAdded = false
 
@@ -22,7 +22,8 @@ class MainView: UIView {
 
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = Global.colorSeparator
-        tableView.register(EmployeeGroupTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(AttendanceHeaderView.self, forCellReuseIdentifier: "header")
+        tableView.register(AttendanceTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
 
         indicator.hidesWhenStopped = true

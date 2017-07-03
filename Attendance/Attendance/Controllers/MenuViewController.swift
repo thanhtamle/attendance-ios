@@ -118,7 +118,7 @@ extension MenuViewController: UITableViewDelegate {
             revealViewController()?.setFront(nav, animated: true)
         }
         else if menus[indexPath.row].id == 1 {
-            let viewController = EmployeeViewController()
+            let viewController = EmployeeGroupViewController()
             let nav = UINavigationController(rootViewController: viewController)
             revealViewController()?.setFront(nav, animated: true)
         }

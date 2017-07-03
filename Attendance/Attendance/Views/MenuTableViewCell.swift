@@ -45,8 +45,8 @@ class MenuTableViewCell: UITableViewCell {
         setNeedsUpdateConstraints()
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func updateConstraints() {
+        super.updateConstraints()
         if !constraintAdded {
             constraintAdded = true
 

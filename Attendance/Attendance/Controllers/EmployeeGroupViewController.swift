@@ -1,25 +1,26 @@
 //
-//  MainViewController.swift
+//  EmployeeGroupViewController.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 6/16/17.
+//  Created by Thanh-Tam Le on 7/3/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
+import STPopup
 import DZNEmptyDataSet
 
-class MainViewController: UIViewController {
+class EmployeeGroupViewController: UIViewController {
 
-    let mainView = MainView()
+    let employeeGroupView = EmployeeGroupView()
 
-    fileprivate var openedSections = Set<Int>()
+    var employees = [Employee]()
 
     override func loadView() {
-        view = mainView
+        view = employeeGroupView
         view.setNeedsUpdateConstraints()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,50 +31,54 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
 
-        title = "HOME"
+        title = "GROUPS"
 
-        revealViewController()?.frontViewShadowOpacity = 0.5
-        revealViewController()?.frontViewShadowRadius = 1
         let menuBarButton = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: revealViewController, action: #selector(revealViewController()?.revealToggle))
         menuBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = menuBarButton
 
-        let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
-        cameraBarButton.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = cameraBarButton
+        let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
+        addBarButton.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = addBarButton
 
         view.addGestureRecognizer(revealViewController().panGestureRecognizer())
         view.addGestureRecognizer(revealViewController().tapGestureRecognizer())
 
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
-        mainView.tableView.emptyDataSetSource = self
+        employeeGroupView.tableView.delegate = self
+        employeeGroupView.tableView.dataSource = self
+        employeeGroupView.tableView.emptyDataSetSource = self
 
         loadData()
     }
 
     func loadData() {
 
-        mainView.tableView.reloadData()
+        employeeGroupView.tableView.reloadData()
     }
 
-    func gestureSectionHeader(sender: UIGestureRecognizer) {
-        if let section = sender.view?.tag {
-            if self.openedSections.contains(section) {
-                self.openedSections.remove(section)
-            } else {
-                self.openedSections.insert(section)
-            }
-            self.mainView.tableView.reloadSections(IndexSet(integer: section), with: .fade)
-        }
-    }
+    var viewPopupController: STPopupController!
 
-    func actionTapToCameraButton() {
-
+    func actionTapToAddEmployeeButton() {
+        let viewController = AddGroupViewController()
+        viewController.addGroupDelegate = self
+        viewPopupController = STPopupController(rootViewController: viewController)
+        viewPopupController.containerView.layer.cornerRadius = 4
+        viewPopupController.present(in: self)
     }
 }
 
-extension MainViewController: UITableViewDataSource {
+extension EmployeeGroupViewController: AddGroupDelegate {
+
+    func actionTapToAddButton() {
+        viewPopupController.dismiss()
+    }
+
+    func actionTapToCancelButton() {
+        viewPopupController.dismiss()
+    }
+}
+
+extension EmployeeGroupViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -81,6 +86,25 @@ extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+
+        let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
+
+        }
+        delete.backgroundColor = Global.colorDeleteBtn
+
+        let edit = UITableViewRowAction(style: .normal, title: "EDIT") { action, index in
+
+        }
+        edit.backgroundColor = Global.colorEditBtn
+
+        return [edit, delete]
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -106,17 +130,17 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
-extension MainViewController: UITableViewDelegate {
+extension EmployeeGroupViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        let viewController = AttendanceViewController()
+        
+        let viewController = EmployeeViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension MainViewController: DZNEmptyDataSetSource {
+extension EmployeeGroupViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let text = "No group list found"
