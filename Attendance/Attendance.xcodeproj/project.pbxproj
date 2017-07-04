@@ -14,6 +14,8 @@
 		E61BE2981F0A351E0062339D /* AttendanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2971F0A351E0062339D /* AttendanceView.swift */; };
 		E61BE29A1F0A41E20062339D /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2991F0A41E20062339D /* DatabaseHelper.swift */; };
 		E61BE29C1F0A451A0062339D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E61BE29B1F0A451A0062339D /* GoogleService-Info.plist */; };
+		E61BE29E1F0A51320062339D /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE29D1F0A51320062339D /* SplashScreenView.swift */; };
+		E61BE2A01F0A513F0062339D /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */; };
 		E6377D7C1F021AFB00023222 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D7B1F021AFB00023222 /* Employee.swift */; };
 		E6377D7E1F021D4900023222 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D7D1F021D4900023222 /* EmployeeView.swift */; };
 		E6377D801F021D6300023222 /* EmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6377D7F1F021D6300023222 /* EmployeeViewController.swift */; };
@@ -83,6 +85,8 @@
 		E61BE2971F0A351E0062339D /* AttendanceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceView.swift; sourceTree = "<group>"; };
 		E61BE2991F0A41E20062339D /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		E61BE29B1F0A451A0062339D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E61BE29D1F0A51320062339D /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		E6377D7B1F021AFB00023222 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		E6377D7D1F021D4900023222 /* EmployeeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
 		E6377D7F1F021D6300023222 /* EmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 				E61BE2911F09FADD0062339D /* AttendanceHeaderView.swift */,
 				E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */,
 				E61BE2971F0A351E0062339D /* AttendanceView.swift */,
+				E61BE29D1F0A51320062339D /* SplashScreenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				E64C703F1F09E5510040C71C /* AddGroupViewController.swift */,
 				E6377D7F1F021D6300023222 /* EmployeeViewController.swift */,
 				E6C02F1B1F0639E700B003B7 /* AddEmployeeViewController.swift */,
+				E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -525,10 +531,12 @@
 				E645D92A1EF3982700C91617 /* NSObject.swift in Sources */,
 				E67035C91F00FCC4000C5FA5 /* Menu.swift in Sources */,
 				E645D9281EF3982700C91617 /* NSDate.swift in Sources */,
+				E61BE29E1F0A51320062339D /* SplashScreenView.swift in Sources */,
 				E6C02F1A1F0639D900B003B7 /* AddEmployeeView.swift in Sources */,
 				E67035C51F00FC70000C5FA5 /* MenuView.swift in Sources */,
 				E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */,
 				E61BE2981F0A351E0062339D /* AttendanceView.swift in Sources */,
+				E61BE2A01F0A513F0062339D /* SplashScreenViewController.swift in Sources */,
 				E645D92D1EF3982700C91617 /* UIImage.swift in Sources */,
 				E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */,
 				E645D92F1EF3982700C91617 /* UITableView.swift in Sources */,

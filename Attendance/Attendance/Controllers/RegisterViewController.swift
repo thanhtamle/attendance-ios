@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftOverlays
+import Firebase
 
 class RegisterViewController: UIViewController, UITextFieldDelegate, SWRevealViewControllerDelegate {
 
@@ -79,6 +81,41 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SWRevealVie
         if registerView.passwordField.text == "" {
             Utils.showAlert(title: "Error", message: "Password can not be empty!", viewController: self)
             return
+        }
+
+        SwiftOverlays.showBlockingWaitOverlay()
+        Auth.auth().createUser(withEmail: registerView.mailField.text ?? "", password: registerView.passwordField.text ?? "") { newUser, error in
+            if error == nil {
+                let user = User()
+                user.id = (newUser?.uid)!
+                user.email = self.registerView.mailField.text
+                user.name = self.registerView.nameField.text
+                user.phone = self.registerView.phoneField.text
+
+                DatabaseHelper.shared.saveUser(user: user) {
+                    Auth.auth().signIn(withEmail: self.registerView.mailField.text ?? "", password: self.registerView.passwordField.text ?? "", completion: { (user, error) in
+                        SwiftOverlays.removeAllBlockingOverlays()
+                        if error == nil {
+
+                            let menuViewController = MenuViewController()
+
+                            let mainViewController = MainViewController()
+                            let mainViewNavigationController = UINavigationController(rootViewController: mainViewController)
+
+                            let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
+                            revealViewController?.delegate = self
+                            self.present(revealViewController!, animated: true, completion: nil)
+                        }
+                        else {
+                            Utils.showAlert(title: "Error", message: "Could not connect to server. Please try again!", viewController: self)
+                        }
+                    })
+                }
+            }
+            else {
+                SwiftOverlays.removeAllBlockingOverlays()
+                Utils.showAlert(title: "Error", message: "Email is already exist. Please try again!", viewController: self)
+            }
         }
     }
 

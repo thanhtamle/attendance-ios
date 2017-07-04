@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import SwiftOverlays
 
 class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewControllerDelegate {
 
@@ -54,34 +56,46 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
         loginView.scrollView.contentSize = loginView.containerView.bounds.size
     }
 
-    var isSaving = false
-
     func actionTapToSignInButton() {
 
-        if isSaving {
+        if loginView.mailField.text == "" {
+            Utils.showAlert(title: "Error", message: "Email can not be empty!", viewController: self)
             return
         }
 
-//        if loginView.mailField.text == "" {
-//            Utils.showAlert(title: "Error", message: "Email can not be empty!", viewController: self)
-//            return
-//        }
-//
-//        if loginView.passwordField.text == "" {
-//            Utils.showAlert(title: "Error", message: "Password can not be empty!", viewController: self)
-//            return
-//        }
+        if loginView.passwordField.text == "" {
+            Utils.showAlert(title: "Error", message: "Password can not be empty!", viewController: self)
+            return
+        }
 
-        isSaving = true
+        SwiftOverlays.showBlockingWaitOverlay()
+        Auth.auth().signIn(withEmail: loginView.mailField.text!, password: loginView.passwordField.text!, completion: { (user, error) in
+            if error == nil {
+                let uid = user?.uid
 
-        let menuViewController = MenuViewController()
+                DatabaseHelper.shared.getUser(id: uid!) {
+                    user in
+                    SwiftOverlays.removeAllBlockingOverlays()
+                    if user != nil {
+                        let menuViewController = MenuViewController()
 
-        let mainViewController = MainViewController()
-        let mainViewNavigationController = UINavigationController(rootViewController: mainViewController)
+                        let mainViewController = MainViewController()
+                        let mainViewNavigationController = UINavigationController(rootViewController: mainViewController)
 
-        let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
-        revealViewController?.delegate = self
-        present(revealViewController!, animated: true, completion: nil)
+                        let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
+                        revealViewController?.delegate = self
+                        self.present(revealViewController!, animated: true, completion: nil)
+                    }
+                    else {
+                        Utils.showAlert(title: "Error", message: "Email or password is incorrect. Please try again!", viewController: self)
+                    }
+                }
+            }
+            else {
+                SwiftOverlays.removeAllBlockingOverlays()
+                Utils.showAlert(title: "Error", message: "Email or password is incorrect. Please try again!", viewController: self)
+            }
+        })
     }
 
     func actionTapToCreateNewAccountButton() {
