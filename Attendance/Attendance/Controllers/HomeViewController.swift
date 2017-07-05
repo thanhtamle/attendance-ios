@@ -1,23 +1,22 @@
 //
-//  EmployeeGroupViewController.swift
+//  HomeViewController.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 7/3/17.
+//  Created by Thanh-Tam Le on 7/4/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
-import STPopup
 import DZNEmptyDataSet
 
-class EmployeeGroupViewController: UIViewController {
+class HomeViewController: UIViewController {
 
-    let employeeGroupView = EmployeeGroupView()
+    let homeView = HomeView()
 
-    var employees = [Employee]()
+    fileprivate var openedSections = Set<Int>()
 
     override func loadView() {
-        view = employeeGroupView
+        view = homeView
         view.setNeedsUpdateConstraints()
     }
 
@@ -31,47 +30,41 @@ class EmployeeGroupViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
 
-        title = "GROUPS"
+        title = "HOME"
 
-        let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
-        addBarButton.tintColor = UIColor.black
-        self.navigationItem.rightBarButtonItem = addBarButton
+        let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
+        cameraBarButton.tintColor = UIColor.black
+        self.navigationItem.rightBarButtonItem = cameraBarButton
 
-        employeeGroupView.tableView.delegate = self
-        employeeGroupView.tableView.dataSource = self
-        employeeGroupView.tableView.emptyDataSetSource = self
+        homeView.tableView.delegate = self
+        homeView.tableView.dataSource = self
+        homeView.tableView.emptyDataSetSource = self
 
         loadData()
     }
 
     func loadData() {
 
-        employeeGroupView.tableView.reloadData()
+        homeView.tableView.reloadData()
     }
 
-    var viewPopupController: STPopupController!
-
-    func actionTapToAddEmployeeButton() {
-        let viewController = AddGroupViewController()
-        viewController.addGroupDelegate = self
-        viewPopupController = STPopupController(rootViewController: viewController)
-        viewPopupController.containerView.layer.cornerRadius = 4
-        viewPopupController.present(in: self)
-    }
-}
-
-extension EmployeeGroupViewController: AddGroupDelegate {
-
-    func actionTapToAddButton() {
-        viewPopupController.dismiss()
+    func gestureSectionHeader(sender: UIGestureRecognizer) {
+        if let section = sender.view?.tag {
+            if self.openedSections.contains(section) {
+                self.openedSections.remove(section)
+            } else {
+                self.openedSections.insert(section)
+            }
+            self.homeView.tableView.reloadSections(IndexSet(integer: section), with: .fade)
+        }
     }
 
-    func actionTapToCancelButton() {
-        viewPopupController.dismiss()
+    func actionTapToCameraButton() {
+
     }
 }
 
-extension EmployeeGroupViewController: UITableViewDataSource {
+extension HomeViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -79,25 +72,6 @@ extension EmployeeGroupViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
-    }
-
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-
-        let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
-
-        }
-        delete.backgroundColor = Global.colorDeleteBtn
-
-        let edit = UITableViewRowAction(style: .normal, title: "EDIT") { action, index in
-
-        }
-        edit.backgroundColor = Global.colorEditBtn
-
-        return [edit, delete]
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -123,17 +97,17 @@ extension EmployeeGroupViewController: UITableViewDataSource {
     }
 }
 
-extension EmployeeGroupViewController: UITableViewDelegate {
+extension HomeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let viewController = EmployeeViewController()
+
+        let viewController = AttendanceViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension EmployeeGroupViewController: DZNEmptyDataSetSource {
+extension HomeViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let text = "No group list found"

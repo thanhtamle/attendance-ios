@@ -9,119 +9,51 @@
 import UIKit
 import DZNEmptyDataSet
 
-class MainViewController: UIViewController {
+class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavigationControllerDelegate {
 
-    let mainView = MainView()
+    static var homeViewController = HomeViewController()
+    static var employeeGroupViewController = EmployeeGroupViewController()
+    static var settingViewController = SettingViewController()
 
-    fileprivate var openedSections = Set<Int>()
+    var homeImage: UIImage!
+    var groupImage: UIImage!
+    var settingImage: UIImage!
 
-    override func loadView() {
-        view = mainView
-        view.setNeedsUpdateConstraints()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.barTintColor = Global.colorMain
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
+        view.tintColor = Global.colorMain
+        tabBar.shadowImage = UIImage()
+        tabBar.barTintColor = UIColor.white
+        tabBar.backgroundImage = UIImage()
+        tabBar.isTranslucent = false
 
-        title = "HOME"
+        let attributesNormal = [NSForegroundColorAttributeName: Global.colorGray, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 10)!]
+        let attributesSelected = [NSForegroundColorAttributeName: Global.colorMain, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 10)!]
 
-        revealViewController()?.frontViewShadowOpacity = 0.5
-        revealViewController()?.frontViewShadowRadius = 1
-        let menuBarButton = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: revealViewController, action: #selector(revealViewController()?.revealToggle))
-        menuBarButton.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = menuBarButton
+        UITabBarItem.appearance().setTitleTextAttributes(attributesNormal, for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes(attributesSelected, for: .selected)
 
-        let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
-        cameraBarButton.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = cameraBarButton
+        MainViewController.homeViewController = HomeViewController()
+        MainViewController.employeeGroupViewController = EmployeeGroupViewController()
+        MainViewController.settingViewController = SettingViewController()
 
-        view.addGestureRecognizer(revealViewController().panGestureRecognizer())
-        view.addGestureRecognizer(revealViewController().tapGestureRecognizer())
+        homeImage = UIImage(named: "Job")
+        groupImage = UIImage(named: "Staff")
+        settingImage = UIImage(named: "Setting")
 
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
-        mainView.tableView.emptyDataSetSource = self
+        let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
+        MainViewController.homeViewController.tabBarItem = homeBarItem
+        let nc1 = UINavigationController(rootViewController: MainViewController.homeViewController)
 
-        loadData()
-    }
+        let groupBarItem = UITabBarItem(title: "GROUPS", image: groupImage, tag: 2)
+        MainViewController.employeeGroupViewController.tabBarItem = groupBarItem
+        let nc2 = UINavigationController(rootViewController: MainViewController.employeeGroupViewController)
 
-    func loadData() {
+        let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 3)
+        MainViewController.settingViewController.tabBarItem = settingBarItem
+        let nc3 = UINavigationController(rootViewController: MainViewController.settingViewController)
 
-        mainView.tableView.reloadData()
-    }
-
-    func gestureSectionHeader(sender: UIGestureRecognizer) {
-        if let section = sender.view?.tag {
-            if self.openedSections.contains(section) {
-                self.openedSections.remove(section)
-            } else {
-                self.openedSections.insert(section)
-            }
-            self.mainView.tableView.reloadSections(IndexSet(integer: section), with: .fade)
-        }
-    }
-
-    func actionTapToCameraButton() {
-
-    }
-}
-
-extension MainViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        let rectName = NSString(string: "Citynow Floor-1").boundingRect(with: CGSize(width: view.frame.width - 105, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
-
-        var height: CGFloat = rectName.height + 20
-
-        if height <= 70 {
-            height = 70
-        }
-
-        return height
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EmployeeGroupTableViewCell
-        cell.layoutMargins = UIEdgeInsets.zero
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets.zero
-
-        return cell
-    }
-}
-
-extension MainViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        let viewController = AttendanceViewController()
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-extension MainViewController: DZNEmptyDataSetSource {
-
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No group list found"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
-                     NSForegroundColorAttributeName: Global.colorSelected]
-        return NSAttributedString(string: text, attributes: attrs)
+        self.viewControllers = [nc1, nc2, nc3]
     }
 }

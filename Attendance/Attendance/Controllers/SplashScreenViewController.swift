@@ -36,18 +36,10 @@ class SplashScreenViewController: UIViewController, SWRevealViewControllerDelega
     }
 
     func navToLogInPage() {
-        let nav = UINavigationController(rootViewController: LoginViewController())
-        present(nav, animated: true, completion: nil)
+        present(LoginViewController(), animated: true, completion: nil)
     }
 
     func navToMainPage() {
-        let menuViewController = MenuViewController()
-
-        let mainViewController = MainViewController()
-        let mainViewNavigationController = UINavigationController(rootViewController: mainViewController)
-
-        let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
-        revealViewController?.delegate = self
-        present(revealViewController!, animated: true, completion: nil)
+        present(MainViewController(), animated: true, completion: nil)
     }
 }

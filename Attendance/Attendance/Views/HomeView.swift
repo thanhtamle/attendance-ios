@@ -1,14 +1,14 @@
 //
-//  EmployeeGroupView.swift
+//  HomeView.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 7/3/17.
+//  Created by Thanh-Tam Le on 7/4/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
 
-class EmployeeGroupView: UIView {
+class HomeView: UIView {
 
     var constraintsAdded = false
 

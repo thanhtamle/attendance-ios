@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         keyboardManager.shouldShowTextFieldPlaceholder = false
         
         //set light status bar for whole ViewController
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
 
         // set STPopupNavigationBar
         STPopupNavigationBar.appearance().tintColor = UIColor.white

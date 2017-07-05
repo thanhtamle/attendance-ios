@@ -29,11 +29,11 @@ class AttendanceViewController: UIViewController {
         title = "Citynow Floor-1"
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(cancel))
-        backBarButton.tintColor = UIColor.white
+        backBarButton.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = backBarButton
 
         let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
-        cameraBarButton.tintColor = UIColor.white
+        cameraBarButton.tintColor = UIColor.black
         self.navigationItem.rightBarButtonItem = cameraBarButton
         
         attendanceView.tableView.delegate = self
