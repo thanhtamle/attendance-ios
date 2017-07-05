@@ -29,12 +29,12 @@ class EmployeeViewController: UIViewController {
 
         title = "Citynow Floor-1"
 
-        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(cancel))
-        backBarButton.tintColor = UIColor.white
+        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
+        backBarButton.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = backBarButton
 
         let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
-        addBarButton.tintColor = UIColor.white
+        addBarButton.tintColor = UIColor.black
         self.navigationItem.rightBarButtonItem = addBarButton
 
         employeeView.tableView.delegate = self
@@ -73,7 +73,7 @@ class EmployeeViewController: UIViewController {
         viewPopupController.present(in: self)
     }
 
-    func cancel() {
+    func actionTapToBackButton() {
         _ = navigationController?.popViewController(animated: true)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SwiftOverlays
 
-class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewControllerDelegate {
+class LoginViewController: UIViewController {
 
     let loginView = LoginView()
 
@@ -21,15 +21,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController?.navigationBar.barTintColor = Global.colorMain
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-
-        title = "LOGIN"
 
         loginView.mailField.delegate = self
         loginView.passwordField.delegate = self
@@ -77,14 +68,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
                     user in
                     SwiftOverlays.removeAllBlockingOverlays()
                     if user != nil {
-                        let menuViewController = MenuViewController()
-
-                        let mainViewController = MainViewController()
-                        let mainViewNavigationController = UINavigationController(rootViewController: mainViewController)
-
-                        let revealViewController = SWRevealViewController(rearViewController: menuViewController, frontViewController: mainViewNavigationController)
-                        revealViewController?.delegate = self
-                        self.present(revealViewController!, animated: true, completion: nil)
+                        self.present(MainViewController(), animated: true, completion: nil)
                     }
                     else {
                         Utils.showAlert(title: "Error", message: "Email or password is incorrect. Please try again!", viewController: self)
@@ -99,41 +83,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
     }
 
     func actionTapToCreateNewAccountButton() {
-        let nav = UINavigationController(rootViewController: RegisterViewController())
-        present(nav, animated: true, completion: nil)
+        present(RegisterViewController(), animated: true, completion: nil)
     }
 
     func actionTapToForgotButton() {
-        let nav = UINavigationController(rootViewController: ForgotPasswordViewController())
-        present(nav, animated: true, completion: nil)
+        present(ForgotPasswordViewController(), animated: true, completion: nil)
     }
 
     func actionTapToCloseButton() {
         dismiss(animated: true, completion: nil)
-    }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string)
-        _ = checkInput(textField: textField, value: newString)
-        return true
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case loginView.mailField:
-            if checkInput(textField: textField, value: textField.text) {
-                textField.resignFirstResponder()
-                loginView.passwordField.becomeFirstResponder()
-                return true
-            }
-        default:
-            if checkInput(textField: textField, value: textField.text) {
-                textField.resignFirstResponder()
-                actionTapToSignInButton()
-                return true
-            }
-        }
-        return false
     }
 
     func checkInput(textField: UITextField, value: String?) -> Bool {
@@ -155,6 +113,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate, SWRevealViewCo
             }
             loginView.errorLabel.text = "Invalid password"
             loginView.passwordBorder.backgroundColor = UIColor.red.withAlphaComponent(0.8)
+        }
+        return false
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string)
+        _ = checkInput(textField: textField, value: newString)
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case loginView.mailField:
+            if checkInput(textField: textField, value: textField.text) {
+                textField.resignFirstResponder()
+                loginView.passwordField.becomeFirstResponder()
+                return true
+            }
+        default:
+            if checkInput(textField: textField, value: textField.text) {
+                textField.resignFirstResponder()
+                actionTapToSignInButton()
+                return true
+            }
         }
         return false
     }

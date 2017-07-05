@@ -10,7 +10,7 @@ import UIKit
 import SwiftOverlays
 import Firebase
 
-class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, SWRevealViewControllerDelegate {
+class ForgotPasswordViewController: UIViewController {
 
     let forgotPasswordView = ForgotPasswordView()
     let usersRef = Database.database().reference(withPath: "users")
@@ -22,19 +22,6 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, SWRev
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController?.navigationBar.barTintColor = Global.colorMain
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-
-        title = "FORGOT PASSWORD"
-
-        let closeBarButton = UIBarButtonItem(image: UIImage(named: "ic_close_white"), style: .done, target: self, action: #selector(actionTapToCloseButton))
-        closeBarButton.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = closeBarButton
 
         forgotPasswordView.mailField.delegate = self
 
@@ -104,6 +91,26 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, SWRev
         dismiss(animated: true, completion: nil)
     }
 
+    func checkInput(textField: UITextField, value: String?) -> Bool {
+        switch textField {
+        case forgotPasswordView.mailField:
+            if value != nil && value!.isValidEmail() {
+                forgotPasswordView.errorLabel.text = nil
+                forgotPasswordView.mailBorder.backgroundColor = Global.colorSeparator
+                return true
+            }
+            forgotPasswordView.errorLabel.text = "Invalid Email"
+            forgotPasswordView.mailBorder.backgroundColor = UIColor.red.withAlphaComponent(0.8)
+            
+        default:
+            return true
+        }
+        return false
+    }
+}
+
+extension ForgotPasswordViewController: UITextFieldDelegate {
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string)
         _ = checkInput(textField: textField, value: newString)
@@ -118,23 +125,6 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, SWRev
                 actionTapToRecoverPasswordButton()
                 return true
             }
-        default:
-            return true
-        }
-        return false
-    }
-
-    func checkInput(textField: UITextField, value: String?) -> Bool {
-        switch textField {
-        case forgotPasswordView.mailField:
-            if value != nil && value!.isValidEmail() {
-                forgotPasswordView.errorLabel.text = nil
-                forgotPasswordView.mailBorder.backgroundColor = Global.colorSeparator
-                return true
-            }
-            forgotPasswordView.errorLabel.text = "Invalid Email"
-            forgotPasswordView.mailBorder.backgroundColor = UIColor.red.withAlphaComponent(0.8)
-            
         default:
             return true
         }

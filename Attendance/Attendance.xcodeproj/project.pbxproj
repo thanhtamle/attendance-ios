@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		AA27BCA8936DE0739A462AC4 /* Pods_Attendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D8078975417919BE82806 /* Pods_Attendance.framework */; };
+		E61B8E241F0CA56C00FC6034 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E231F0CA56C00FC6034 /* SettingView.swift */; };
+		E61B8E261F0CA6DB00FC6034 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E251F0CA6DB00FC6034 /* ProfileViewController.swift */; };
+		E61B8E281F0CA6EC00FC6034 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E271F0CA6EC00FC6034 /* ProfileView.swift */; };
+		E61B8E2A1F0CCAE800FC6034 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E291F0CCAE800FC6034 /* ChangePasswordView.swift */; };
+		E61B8E2C1F0CCAF800FC6034 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E2B1F0CCAF800FC6034 /* ChangePasswordViewController.swift */; };
 		E61BE2921F09FADD0062339D /* AttendanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2911F09FADD0062339D /* AttendanceHeaderView.swift */; };
 		E61BE2941F09FAEA0062339D /* AttendanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */; };
 		E61BE2961F0A35050062339D /* AttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2951F0A35050062339D /* AttendanceViewController.swift */; };
@@ -53,6 +58,9 @@
 		E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */; };
 		E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D95E1EF39B7100C91617 /* MainViewController.swift */; };
 		E645D9611EF39B7D00C91617 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9601EF39B7D00C91617 /* MainView.swift */; };
+		E64BB5F31F0BAAED001AE835 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */; };
+		E64BB5F51F0BAB9C001AE835 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64BB5F41F0BAB9C001AE835 /* SettingViewController.swift */; };
+		E64BB5F71F0BB186001AE835 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64BB5F61F0BB186001AE835 /* HomeView.swift */; };
 		E64C70381F09DB530040C71C /* EmployeeGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64C70371F09DB530040C71C /* EmployeeGroupView.swift */; };
 		E64C703A1F09DB6B0040C71C /* EmployeeGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64C70391F09DB6B0040C71C /* EmployeeGroupViewController.swift */; };
 		E64C703C1F09DB9F0040C71C /* EmployeeGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64C703B1F09DB9F0040C71C /* EmployeeGroupTableViewCell.swift */; };
@@ -79,6 +87,11 @@
 		194D8078975417919BE82806 /* Pods_Attendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Attendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.release.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.release.xcconfig"; sourceTree = "<group>"; };
 		A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.debug.xcconfig"; sourceTree = "<group>"; };
+		E61B8E231F0CA56C00FC6034 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		E61B8E251F0CA6DB00FC6034 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E61B8E271F0CA6EC00FC6034 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		E61B8E291F0CCAE800FC6034 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		E61B8E2B1F0CCAF800FC6034 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E61BE2911F09FADD0062339D /* AttendanceHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceHeaderView.swift; sourceTree = "<group>"; };
 		E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceTableViewCell.swift; sourceTree = "<group>"; };
 		E61BE2951F0A35050062339D /* AttendanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +145,9 @@
 		E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchHighlighting.m"; sourceTree = "<group>"; };
 		E645D95E1EF39B7100C91617 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E645D9601EF39B7D00C91617 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E64BB5F41F0BAB9C001AE835 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E64BB5F61F0BB186001AE835 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E64C70371F09DB530040C71C /* EmployeeGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeGroupView.swift; sourceTree = "<group>"; };
 		E64C70391F09DB6B0040C71C /* EmployeeGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeGroupViewController.swift; sourceTree = "<group>"; };
 		E64C703B1F09DB9F0040C71C /* EmployeeGroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeGroupTableViewCell.swift; sourceTree = "<group>"; };
@@ -243,16 +259,20 @@
 				E67035C41F00FC70000C5FA5 /* MenuView.swift */,
 				E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */,
 				E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */,
-				E6377D7D1F021D4900023222 /* EmployeeView.swift */,
-				E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */,
-				E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */,
+				E64BB5F61F0BB186001AE835 /* HomeView.swift */,
 				E64C70371F09DB530040C71C /* EmployeeGroupView.swift */,
 				E64C703B1F09DB9F0040C71C /* EmployeeGroupTableViewCell.swift */,
 				E64C703D1F09E3F70040C71C /* AddGroupView.swift */,
+				E6377D7D1F021D4900023222 /* EmployeeView.swift */,
+				E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */,
+				E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */,
 				E61BE2911F09FADD0062339D /* AttendanceHeaderView.swift */,
 				E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */,
 				E61BE2971F0A351E0062339D /* AttendanceView.swift */,
 				E61BE29D1F0A51320062339D /* SplashScreenView.swift */,
+				E61B8E231F0CA56C00FC6034 /* SettingView.swift */,
+				E61B8E271F0CA6EC00FC6034 /* ProfileView.swift */,
+				E61B8E291F0CCAE800FC6034 /* ChangePasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -262,6 +282,7 @@
 			children = (
 				E6C02F1D1F0657FA00B003B7 /* Utils */,
 				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
+				E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */,
 				E61BE2951F0A35050062339D /* AttendanceViewController.swift */,
 				E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */,
 				E67035BE1F00AE06000C5FA5 /* RegisterViewController.swift */,
@@ -272,6 +293,9 @@
 				E6377D7F1F021D6300023222 /* EmployeeViewController.swift */,
 				E6C02F1B1F0639E700B003B7 /* AddEmployeeViewController.swift */,
 				E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */,
+				E64BB5F41F0BAB9C001AE835 /* SettingViewController.swift */,
+				E61B8E251F0CA6DB00FC6034 /* ProfileViewController.swift */,
+				E61B8E2B1F0CCAF800FC6034 /* ChangePasswordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -530,6 +554,7 @@
 				E645D9261EF3982700C91617 /* NSArray.swift in Sources */,
 				E645D92A1EF3982700C91617 /* NSObject.swift in Sources */,
 				E67035C91F00FCC4000C5FA5 /* Menu.swift in Sources */,
+				E64BB5F71F0BB186001AE835 /* HomeView.swift in Sources */,
 				E645D9281EF3982700C91617 /* NSDate.swift in Sources */,
 				E61BE29E1F0A51320062339D /* SplashScreenView.swift in Sources */,
 				E6C02F1A1F0639D900B003B7 /* AddEmployeeView.swift in Sources */,
@@ -543,6 +568,7 @@
 				E61BE2921F09FADD0062339D /* AttendanceHeaderView.swift in Sources */,
 				E64C703E1F09E3F70040C71C /* AddGroupView.swift in Sources */,
 				E645D8FA1EF3981B00C91617 /* SizeUtils.swift in Sources */,
+				E61B8E281F0CA6EC00FC6034 /* ProfileView.swift in Sources */,
 				E67035CD1F00FD15000C5FA5 /* MenuHeaderView.swift in Sources */,
 				E64C70401F09E5510040C71C /* AddGroupViewController.swift in Sources */,
 				E645D9321EF3982700C91617 /* UIViewController.swift in Sources */,
@@ -550,11 +576,15 @@
 				E645D93F1EF3983500C91617 /* UserDefaultManager.swift in Sources */,
 				E645D92B1EF3982700C91617 /* String.swift in Sources */,
 				E645D9311EF3982700C91617 /* UIView.swift in Sources */,
+				E61B8E2A1F0CCAE800FC6034 /* ChangePasswordView.swift in Sources */,
+				E61B8E2C1F0CCAF800FC6034 /* ChangePasswordViewController.swift in Sources */,
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
 				E64C703A1F09DB6B0040C71C /* EmployeeGroupViewController.swift in Sources */,
 				E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */,
+				E61B8E241F0CA56C00FC6034 /* SettingView.swift in Sources */,
 				E6377D7E1F021D4900023222 /* EmployeeView.swift in Sources */,
+				E64BB5F51F0BAB9C001AE835 /* SettingViewController.swift in Sources */,
 				E6C02F1C1F0639E700B003B7 /* AddEmployeeViewController.swift in Sources */,
 				E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */,
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
@@ -575,7 +605,9 @@
 				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,
 				E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */,
 				E61BE29A1F0A41E20062339D /* DatabaseHelper.swift in Sources */,
+				E64BB5F31F0BAAED001AE835 /* HomeViewController.swift in Sources */,
 				E6377D821F021D7000023222 /* EmployeeTableViewCell.swift in Sources */,
+				E61B8E261F0CA6DB00FC6034 /* ProfileViewController.swift in Sources */,
 				E6377D801F021D6300023222 /* EmployeeViewController.swift in Sources */,
 				E645D8F81EF3981B00C91617 /* Global.swift in Sources */,
 			);
