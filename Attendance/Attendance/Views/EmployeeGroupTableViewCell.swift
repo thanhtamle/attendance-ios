@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class EmployeeGroupTableViewCell: UITableViewCell {
 
@@ -33,6 +34,9 @@ class EmployeeGroupTableViewCell: UITableViewCell {
         userIconImgView.contentMode = .scaleAspectFill
         userIconImgView.image = UIImage(named: "ic_group")
         userIconImgView.layer.cornerRadius = 25
+        userIconImgView.backgroundColor = Global.colorGray
+        userIconImgView.sd_setShowActivityIndicatorView(true)
+        userIconImgView.sd_setIndicatorStyle(.gray)
 
         nameLabel.text = "Citynow Floor-1"
         nameLabel.font = UIFont(name: "OpenSans", size: 18)
@@ -68,6 +72,22 @@ class EmployeeGroupTableViewCell: UITableViewCell {
             arrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
             arrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
             arrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        }
+    }
+
+    func bindingData(group: Group) {
+        nameLabel.text = group.name
+
+        if let url = group.imageUrl {
+            if url != "" {
+                userIconImgView.sd_setImage(with: URL(string: url))
+            }
+            else {
+                userIconImgView.image = UIImage(named: "ic_group")
+            }
+        }
+        else {
+            userIconImgView.image = UIImage(named: "ic_group")
         }
     }
 }

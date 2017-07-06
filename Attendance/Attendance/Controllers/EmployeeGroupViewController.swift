@@ -9,12 +9,15 @@
 import UIKit
 import STPopup
 import DZNEmptyDataSet
+import Firebase
+import SwiftOverlays
 
 class EmployeeGroupViewController: UIViewController {
 
-    let employeeGroupView = EmployeeGroupView()
+    var employeeGroupView = EmployeeGroupView()
 
-    var employees = [Employee]()
+    var groups = [Group]()
+    var allGroups = [Group]()
 
     override func loadView() {
         view = employeeGroupView
@@ -40,11 +43,81 @@ class EmployeeGroupViewController: UIViewController {
         employeeGroupView.tableView.delegate = self
         employeeGroupView.tableView.dataSource = self
         employeeGroupView.tableView.emptyDataSetSource = self
+        employeeGroupView.searchBar.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         loadData()
     }
 
     func loadData() {
+
+        if let userId = Auth.auth().currentUser?.uid {
+            employeeGroupView.indicator.startAnimating()
+            DatabaseHelper.shared.getGroups(userId: userId) {
+                groups in
+                self.employeeGroupView.indicator.stopAnimating()
+                self.allGroups = groups
+
+                DatabaseHelper.shared.observeGroups(userId: userId) {
+                    newGroup in
+
+                    var flag = false
+
+                    for index in 0..<self.allGroups.count {
+                        if self.allGroups[index].id == newGroup.id {
+                            self.allGroups[index] = newGroup
+                            flag = true
+                            break
+                        }
+                    }
+
+                    if !flag {
+                        self.allGroups.append(newGroup)
+                    }
+
+                    self.search()
+                }
+
+                DatabaseHelper.shared.observeDeleteGroup(userId: userId) {
+                    newGroup in
+
+                    for index in 0..<self.allGroups.count {
+                        if self.allGroups[index].id == newGroup.id {
+                            self.allGroups.remove(at: index)
+                            self.search()
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    func search() {
+        let source = allGroups
+
+        let searchText = employeeGroupView.searchBar.text ?? ""
+        var result = [Group]()
+
+        if searchText.isEmpty {
+            result.append(contentsOf: source)
+        }
+        else {
+            let text = searchText.lowercased()
+
+            for group in source {
+                if (group.name?.lowercased().contains(text)) ?? false {
+                    result.append(group)
+                }
+            }
+        }
+
+        groups.removeAll()
+        groups.append(contentsOf: result)
 
         employeeGroupView.tableView.reloadData()
     }
@@ -78,7 +151,7 @@ extension EmployeeGroupViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return groups.count
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -86,14 +159,35 @@ extension EmployeeGroupViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let group = groups[indexPath.row]
 
         let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
-
+            tableView.setEditing(false, animated: true)
+              
+            if let userId = Auth.auth().currentUser?.uid {
+                SwiftOverlays.showBlockingWaitOverlay()
+                DatabaseHelper.shared.deleteGroup(userId: userId, groupId: group.id) {
+                    SwiftOverlays.removeAllBlockingOverlays()
+                    if self.groups.count == 0 {
+                        tableView.reloadData()
+                    }
+                }
+            }
+            else {
+                Utils.showAlert(title: "Attendance", message: "Delete error. Please try again!", viewController: self)
+            }
         }
+
         delete.backgroundColor = Global.colorDeleteBtn
 
         let edit = UITableViewRowAction(style: .normal, title: "EDIT") { action, index in
-
+            tableView.setEditing(false, animated: true)
+            let viewController = AddGroupViewController()
+            viewController.addGroupDelegate = self
+            viewController.group = group
+            self.viewPopupController = STPopupController(rootViewController: viewController)
+            self.viewPopupController.containerView.layer.cornerRadius = 4
+            self.viewPopupController.present(in: self)
         }
         edit.backgroundColor = Global.colorEditBtn
 
@@ -102,7 +196,9 @@ extension EmployeeGroupViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        let rectName = NSString(string: "Citynow Floor-1").boundingRect(with: CGSize(width: view.frame.width - 105, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+        let group = groups[indexPath.row]
+
+        let rectName = NSString(string: group.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 105, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
 
         var height: CGFloat = rectName.height + 20
 
@@ -119,6 +215,8 @@ extension EmployeeGroupViewController: UITableViewDataSource {
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
 
+        let group = groups[indexPath.row]
+        cell.bindingData(group: group)
         return cell
     }
 }
@@ -127,8 +225,9 @@ extension EmployeeGroupViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         let viewController = EmployeeViewController()
+        viewController.group = groups[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -140,5 +239,30 @@ extension EmployeeGroupViewController: DZNEmptyDataSetSource {
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
                      NSForegroundColorAttributeName: Global.colorSelected]
         return NSAttributedString(string: text, attributes: attrs)
+    }
+}
+
+extension EmployeeGroupViewController: UISearchBarDelegate {
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        search()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        search()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

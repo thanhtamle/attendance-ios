@@ -9,6 +9,7 @@
 import UIKit
 import STPopup
 import INSPhotoGallery
+import SwiftOverlays
 
 protocol AddEmployeeDelegate: class {
     func actionTapToAddButton()
@@ -23,6 +24,10 @@ class AddEmployeeViewController: UIViewController {
 
     var photos: [INSPhotoViewable] = [INSPhotoViewable]()
 
+    var employee: Employee?
+    var group = Group()
+    var imageUrl: String?
+
     override func loadView() {
         view = addEmployeeView
         view.setNeedsUpdateConstraints()
@@ -36,12 +41,19 @@ class AddEmployeeViewController: UIViewController {
         var portraitSize: CGSize!
         var landscapeSize: CGSize!
 
-        portraitSize = CGSize(width: Global.SCREEN_WIDTH - 50, height: Global.SCREEN_HEIGHT - 300)
-        landscapeSize = CGSize(width: Global.SCREEN_HEIGHT - 200, height: Global.SCREEN_WIDTH - 100)
-
+        if DeviceType.IS_IPAD {
+            portraitSize = CGSize(width: Global.SCREEN_WIDTH - 300, height: Global.SCREEN_HEIGHT - 500)
+            landscapeSize = CGSize(width: Global.SCREEN_HEIGHT - 450, height: Global.SCREEN_WIDTH - 200)
+        }
+        else {
+            portraitSize = CGSize(width: Global.SCREEN_WIDTH - 50, height: Global.SCREEN_HEIGHT - 240)
+            landscapeSize = CGSize(width: Global.SCREEN_HEIGHT - 200, height: Global.SCREEN_WIDTH - 100)
+        }
+        
         self.contentSizeInPopup = portraitSize
         self.landscapeContentSizeInPopup = landscapeSize
 
+        addEmployeeView.idField.delegate = self
         addEmployeeView.nameField.delegate = self
 
         addEmployeeView.avatarButton.addTarget(self, action: #selector(actionTapToAvatarButton), for: .touchUpInside)
@@ -55,6 +67,24 @@ class AddEmployeeViewController: UIViewController {
 
     func loadData() {
         createPhotoFromImage(image: UIImage(named: "ic_user")!)
+
+        if let newEmployee = employee {
+            title = "EDIT EMPLOYEE"
+            addEmployeeView.idField.text = newEmployee.employeeID
+            addEmployeeView.nameField.text = newEmployee.name
+            addEmployeeView.dobField.text = newEmployee.dob
+            addEmployeeView.genderField.text = newEmployee.gender
+            if let url = newEmployee.avatarUrl {
+                if url != "" {
+                    imageUrl = url
+                    createPhotoFromURL(url: url)
+                    addEmployeeView.avatarButton.sd_setImage(with: URL(string: url), for: .normal)
+                }
+            }
+        }
+        else {
+            employee = Employee()
+        }
     }
 
     func actionTapToAvatarButton() {
@@ -96,6 +126,8 @@ class AddEmployeeViewController: UIViewController {
         optionMenu.addAction(photoLibraryAction)
         optionMenu.addAction(viewPictureAction)
         optionMenu.addAction(cancelAction)
+        optionMenu.popoverPresentationController?.sourceView = addEmployeeView.avatarButton
+        optionMenu.popoverPresentationController?.sourceRect = addEmployeeView.avatarButton.bounds
 
         self.present(optionMenu, animated: true, completion: nil)
     }
@@ -126,6 +158,7 @@ class AddEmployeeViewController: UIViewController {
     }
 
     func actionTapToDobView() {
+        addEmployeeView.nameField.resignFirstResponder()
         var date = NSDate()
         if(fromDate != nil) {
             date = fromDate!
@@ -146,11 +179,22 @@ class AddEmployeeViewController: UIViewController {
     }
 
     func actionTapToGenderView() {
+        addEmployeeView.nameField.resignFirstResponder()
         addEmployeeView.genderDropDown.dataSource = ["Male", "Female"]
         addEmployeeView.genderDropDown.show()
     }
 
     func actionTapToAddButton() {
+
+        if imageUrl == nil {
+            Utils.showAlert(title: "Error", message: "Avatar can not be empty!", viewController: self)
+            return
+        }
+
+        if addEmployeeView.idField.text == "" {
+            Utils.showAlert(title: "Error", message: "ID can not be empty!", viewController: self)
+            return
+        }
 
         if addEmployeeView.nameField.text == "" {
             Utils.showAlert(title: "Error", message: "Name can not be empty!", viewController: self)
@@ -167,7 +211,28 @@ class AddEmployeeViewController: UIViewController {
             return
         }
 
-        addEmployeeDelegate?.actionTapToAddButton()
+        SwiftOverlays.showBlockingWaitOverlay()
+
+        if employee == nil {
+            employee = Employee()
+        }
+
+        employee?.avatarUrl = imageUrl
+        employee?.employeeID = addEmployeeView.idField.text
+        employee?.name = addEmployeeView.nameField.text
+        employee?.dob = addEmployeeView.dobField.text
+        employee?.gender = addEmployeeView.genderField.text
+
+        if group.id != "" {
+            DatabaseHelper.shared.saveEmployee(groupId: group.id, employee: employee!) { _ in
+                SwiftOverlays.removeAllBlockingOverlays()
+                self.addEmployeeDelegate?.actionTapToAddButton()
+            }
+        }
+        else {
+            SwiftOverlays.removeAllBlockingOverlays()
+            Utils.showAlert(title: "Attendance", message: "Add Employee error. Please try again!", viewController: self)
+        }
     }
 
     func actionTapToCancelButton() {
@@ -177,7 +242,7 @@ class AddEmployeeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let height: CGFloat = 20 + 80 + 20 + 40 + 20 + 40 + 20 + 40 + 20
+        let height: CGFloat = 20 + 80 + 20 + 40 + 20 + 40 + 20 + 40 + 20 + 40 + 20
 
         addEmployeeView.containerView.autoSetDimension(.height, toSize: height)
         addEmployeeView.scrollView.contentSize = addEmployeeView.containerView.bounds.size
@@ -187,7 +252,20 @@ class AddEmployeeViewController: UIViewController {
 extension AddEmployeeViewController: CameraDelegate {
 
     func tookPicture(url: String, image: UIImage) {
-
+        SwiftOverlays.showBlockingWaitOverlay()
+        DatabaseHelper.shared.uploadImage(localImage: image) {
+            url in
+            if let newUrl = url {
+                SwiftOverlays.removeAllBlockingOverlays()
+                self.createPhotoFromURL(url: newUrl)
+                self.addEmployeeView.avatarButton.sd_setImage(with: URL(string: newUrl), for: .normal)
+                self.imageUrl = newUrl
+            }
+            else {
+                SwiftOverlays.removeAllBlockingOverlays()
+                Utils.showAlert(title: "Error", message: "Could not connect to server. Please try again!", viewController: self)
+            }
+        }
     }
 }
 
@@ -195,6 +273,11 @@ extension AddEmployeeViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
+        case addEmployeeView.idField:
+            textField.resignFirstResponder()
+            addEmployeeView.nameField.becomeFirstResponder()
+            return true
+
         case addEmployeeView.nameField:
             textField.resignFirstResponder()
             actionTapToDobView()

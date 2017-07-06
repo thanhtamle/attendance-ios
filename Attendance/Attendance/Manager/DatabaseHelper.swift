@@ -16,6 +16,8 @@ class DatabaseHelper: NSObject {
     private let databaseRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
 
+    //---------------------users-------------------------------
+
     func getUser(id: String, completion: @escaping (User?) -> Void) {
         var user: User?
         let ref = self.databaseRef.child("users")
@@ -66,5 +68,153 @@ class DatabaseHelper: NSObject {
             let user = User(snapshot)
             completion(user)
         })
+    }
+
+    //---------------------groups-------------------------------
+
+    func getGroups(userId: String, completion: @escaping ([Group]) -> Void) {
+        let ref = self.databaseRef.child("groups").child(userId)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [Group]()
+                for snap in data {
+                    let group = Group(snap)
+                    result.append(group)
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func saveGroup(userId: String, group: Group, completion: @escaping () -> Void) {
+        var ref = self.databaseRef.child("groups").child(userId)
+
+        if group.id.isEmpty {
+            ref = ref.childByAutoId()
+        } else {
+            ref = ref.child(group.id)
+        }
+
+        ref.setValue(group.toAny())
+        ref.observeSingleEvent(of: .value, with: { _ in
+            completion()
+        })
+    }
+
+    func observeGroups(userId: String, completion: @escaping (Group) -> Void) {
+        let ref = self.databaseRef.child("groups").child(userId)
+
+        ref.observe(.childChanged, with: { snapshot in
+            let group = Group(snapshot)
+            completion(group)
+        })
+
+        ref.observe(.childAdded, with: { snapshot in
+            let group = Group(snapshot)
+            completion(group)
+        })
+    }
+
+    func observeDeleteGroup(userId: String, completion: @escaping (Group) -> Void) {
+        let ref = self.databaseRef.child("groups").child(userId)
+        ref.observe(.childRemoved, with: { snapshot in
+            let group = Group(snapshot)
+            completion(group)
+        })
+    }
+
+    func deleteGroup(userId: String, groupId: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("groups").child(userId)
+
+        ref.child(groupId).removeValue { (error, ref) in
+            let ref = self.databaseRef.child("employees")
+            ref.child(groupId).removeValue { (error, ref) in
+                completion()
+            }
+        }
+    }
+
+    //---------------------employees-------------------------------
+
+    func getEmployees(groupId: String, completion: @escaping ([Employee]) -> Void) {
+        let ref = self.databaseRef.child("employees").child(groupId)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [Employee]()
+                for snap in data {
+                    let employee = Employee(snap)
+                    result.append(employee)
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func saveEmployee(groupId: String, employee: Employee, completion: @escaping () -> Void) {
+        var ref = self.databaseRef.child("employees").child(groupId)
+
+        if employee.id.isEmpty {
+            ref = ref.childByAutoId()
+        } else {
+            ref = ref.child(employee.id)
+        }
+
+        ref.setValue(employee.toAny())
+        ref.observeSingleEvent(of: .value, with: { _ in
+            completion()
+        })
+    }
+
+    func observeEmployees(groupId: String, completion: @escaping (Employee) -> Void) {
+        let ref = self.databaseRef.child("employees").child(groupId)
+
+        ref.observe(.childChanged, with: { snapshot in
+            let employee = Employee(snapshot)
+            completion(employee)
+        })
+
+        ref.observe(.childAdded, with: { snapshot in
+            let employee = Employee(snapshot)
+            completion(employee)
+        })
+    }
+
+    func observeDeleteEmployee(groupId: String, completion: @escaping (Employee) -> Void) {
+        let ref = self.databaseRef.child("employees").child(groupId)
+        ref.observe(.childRemoved, with: { snapshot in
+            let employee = Employee(snapshot)
+            completion(employee)
+        })
+    }
+
+    func deleteEmployee(groupId: String, employeeId: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("employees").child(groupId)
+
+        ref.child(employeeId).removeValue { (error, ref) in
+            completion()
+        }
+    }
+
+    //---------------------storage-------------------------------
+
+    func uploadImage(localImage: UIImage, completion: @escaping (String?) -> Void) {
+        let data = UIImageJPEGRepresentation(localImage, 1)!
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+
+        let ref = storageRef.child("\(UUID().uuidString).jpg")
+        ref.putData(data, metadata: metadata) {
+            (metadata, error) in
+            guard let metadata = metadata else {
+                completion(nil)
+                return
+            }
+
+            completion(metadata.downloadURL()!.absoluteString)
+        }
     }
 }
