@@ -9,12 +9,15 @@
 import UIKit
 import STPopup
 import DZNEmptyDataSet
+import SwiftOverlays
 
 class EmployeeViewController: UIViewController {
 
     let employeeView = EmployeeView()
 
+    var group = Group()
     var employees = [Employee]()
+    var allEmployees = [Employee]()
 
     override func loadView() {
         view = employeeView
@@ -27,8 +30,6 @@ class EmployeeViewController: UIViewController {
         //enable swipe back when it changed leftBarButtonItem
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        title = "Citynow Floor-1"
-
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
         backBarButton.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = backBarButton
@@ -40,41 +41,101 @@ class EmployeeViewController: UIViewController {
         employeeView.tableView.delegate = self
         employeeView.tableView.dataSource = self
         employeeView.tableView.emptyDataSetSource = self
+        employeeView.searchBar.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         loadData()
     }
 
     func loadData() {
+        if group.id != "" {
+            employeeView.indicator.startAnimating()
+            DatabaseHelper.shared.getEmployees(groupId: group.id) {
+                employees in
+                self.employeeView.indicator.stopAnimating()
+                self.allEmployees = employees
 
-        var employee = Employee()
-        employee.employeeID = "NV 1"
-        employee.name = "Thanh-Tam Le"
-        employee.dob = "16-04-1994"
-        employee.gender = "Male"
-        employees.append(employee)
+                DatabaseHelper.shared.observeEmployees(groupId: self.group.id) {
+                    newEmployee in
 
-        employee = Employee()
-        employee.employeeID = "NV 2"
-        employee.name = "Nguyen Van Hung"
-        employee.dob = "22-02-1987"
-        employee.gender = "Male"
-        employees.append(employee)
+                    var flag = false
 
+                    for index in 0..<self.allEmployees.count {
+                        if self.allEmployees[index].id == newEmployee.id {
+                            self.allEmployees[index] = newEmployee
+                            flag = true
+                            break
+                        }
+                    }
+
+                    if !flag {
+                        self.allEmployees.append(newEmployee)
+                    }
+
+                    self.search()
+                }
+
+                DatabaseHelper.shared.observeDeleteEmployee(groupId: self.group.id) {
+                    newEmployee in
+
+                    for index in 0..<self.allEmployees.count {
+                        if self.allEmployees[index].id == newEmployee.id {
+                            self.allEmployees.remove(at: index)
+                            self.search()
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func search() {
+        let source = allEmployees
+
+        let searchText = employeeView.searchBar.text ?? ""
+        var result = [Employee]()
+
+        if searchText.isEmpty {
+            result.append(contentsOf: source)
+        }
+        else {
+            let text = searchText.lowercased()
+
+            for item in source {
+                if (item.name?.lowercased().contains(text)) ?? false || (item.employeeID?.lowercased().contains(text)) ?? false || (item.dob?.lowercased().contains(text)) ?? false || (item.gender?.lowercased().contains(text)) ?? false {
+                    result.append(item)
+                }
+            }
+        }
+        
+        employees.removeAll()
+        employees.append(contentsOf: result)
+        
         employeeView.tableView.reloadData()
     }
 
     var viewPopupController: STPopupController!
 
     func actionTapToAddEmployeeButton() {
-        let viewController = AddEmployeeViewController()
-        viewController.addEmployeeDelegate = self
-        viewPopupController = STPopupController(rootViewController: viewController)
-        viewPopupController.containerView.layer.cornerRadius = 4
-        viewPopupController.present(in: self)
+        navigateToAddEmployeePage(employee: nil, group: group)
     }
 
     func actionTapToBackButton() {
         _ = navigationController?.popViewController(animated: true)
+    }
+
+    func navigateToAddEmployeePage(employee: Employee?, group: Group) {
+        let viewController = AddEmployeeViewController()
+        viewController.addEmployeeDelegate = self
+        viewController.employee = employee
+        viewController.group = group
+        self.viewPopupController = STPopupController(rootViewController: viewController)
+        self.viewPopupController.containerView.layer.cornerRadius = 4
+        self.viewPopupController.present(in: self)
     }
 }
 
@@ -105,13 +166,29 @@ extension EmployeeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
-        let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
+        let employee = employees[indexPath.row]
 
+        let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
+            tableView.setEditing(false, animated: true)
+
+            if self.group.id != "" && employee.id != "" {
+                SwiftOverlays.showBlockingWaitOverlay()
+                DatabaseHelper.shared.deleteEmployee(groupId: self.group.id, employeeId: employee.id) {
+                    SwiftOverlays.removeAllBlockingOverlays()
+                    if self.employees.count == 0 {
+                        tableView.reloadData()
+                    }
+                }
+            }
+            else {
+                Utils.showAlert(title: "Attendance", message: "Delete error. Please try again!", viewController: self)
+            }
         }
         delete.backgroundColor = Global.colorDeleteBtn
 
         let edit = UITableViewRowAction(style: .normal, title: "EDIT") { action, index in
-
+            tableView.setEditing(false, animated: true)
+            self.navigateToAddEmployeePage(employee: employee, group: self.group)
         }
         edit.backgroundColor = Global.colorEditBtn
         
@@ -155,6 +232,8 @@ extension EmployeeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
+        let employee = employees[indexPath.row]
+        navigateToAddEmployeePage(employee: employee, group: group)
     }
 }
 
@@ -165,5 +244,30 @@ extension EmployeeViewController: DZNEmptyDataSetSource {
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
                      NSForegroundColorAttributeName: Global.colorSelected]
         return NSAttributedString(string: text, attributes: attrs)
+    }
+}
+
+extension EmployeeViewController: UISearchBarDelegate {
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        search()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        search()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

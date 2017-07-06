@@ -18,6 +18,9 @@ class AddEmployeeView: UIView {
 
     let avatarButton = UIButton()
 
+    let idField = UITextField()
+    let idBorder = UIView()
+
     let nameField = UITextField()
     let nameBorder = UIView()
 
@@ -46,8 +49,24 @@ class AddEmployeeView: UIView {
 
         avatarButton.setImage(UIImage(named: "ic_user"), for: .normal)
         avatarButton.layer.cornerRadius = 40
+        avatarButton.clipsToBounds = true
         avatarButton.imageView?.clipsToBounds = true
         avatarButton.imageView?.contentMode = .scaleAspectFill
+        avatarButton.sd_setShowActivityIndicatorView(true)
+        avatarButton.sd_setIndicatorStyle(.gray)
+        avatarButton.backgroundColor = Global.colorGray
+
+        idField.textAlignment = .left
+        idField.placeholder = "ID*"
+        idField.textColor = UIColor.black
+        idField.returnKeyType = .next
+        idField.keyboardType = .namePhonePad
+        idField.inputAccessoryView = UIView()
+        idField.autocorrectionType = .no
+        idField.autocapitalizationType = .none
+        idField.font = UIFont(name: "OpenSans", size: 17)
+        idBorder.backgroundColor = Global.colorSeparator
+        idField.addSubview(idBorder)
 
         nameField.textAlignment = .left
         nameField.placeholder = "Name*"
@@ -135,6 +154,7 @@ class AddEmployeeView: UIView {
         addBtn.titleLabel?.textAlignment = .center
 
         containerView.addSubview(avatarButton)
+        containerView.addSubview(idField)
         containerView.addSubview(nameField)
         containerView.addSubview(dobField)
         containerView.addSubview(genderField)
@@ -167,7 +187,17 @@ class AddEmployeeView: UIView {
             avatarButton.autoAlignAxis(toSuperviewAxis: .vertical)
             avatarButton.autoSetDimensions(to: CGSize(width: 80, height: 80))
 
-            nameField.autoPinEdge(.top, to: .bottom, of: avatarButton, withOffset: 20)
+            idField.autoPinEdge(.top, to: .bottom, of: avatarButton, withOffset: 20)
+            idField.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
+            idField.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
+            idField.autoSetDimension(.height, toSize: 40)
+
+            idBorder.autoPinEdge(toSuperviewEdge: .left)
+            idBorder.autoPinEdge(toSuperviewEdge: .right)
+            idBorder.autoPinEdge(toSuperviewEdge: .bottom)
+            idBorder.autoSetDimension(.height, toSize: 0.7)
+
+            nameField.autoPinEdge(.top, to: .bottom, of: idField, withOffset: 20)
             nameField.autoPinEdge(toSuperviewEdge: .left, withInset: alpha)
             nameField.autoPinEdge(toSuperviewEdge: .right, withInset: alpha)
             nameField.autoSetDimension(.height, toSize: 40)

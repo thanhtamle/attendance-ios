@@ -129,16 +129,18 @@ class ForgotPasswordView: UIView {
             var buttonSize: CGFloat = 40
             var fieldSize: CGFloat = 40
             var fieldAlign: CGFloat = 12
+            var imageSize: CGFloat = 45
 
             if DeviceType.IS_IPAD {
                 alpha = 100
                 buttonSize = 50
                 fieldSize = 50
                 fieldAlign = 17
+                imageSize = 100
             }
 
-            iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 50)
-            iconImgView.autoSetDimensions(to: CGSize(width: 200, height: 45))
+            iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 80)
+            iconImgView.autoSetDimensions(to: CGSize(width: 300, height: imageSize))
             iconImgView.autoAlignAxis(toSuperviewAxis: .vertical)
 
             //---------------------------------------------------------------------------

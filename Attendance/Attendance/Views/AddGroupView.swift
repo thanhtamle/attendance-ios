@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AddGroupView: UIView {
 
@@ -32,8 +33,12 @@ class AddGroupView: UIView {
 
         avatarButton.setImage(UIImage(named: "Teamwork-Icon"), for: .normal)
         avatarButton.layer.cornerRadius = 40
+        avatarButton.clipsToBounds = true
         avatarButton.imageView?.clipsToBounds = true
         avatarButton.imageView?.contentMode = .scaleAspectFill
+        avatarButton.sd_setShowActivityIndicatorView(true)
+        avatarButton.sd_setIndicatorStyle(.gray)
+        avatarButton.backgroundColor = Global.colorGray
 
         nameField.textAlignment = .left
         nameField.placeholder = "Name*"

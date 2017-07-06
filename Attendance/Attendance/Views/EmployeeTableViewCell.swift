@@ -36,9 +36,12 @@ class EmployeeTableViewCell: UITableViewCell {
         lineView.isHidden = true
 
         iconImgView.clipsToBounds = true
-        iconImgView.contentMode = .scaleAspectFit
-        iconImgView.image = UIImage(named: "MyAvatar")
+        iconImgView.contentMode = .scaleAspectFill
+        iconImgView.image = UIImage(named: "ic_user")
         iconImgView.layer.cornerRadius = 40
+        iconImgView.backgroundColor = Global.colorGray
+        iconImgView.sd_setShowActivityIndicatorView(true)
+        iconImgView.sd_setIndicatorStyle(.gray)
 
         employeeIDLabel.font = UIFont(name: "OpenSans-bold", size: 18)
         employeeIDLabel.textAlignment = .left
@@ -119,5 +122,17 @@ class EmployeeTableViewCell: UITableViewCell {
         nameLabel.text = employee.name
         dobLabel.text = employee.dob
         genderLabel.text = employee.gender
+
+        if let url = employee.avatarUrl {
+            if url != "" {
+                iconImgView.sd_setImage(with: URL(string: url))
+            }
+            else {
+                iconImgView.image = UIImage(named: "ic_user")
+            }
+        }
+        else {
+            iconImgView.image = UIImage(named: "ic_user")
+        }
     }
 }

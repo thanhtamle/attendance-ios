@@ -13,6 +13,7 @@
 		E61B8E281F0CA6EC00FC6034 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E271F0CA6EC00FC6034 /* ProfileView.swift */; };
 		E61B8E2A1F0CCAE800FC6034 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E291F0CCAE800FC6034 /* ChangePasswordView.swift */; };
 		E61B8E2C1F0CCAF800FC6034 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E2B1F0CCAF800FC6034 /* ChangePasswordViewController.swift */; };
+		E61B8E2E1F0CDDCA00FC6034 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E2D1F0CDDCA00FC6034 /* Group.swift */; };
 		E61BE2921F09FADD0062339D /* AttendanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2911F09FADD0062339D /* AttendanceHeaderView.swift */; };
 		E61BE2941F09FAEA0062339D /* AttendanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */; };
 		E61BE2961F0A35050062339D /* AttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE2951F0A35050062339D /* AttendanceViewController.swift */; };
@@ -92,6 +93,7 @@
 		E61B8E271F0CA6EC00FC6034 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E61B8E291F0CCAE800FC6034 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		E61B8E2B1F0CCAF800FC6034 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		E61B8E2D1F0CDDCA00FC6034 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		E61BE2911F09FADD0062339D /* AttendanceHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceHeaderView.swift; sourceTree = "<group>"; };
 		E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceTableViewCell.swift; sourceTree = "<group>"; };
 		E61BE2951F0A35050062339D /* AttendanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				E67035C81F00FCC4000C5FA5 /* Menu.swift */,
 				E67035CE1F00FF73000C5FA5 /* User.swift */,
 				E6377D7B1F021AFB00023222 /* Employee.swift */,
+				E61B8E2D1F0CDDCA00FC6034 /* Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				E645D92B1EF3982700C91617 /* String.swift in Sources */,
 				E645D9311EF3982700C91617 /* UIView.swift in Sources */,
 				E61B8E2A1F0CCAE800FC6034 /* ChangePasswordView.swift in Sources */,
+				E61B8E2E1F0CDDCA00FC6034 /* Group.swift in Sources */,
 				E61B8E2C1F0CCAF800FC6034 /* ChangePasswordViewController.swift in Sources */,
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
