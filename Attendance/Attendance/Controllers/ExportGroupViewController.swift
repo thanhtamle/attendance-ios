@@ -1,8 +1,8 @@
 //
-//  HomeViewController.swift
+//  ExportGroupViewController.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 7/4/17.
+//  Created by Thanh-Tam Le on 7/7/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
@@ -10,34 +10,34 @@ import UIKit
 import DZNEmptyDataSet
 import Firebase
 
-class HomeViewController: UIViewController {
+class ExportGroupViewController: UIViewController {
 
-    let homeView = HomeView()
+    let exportGroupView = ExportGroupView()
 
     var groups = [Group]()
     var allGroups = [Group]()
 
     override func loadView() {
-        view = homeView
+        view = exportGroupView
         view.setNeedsUpdateConstraints()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.barTintColor = UIColor.white
-        navigationController?.navigationBar.tintColor = Global.colorMain
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
+        //enable swipe back when it changed leftBarButtonItem
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        title = "HOME"
+        title = "EXPORT"
 
-        homeView.tableView.delegate = self
-        homeView.tableView.dataSource = self
-        homeView.tableView.emptyDataSetSource = self
-        homeView.searchBar.delegate = self
+        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
+        backBarButton.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem = backBarButton
+
+        exportGroupView.tableView.delegate = self
+        exportGroupView.tableView.dataSource = self
+        exportGroupView.tableView.emptyDataSetSource = self
+        exportGroupView.searchBar.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,10 +49,10 @@ class HomeViewController: UIViewController {
     func loadData() {
 
         if let userId = Auth.auth().currentUser?.uid {
-            homeView.indicator.startAnimating()
+            exportGroupView.indicator.startAnimating()
             DatabaseHelper.shared.getGroups(userId: userId) {
                 groups in
-                self.homeView.indicator.stopAnimating()
+                self.exportGroupView.indicator.stopAnimating()
                 self.allGroups = groups
 
                 DatabaseHelper.shared.observeGroups(userId: userId) {
@@ -94,7 +94,7 @@ class HomeViewController: UIViewController {
     func search() {
         let source = allGroups
 
-        let searchText = homeView.searchBar.text ?? ""
+        let searchText = exportGroupView.searchBar.text ?? ""
         var result = [Group]()
 
         if searchText.isEmpty {
@@ -109,15 +109,19 @@ class HomeViewController: UIViewController {
                 }
             }
         }
-        
+
         groups.removeAll()
         groups.append(contentsOf: result)
-        
-        homeView.tableView.reloadData()
+
+        exportGroupView.tableView.reloadData()
+    }
+
+    func actionTapToBackButton() {
+        _ = navigationController?.popViewController(animated: true)
     }
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension ExportGroupViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -155,18 +159,18 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
-extension HomeViewController: UITableViewDelegate {
+extension ExportGroupViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let viewController = AttendanceViewController()
+        let viewController = ExportEmployeeViewController()
         viewController.group = groups[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension HomeViewController: DZNEmptyDataSetSource {
+extension ExportGroupViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let text = "No group list found"
@@ -176,7 +180,7 @@ extension HomeViewController: DZNEmptyDataSetSource {
     }
 }
 
-extension HomeViewController: UISearchBarDelegate {
+extension ExportGroupViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
@@ -189,13 +193,13 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
         search()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }

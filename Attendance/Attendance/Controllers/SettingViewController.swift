@@ -33,6 +33,9 @@ class SettingViewController: UIViewController {
         let profileAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToProfileView))
         settingView.profileAbstractView.addGestureRecognizer(profileAbstractViewGesture)
 
+        let exportAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToExportView))
+        settingView.exportAbstractView.addGestureRecognizer(exportAbstractViewGesture)
+
         let logoutAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToLogoutView))
         settingView.logoutAbstractView.addGestureRecognizer(logoutAbstractViewGesture)
     }
@@ -43,13 +46,18 @@ class SettingViewController: UIViewController {
     }
 
     func refreshView() {
-        let height : CGFloat = 120
+        let height : CGFloat = 180
         settingView.containerView.autoSetDimension(.height, toSize: height)
         settingView.scrollView.contentSize = CGSize(width: view.frame.width, height: height)
     }
 
     func actionTapToProfileView() {
         let viewController = ProfileViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    func actionTapToExportView() {
+        let viewController = ExportGroupViewController()
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
