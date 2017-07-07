@@ -36,10 +36,6 @@ class AttendanceDetailViewController: UIViewController {
         backBarButton.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = backBarButton
 
-        let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
-        cameraBarButton.tintColor = UIColor.black
-        self.navigationItem.rightBarButtonItem = cameraBarButton
-
         attendanceDetailView.tableView.delegate = self
         attendanceDetailView.tableView.dataSource = self
         attendanceDetailView.tableView.emptyDataSetSource = self
@@ -129,20 +125,6 @@ class AttendanceDetailViewController: UIViewController {
         attendances.append(contentsOf: result)
         
         attendanceDetailView.tableView.reloadData()
-    }
-
-    func actionTapToCameraButton() {
-
-//        let attendanceTime = AttendanceTime()
-//        attendanceTime.time = Utils.getCurrentDate()
-//
-//        let attendance = Attendance()
-//        attendance.employeeId = "-KoLIlzuCYh41qawjtZ6"
-//        attendance.attendanceTimes.append(attendanceTime)
-//        attendance.attendanceTimes.append(attendanceTime)
-//        DatabaseHelper.shared.saveAttendance(groupId: group.id, date: Utils.getCurrentDate()!, attendance: attendance) { _ in
-//
-//        }
     }
 
     func cancel() {

@@ -77,6 +77,11 @@
 		E64CECEA1F0F4E6100A216A3 /* TrainingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECE91F0F4E6100A216A3 /* TrainingDetailView.swift */; };
 		E64CECEC1F0F4E7600A216A3 /* TrainingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECEB1F0F4E7600A216A3 /* TrainingDetailViewController.swift */; };
 		E64CECEE1F0F4F9500A216A3 /* TrainingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECED1F0F4F9500A216A3 /* TrainingDetailTableViewCell.swift */; };
+		E64CECF01F0F6E5000A216A3 /* ExportGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECEF1F0F6E5000A216A3 /* ExportGroupView.swift */; };
+		E64CECF21F0F700900A216A3 /* ExportGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF11F0F700900A216A3 /* ExportGroupViewController.swift */; };
+		E64CECF41F0F732900A216A3 /* ExportEmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF31F0F732900A216A3 /* ExportEmployeeView.swift */; };
+		E64CECF61F0F733900A216A3 /* ExportEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF51F0F733900A216A3 /* ExportEmployeeViewController.swift */; };
+		E64CECF81F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF71F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift */; };
 		E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035B81F009EF4000C5FA5 /* LoginView.swift */; };
 		E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */; };
 		E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */; };
@@ -175,6 +180,11 @@
 		E64CECE91F0F4E6100A216A3 /* TrainingDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingDetailView.swift; sourceTree = "<group>"; };
 		E64CECEB1F0F4E7600A216A3 /* TrainingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingDetailViewController.swift; sourceTree = "<group>"; };
 		E64CECED1F0F4F9500A216A3 /* TrainingDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingDetailTableViewCell.swift; sourceTree = "<group>"; };
+		E64CECEF1F0F6E5000A216A3 /* ExportGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportGroupView.swift; sourceTree = "<group>"; };
+		E64CECF11F0F700900A216A3 /* ExportGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportGroupViewController.swift; sourceTree = "<group>"; };
+		E64CECF31F0F732900A216A3 /* ExportEmployeeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportEmployeeView.swift; sourceTree = "<group>"; };
+		E64CECF51F0F733900A216A3 /* ExportEmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportEmployeeViewController.swift; sourceTree = "<group>"; };
+		E64CECF71F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChosenEmployeeTableViewCell.swift; sourceTree = "<group>"; };
 		E67035B81F009EF4000C5FA5 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +309,9 @@
 				E64CECE51F0F4C2D00A216A3 /* TrainingView.swift */,
 				E64CECE91F0F4E6100A216A3 /* TrainingDetailView.swift */,
 				E64CECED1F0F4F9500A216A3 /* TrainingDetailTableViewCell.swift */,
+				E64CECEF1F0F6E5000A216A3 /* ExportGroupView.swift */,
+				E64CECF31F0F732900A216A3 /* ExportEmployeeView.swift */,
+				E64CECF71F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,6 +338,8 @@
 				E64CECE11F0F355A00A216A3 /* AttendanceDetailViewController.swift */,
 				E64CECE71F0F4C3D00A216A3 /* TrainingViewController.swift */,
 				E64CECEB1F0F4E7600A216A3 /* TrainingDetailViewController.swift */,
+				E64CECF11F0F700900A216A3 /* ExportGroupViewController.swift */,
+				E64CECF51F0F733900A216A3 /* ExportEmployeeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -593,6 +608,7 @@
 				E61BE29E1F0A51320062339D /* SplashScreenView.swift in Sources */,
 				E6C02F1A1F0639D900B003B7 /* AddEmployeeView.swift in Sources */,
 				E67035C51F00FC70000C5FA5 /* MenuView.swift in Sources */,
+				E64CECF61F0F733900A216A3 /* ExportEmployeeViewController.swift in Sources */,
 				E64CECE81F0F4C3D00A216A3 /* TrainingViewController.swift in Sources */,
 				E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */,
 				E64CECEE1F0F4F9500A216A3 /* TrainingDetailTableViewCell.swift in Sources */,
@@ -625,6 +641,7 @@
 				E61B8E241F0CA56C00FC6034 /* SettingView.swift in Sources */,
 				E6377D7E1F021D4900023222 /* EmployeeView.swift in Sources */,
 				E64BB5F51F0BAB9C001AE835 /* SettingViewController.swift in Sources */,
+				E64CECF41F0F732900A216A3 /* ExportEmployeeView.swift in Sources */,
 				E6C02F1C1F0639E700B003B7 /* AddEmployeeViewController.swift in Sources */,
 				E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */,
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
@@ -645,6 +662,8 @@
 				E645D9251EF3982700C91617 /* Dictionary.swift in Sources */,
 				E67035C71F00FCA7000C5FA5 /* MenuViewController.swift in Sources */,
 				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,
+				E64CECF21F0F700900A216A3 /* ExportGroupViewController.swift in Sources */,
+				E64CECF01F0F6E5000A216A3 /* ExportGroupView.swift in Sources */,
 				E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */,
 				E61BE29A1F0A41E20062339D /* DatabaseHelper.swift in Sources */,
 				E64CECE61F0F4C2D00A216A3 /* TrainingView.swift in Sources */,
@@ -654,6 +673,7 @@
 				E64CECEA1F0F4E6100A216A3 /* TrainingDetailView.swift in Sources */,
 				E6377D801F021D6300023222 /* EmployeeViewController.swift in Sources */,
 				E645D8F81EF3981B00C91617 /* Global.swift in Sources */,
+				E64CECF81F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,8 @@ class Employee: NSObject {
     var dob: String?
     var gender: String?
 
+    var checkMark = true
+
     convenience init(employee: Employee) {
         self.init()
         id = employee.id
