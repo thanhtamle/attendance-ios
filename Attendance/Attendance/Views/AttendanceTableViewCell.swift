@@ -10,12 +10,9 @@ import UIKit
 
 class AttendanceTableViewCell: UITableViewCell {
 
-    let iconImgView = UIImageView()
-    let employeeIDLabel = UILabel()
-    let nameLabel = UILabel()
-    let lineView = UIView()
-    let checkInTimeLabel = UILabel()
-    let checkOutTimeLabel = UILabel()
+    let dateLabel = UILabel()
+    let arrowRightImgView = UIButton()
+    let bottomView = UIView()
 
     var constraintAdded = false
 
@@ -30,45 +27,24 @@ class AttendanceTableViewCell: UITableViewCell {
     }
 
     func commonInit() {
+
         backgroundColor = UIColor.white
+        bottomView.backgroundColor = Global.colorSeparator
 
-        lineView.isHidden = true
+        dateLabel.text = "01-07-2017"
+        dateLabel.font = UIFont(name: "OpenSans-bold", size: 18)
+        dateLabel.textAlignment = .left
+        dateLabel.textColor = UIColor.black.withAlphaComponent(0.8)
+        dateLabel.lineBreakMode = .byWordWrapping
+        dateLabel.numberOfLines = 0
 
-        iconImgView.clipsToBounds = true
-        iconImgView.contentMode = .scaleAspectFit
-        iconImgView.image = UIImage(named: "MyAvatar")
-        iconImgView.layer.cornerRadius = 40
-
-        employeeIDLabel.font = UIFont(name: "OpenSans-bold", size: 18)
-        employeeIDLabel.textAlignment = .left
-        employeeIDLabel.textColor = Global.colorMain
-        employeeIDLabel.lineBreakMode = .byWordWrapping
-        employeeIDLabel.numberOfLines = 0
-
-        nameLabel.font = UIFont(name: "OpenSans", size: 16)
-        nameLabel.textAlignment = .left
-        nameLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        nameLabel.lineBreakMode = .byWordWrapping
-        nameLabel.numberOfLines = 0
-
-        checkInTimeLabel.font = UIFont(name: "OpenSans", size: 17)
-        checkInTimeLabel.textAlignment = .left
-        checkInTimeLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        checkInTimeLabel.lineBreakMode = .byWordWrapping
-        checkInTimeLabel.numberOfLines = 0
-
-        checkOutTimeLabel.font = UIFont(name: "OpenSans", size: 17)
-        checkOutTimeLabel.textAlignment = .left
-        checkOutTimeLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        checkOutTimeLabel.lineBreakMode = .byWordWrapping
-        checkOutTimeLabel.numberOfLines = 0
-
-        addSubview(iconImgView)
-        addSubview(employeeIDLabel)
-        addSubview(nameLabel)
-        addSubview(lineView)
-        addSubview(checkInTimeLabel)
-        addSubview(checkOutTimeLabel)
+        arrowRightImgView.clipsToBounds = true
+        arrowRightImgView.contentMode = .scaleAspectFit
+        arrowRightImgView.setImage(UIImage(named: "ArrowRight"), for: .normal)
+        
+        addSubview(dateLabel)
+        addSubview(arrowRightImgView)
+        addSubview(bottomView)
         setNeedsUpdateConstraints()
     }
 
@@ -77,52 +53,23 @@ class AttendanceTableViewCell: UITableViewCell {
         if !constraintAdded {
             constraintAdded = true
 
-            iconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
-            iconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
-            iconImgView.autoSetDimensions(to: CGSize(width: 80, height: 80))
+            dateLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
+            dateLabel.autoPinEdge(.right, to: .left, of: arrowRightImgView, withOffset: -10)
+            dateLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 10)
+            dateLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 10)
 
-            employeeIDLabel.autoPinEdge(.left, to: .right, of: iconImgView, withOffset: 10)
-            employeeIDLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-            employeeIDLabel.autoPinEdge(.bottom, to: .top, of: nameLabel, withOffset: -4)
+            arrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
+            arrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+            arrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
 
-            nameLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            nameLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
-            nameLabel.autoPinEdge(.bottom, to: .top, of: lineView, withOffset: -1)
-
-            lineView.autoPinEdge(toSuperviewEdge: .left)
-            lineView.autoAlignAxis(toSuperviewAxis: .horizontal)
-            lineView.autoPinEdge(toSuperviewEdge: .right)
-            lineView.autoSetDimension(.height, toSize: 2)
-
-            checkInTimeLabel.autoPinEdge(.top, to: .bottom, of: lineView, withOffset: 1)
-            checkInTimeLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            checkInTimeLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
-
-            checkOutTimeLabel.autoPinEdge(.top, to: .bottom, of: checkInTimeLabel, withOffset: 4)
-            checkOutTimeLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            checkOutTimeLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
-
+            bottomView.autoPinEdge(toSuperviewEdge: .left)
+            bottomView.autoPinEdge(toSuperviewEdge: .right)
+            bottomView.autoPinEdge(toSuperviewEdge: .bottom)
+            bottomView.autoSetDimension(.height, toSize: 0.7)
         }
     }
 
-    func bindingData(employee: Employee) {
-        employeeIDLabel.text = employee.employeeID
-        nameLabel.text = employee.name
-
-        let checkInTime = "Check-in Time: "
-        let checkInTimeValue = "08:00 AM"
-
-        let checkOutTime = "Check-out Time: "
-        let checkOutTimeValue = "18:00 PM"
-
-        let checkInStr = "\(checkInTime) \(checkInTimeValue)"
-        let checkInAttributedString = NSMutableAttributedString(string: checkInStr)
-        checkInAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: (checkInStr as NSString).range(of: checkInTime))
-        self.checkInTimeLabel.attributedText = checkInAttributedString
-
-        let checkOutStr = "\(checkOutTime) \(checkOutTimeValue)"
-        let checkOutAttributedString = NSMutableAttributedString(string: checkOutStr)
-        checkOutAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: (checkOutStr as NSString).range(of: checkOutTime))
-        self.checkOutTimeLabel.attributedText = checkOutAttributedString
+    func bindingDate(attendanceDate: AttendanceDate) {
+        dateLabel.text = attendanceDate.date
     }
 }

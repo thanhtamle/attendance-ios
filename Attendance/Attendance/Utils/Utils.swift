@@ -102,10 +102,22 @@ class Utils {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = NSTimeZone.default
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "MM-dd-yyyy hh:mm:ss"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         
         let result = dateFormatter.string(from: date)
         
+        return result
+    }
+
+    static func getCurrentTime() -> String? {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = NSTimeZone.default
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "HH:mm"
+
+        let result = dateFormatter.string(from: date)
+
         return result
     }
     

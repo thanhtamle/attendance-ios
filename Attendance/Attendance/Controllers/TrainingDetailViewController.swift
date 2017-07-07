@@ -1,8 +1,8 @@
 //
-//  EmployeeViewController.swift
+//  TrainingDetailViewController.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 6/27/17.
+//  Created by Thanh-Tam Le on 7/7/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
@@ -11,16 +11,16 @@ import STPopup
 import DZNEmptyDataSet
 import SwiftOverlays
 
-class EmployeeViewController: UIViewController {
+class TrainingDetailViewController: UIViewController {
 
-    let employeeView = EmployeeView()
+    let trainingDetailView = TrainingDetailView()
 
     var group = Group()
     var employees = [Employee]()
     var allEmployees = [Employee]()
 
     override func loadView() {
-        view = employeeView
+        view = trainingDetailView
         view.setNeedsUpdateConstraints()
     }
 
@@ -36,14 +36,14 @@ class EmployeeViewController: UIViewController {
         backBarButton.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = backBarButton
 
-        let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
-        addBarButton.tintColor = UIColor.black
-        self.navigationItem.rightBarButtonItem = addBarButton
+        let trainingBarButton = UIBarButtonItem(title: "TRAINING", style: .done, target: self, action: #selector(actionTapToTrainingButton))
+        trainingBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: Global.colorMain,NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
+        self.navigationItem.rightBarButtonItem = trainingBarButton
 
-        employeeView.tableView.delegate = self
-        employeeView.tableView.dataSource = self
-        employeeView.tableView.emptyDataSetSource = self
-        employeeView.searchBar.delegate = self
+        trainingDetailView.tableView.delegate = self
+        trainingDetailView.tableView.dataSource = self
+        trainingDetailView.tableView.emptyDataSetSource = self
+        trainingDetailView.searchBar.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,10 +54,10 @@ class EmployeeViewController: UIViewController {
 
     func loadData() {
         if group.id != "" {
-            employeeView.indicator.startAnimating()
+            trainingDetailView.indicator.startAnimating()
             DatabaseHelper.shared.getEmployees(groupId: group.id) {
                 employees in
-                self.employeeView.indicator.stopAnimating()
+                self.trainingDetailView.indicator.stopAnimating()
                 self.allEmployees = employees
 
                 DatabaseHelper.shared.observeEmployees(groupId: self.group.id) {
@@ -98,7 +98,7 @@ class EmployeeViewController: UIViewController {
     func search() {
         let source = allEmployees
 
-        let searchText = employeeView.searchBar.text ?? ""
+        let searchText = trainingDetailView.searchBar.text ?? ""
         var result = [Employee]()
 
         if searchText.isEmpty {
@@ -113,46 +113,23 @@ class EmployeeViewController: UIViewController {
                 }
             }
         }
-        
+
         employees.removeAll()
         employees.append(contentsOf: result)
-        
-        employeeView.tableView.reloadData()
+
+        trainingDetailView.tableView.reloadData()
     }
 
-    var viewPopupController: STPopupController!
+    func actionTapToTrainingButton() {
 
-    func actionTapToAddEmployeeButton() {
-        navigateToAddEmployeePage(employee: nil, group: group)
     }
 
     func actionTapToBackButton() {
         _ = navigationController?.popViewController(animated: true)
     }
-
-    func navigateToAddEmployeePage(employee: Employee?, group: Group) {
-        let viewController = AddEmployeeViewController()
-        viewController.addEmployeeDelegate = self
-        viewController.employee = employee
-        viewController.group = group
-        self.viewPopupController = STPopupController(rootViewController: viewController)
-        self.viewPopupController.containerView.layer.cornerRadius = 4
-        self.viewPopupController.present(in: self)
-    }
 }
 
-extension EmployeeViewController: AddEmployeeDelegate {
-
-    func actionTapToAddButton() {
-        viewPopupController.dismiss()
-    }
-
-    func actionTapToCancelButton() {
-        viewPopupController.dismiss()
-    }
-}
-
-extension EmployeeViewController: UITableViewDataSource {
+extension TrainingDetailViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -162,52 +139,17 @@ extension EmployeeViewController: UITableViewDataSource {
         return employees.count
     }
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-
-        let employee = employees[indexPath.row]
-
-        let delete = UITableViewRowAction(style: .normal, title: "DELETE") { action, index in
-            tableView.setEditing(false, animated: true)
-
-            if self.group.id != "" && employee.id != "" {
-                SwiftOverlays.showBlockingWaitOverlay()
-                DatabaseHelper.shared.deleteEmployee(groupId: self.group.id, employeeId: employee.id) {
-                    SwiftOverlays.removeAllBlockingOverlays()
-                    if self.employees.count == 0 {
-                        tableView.reloadData()
-                    }
-                }
-            }
-            else {
-                Utils.showAlert(title: "Attendance", message: "Delete error. Please try again!", viewController: self)
-            }
-        }
-        delete.backgroundColor = Global.colorDeleteBtn
-
-        let edit = UITableViewRowAction(style: .normal, title: "EDIT") { action, index in
-            tableView.setEditing(false, animated: true)
-            self.navigateToAddEmployeePage(employee: employee, group: self.group)
-        }
-        edit.backgroundColor = Global.colorEditBtn
-        
-        return [edit, delete]
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let employee = employees[indexPath.row]
 
-        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
 
-        let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
-        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
-        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
         var height: CGFloat = rectEmployeeID.height + rectName.height + rectDob.height + rectGender.height + 16 + 10 + 10
 
@@ -219,27 +161,25 @@ extension EmployeeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EmployeeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TrainingDetailTableViewCell
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
-        
+
         cell.bindingData(employee: employees[indexPath.row])
         return cell
     }
 }
 
-extension EmployeeViewController: UITableViewDelegate {
+extension TrainingDetailViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let employee = employees[indexPath.row]
-        navigateToAddEmployeePage(employee: employee, group: group)
     }
 }
 
-extension EmployeeViewController: DZNEmptyDataSetSource {
+extension TrainingDetailViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let text = "No employee list found"
@@ -249,7 +189,7 @@ extension EmployeeViewController: DZNEmptyDataSetSource {
     }
 }
 
-extension EmployeeViewController: UISearchBarDelegate {
+extension TrainingDetailViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
@@ -258,17 +198,17 @@ extension EmployeeViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
         search()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }

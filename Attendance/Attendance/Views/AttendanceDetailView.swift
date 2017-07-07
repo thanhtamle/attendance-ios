@@ -1,14 +1,14 @@
 //
-//  AttendanceView.swift
+//  AttendanceDetailView.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 7/3/17.
+//  Created by Thanh-Tam Le on 7/7/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
 
-class AttendanceView: UIView {
+class AttendanceDetailView: UIView {
 
     var constraintsAdded = false
 
@@ -22,7 +22,7 @@ class AttendanceView: UIView {
         backgroundColor = Global.colorBg
         tintColor = Global.colorMain
         addTapToDismiss()
-        
+
         searchBar.frame = CGRect(x: 0, y: 0, width: Global.SCREEN_WIDTH, height: 44)
         searchBar.searchBarStyle = UISearchBarStyle.prominent
         searchBar.placeholder = "Search"
@@ -45,7 +45,7 @@ class AttendanceView: UIView {
 
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = Global.colorSeparator
-        tableView.register(AttendanceTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(AttendanceDetailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
 
         indicator.hidesWhenStopped = true

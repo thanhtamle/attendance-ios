@@ -154,6 +154,33 @@ class DatabaseHelper: NSObject {
         })
     }
 
+    func getEmployee(groupId: String, id: String, completion: @escaping (Employee?) -> Void) {
+        var employee: Employee?
+        let ref = self.databaseRef.child("employees").child(groupId)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var flag = false
+                for snap in data {
+                    employee = Employee(snap)
+                    if employee?.id == id {
+                        flag = true
+                        break
+                    }
+                }
+
+                if flag {
+                    completion(employee)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+            else {
+                completion(nil)
+            }
+        })
+    }
+
     func saveEmployee(groupId: String, employee: Employee, completion: @escaping () -> Void) {
         var ref = self.databaseRef.child("employees").child(groupId)
 
@@ -193,6 +220,113 @@ class DatabaseHelper: NSObject {
 
     func deleteEmployee(groupId: String, employeeId: String, completion: @escaping () -> Void) {
         let ref = self.databaseRef.child("employees").child(groupId)
+
+        ref.child(employeeId).removeValue { (error, ref) in
+            completion()
+        }
+    }
+
+    //---------------------attendanceDates-------------------------------
+
+    func getAttendanceDates(groupId: String, completion: @escaping ([AttendanceDate]) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [AttendanceDate]()
+                for snap in data {
+                    let attendanceDate = AttendanceDate(snap)
+                    result.append(attendanceDate)
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func observeAttendanceDate(groupId: String, completion: @escaping (AttendanceDate) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId)
+
+        ref.observe(.childChanged, with: { snapshot in
+            let attendanceDate = AttendanceDate(snapshot)
+            completion(attendanceDate)
+        })
+
+        ref.observe(.childAdded, with: { snapshot in
+            let attendanceDate = AttendanceDate(snapshot)
+            completion(attendanceDate)
+        })
+    }
+
+    func observeDeleteAttendanceDate(groupId: String, completion: @escaping (AttendanceDate) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId)
+        ref.observe(.childRemoved, with: { snapshot in
+            let attendanceDate = AttendanceDate(snapshot)
+            completion(attendanceDate)
+        })
+    }
+
+    func deleteAttendanceDate(groupId: String, date: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+
+        ref.child(date).removeValue { (error, ref) in
+            completion()
+        }
+    }
+
+    //---------------------attendance detail-------------------------------
+
+    func getAttendances(groupId: String, date: String, completion: @escaping ([Attendance]) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [Attendance]()
+                for snap in data {
+                    let attendance = Attendance(snap)
+                    result.append(attendance)
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func saveAttendance(groupId: String, date: String, attendance: Attendance, completion: @escaping () -> Void) {
+        var ref = self.databaseRef.child("attendances").child(groupId).child(date)
+
+        ref = ref.child(attendance.employeeId)
+
+        ref.setValue(attendance.toAny())
+        ref.observeSingleEvent(of: .value, with: { _ in
+            completion()
+        })
+    }
+
+    func observeAttendances(groupId: String, date: String, completion: @escaping (Attendance) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+
+        ref.observe(.childChanged, with: { snapshot in
+            let attendance = Attendance(snapshot)
+            completion(attendance)
+        })
+
+        ref.observe(.childAdded, with: { snapshot in
+            let attendance = Attendance(snapshot)
+            completion(attendance)
+        })
+    }
+
+    func observeDeleteAttendance(groupId: String, date: String, completion: @escaping (Attendance) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+        ref.observe(.childRemoved, with: { snapshot in
+            let attendance = Attendance(snapshot)
+            completion(attendance)
+        })
+    }
+
+    func deleteAttendance(groupId: String, date: String, employeeId: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
 
         ref.child(employeeId).removeValue { (error, ref) in
             completion()
