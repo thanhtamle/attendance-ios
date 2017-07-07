@@ -1,8 +1,8 @@
 //
-//  HomeViewController.swift
+//  TrainingViewController.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 7/4/17.
+//  Created by Thanh-Tam Le on 7/7/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
@@ -10,15 +10,15 @@ import UIKit
 import DZNEmptyDataSet
 import Firebase
 
-class HomeViewController: UIViewController {
+class TrainingViewController: UIViewController {
 
-    let homeView = HomeView()
+    let trainingView = TrainingView()
 
     var groups = [Group]()
     var allGroups = [Group]()
 
     override func loadView() {
-        view = homeView
+        view = trainingView
         view.setNeedsUpdateConstraints()
     }
 
@@ -32,16 +32,16 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
 
-        title = "HOME"
+        title = "TRAINING"
 
         let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
         cameraBarButton.tintColor = UIColor.black
         self.navigationItem.rightBarButtonItem = cameraBarButton
 
-        homeView.tableView.delegate = self
-        homeView.tableView.dataSource = self
-        homeView.tableView.emptyDataSetSource = self
-        homeView.searchBar.delegate = self
+        trainingView.tableView.delegate = self
+        trainingView.tableView.dataSource = self
+        trainingView.tableView.emptyDataSetSource = self
+        trainingView.searchBar.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,10 +53,10 @@ class HomeViewController: UIViewController {
     func loadData() {
 
         if let userId = Auth.auth().currentUser?.uid {
-            homeView.indicator.startAnimating()
+            trainingView.indicator.startAnimating()
             DatabaseHelper.shared.getGroups(userId: userId) {
                 groups in
-                self.homeView.indicator.stopAnimating()
+                self.trainingView.indicator.stopAnimating()
                 self.allGroups = groups
 
                 DatabaseHelper.shared.observeGroups(userId: userId) {
@@ -98,7 +98,7 @@ class HomeViewController: UIViewController {
     func search() {
         let source = allGroups
 
-        let searchText = homeView.searchBar.text ?? ""
+        let searchText = trainingView.searchBar.text ?? ""
         var result = [Group]()
 
         if searchText.isEmpty {
@@ -113,11 +113,11 @@ class HomeViewController: UIViewController {
                 }
             }
         }
-        
+
         groups.removeAll()
         groups.append(contentsOf: result)
-        
-        homeView.tableView.reloadData()
+
+        trainingView.tableView.reloadData()
     }
 
     func actionTapToCameraButton() {
@@ -125,7 +125,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension TrainingViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -163,18 +163,18 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
-extension HomeViewController: UITableViewDelegate {
+extension TrainingViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let viewController = AttendanceViewController()
+        let viewController = TrainingDetailViewController()
         viewController.group = groups[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension HomeViewController: DZNEmptyDataSetSource {
+extension TrainingViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let text = "No group list found"
@@ -184,7 +184,7 @@ extension HomeViewController: DZNEmptyDataSetSource {
     }
 }
 
-extension HomeViewController: UISearchBarDelegate {
+extension TrainingViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
@@ -197,13 +197,13 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
         search()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }

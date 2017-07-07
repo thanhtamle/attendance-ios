@@ -13,10 +13,12 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
 
     static var homeViewController = HomeViewController()
     static var employeeGroupViewController = EmployeeGroupViewController()
+    static var trainingViewController = TrainingViewController()
     static var settingViewController = SettingViewController()
 
     var homeImage: UIImage!
     var groupImage: UIImage!
+    var trainingImage: UIImage!
     var settingImage: UIImage!
 
     override func viewDidLoad() {
@@ -36,10 +38,12 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
 
         MainViewController.homeViewController = HomeViewController()
         MainViewController.employeeGroupViewController = EmployeeGroupViewController()
+        MainViewController.trainingViewController = TrainingViewController()
         MainViewController.settingViewController = SettingViewController()
 
         homeImage = UIImage(named: "Job")
         groupImage = UIImage(named: "Staff")
+        trainingImage = UIImage(named: "Client")
         settingImage = UIImage(named: "Setting")
 
         let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
@@ -50,10 +54,14 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
         MainViewController.employeeGroupViewController.tabBarItem = groupBarItem
         let nc2 = UINavigationController(rootViewController: MainViewController.employeeGroupViewController)
 
-        let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 3)
-        MainViewController.settingViewController.tabBarItem = settingBarItem
-        let nc3 = UINavigationController(rootViewController: MainViewController.settingViewController)
+        let trainingBarItem = UITabBarItem(title: "TRAINING", image: trainingImage, tag: 3)
+        MainViewController.trainingViewController.tabBarItem = trainingBarItem
+        let nc3 = UINavigationController(rootViewController: MainViewController.trainingViewController)
 
-        self.viewControllers = [nc1, nc2, nc3]
+        let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
+        MainViewController.settingViewController.tabBarItem = settingBarItem
+        let nc4 = UINavigationController(rootViewController: MainViewController.settingViewController)
+
+        self.viewControllers = [nc1, nc2, nc3, nc4]
     }
 }

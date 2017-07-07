@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import Firebase
+import DZNEmptyDataSet
 
 class AttendanceViewController: UIViewController {
 
     let attendanceView = AttendanceView()
 
-    var employees = [Employee]()
-    fileprivate var openedSections = Set<Int>()
+    var group = Group()
+    var attendanceDates = [AttendanceDate]()
+    var allAttendanceDates = [AttendanceDate]()
 
     override func loadView() {
         view = attendanceView
@@ -26,7 +29,7 @@ class AttendanceViewController: UIViewController {
         //enable swipe back when it changed leftBarButtonItem
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        title = "Citynow Floor-1"
+        title = group.name
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(cancel))
         backBarButton.tintColor = UIColor.black
@@ -35,59 +38,100 @@ class AttendanceViewController: UIViewController {
         let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
         cameraBarButton.tintColor = UIColor.black
         self.navigationItem.rightBarButtonItem = cameraBarButton
-        
+
         attendanceView.tableView.delegate = self
         attendanceView.tableView.dataSource = self
+        attendanceView.tableView.emptyDataSetSource = self
+        attendanceView.searchBar.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         loadData()
     }
 
     func loadData() {
 
-        var employee = Employee()
-        employee.employeeID = "NV 1"
-        employee.name = "Thanh-Tam Le"
-        employee.dob = "16-04-1994"
-        employee.gender = "Male"
-        employees.append(employee)
+        if group.id != "" {
+            self.attendanceView.indicator.startAnimating()
+            DatabaseHelper.shared.getAttendanceDates(groupId: group.id) {
+                attendanceDates in
+                self.attendanceView.indicator.stopAnimating()
+                self.allAttendanceDates = attendanceDates
 
-        employee = Employee()
-        employee.employeeID = "NV 2"
-        employee.name = "Nguyen Van Hung"
-        employee.dob = "22-02-1987"
-        employee.gender = "Male"
-        employees.append(employee)
+                DatabaseHelper.shared.observeAttendanceDate(groupId: self.group.id) {
+                    newAttendanceDate in
 
-        employee = Employee()
-        employee.employeeID = "NV 3"
-        employee.name = "Rin Le"
-        employee.dob = "22-02-1987"
-        employee.gender = "Male"
-        employees.append(employee)
+                    var flag = false
 
-        employee = Employee()
-        employee.employeeID = "NV 4"
-        employee.name = "Loc Nguyen"
-        employee.dob = "22-02-1987"
-        employee.gender = "Male"
-        employees.append(employee)
+                    for index in 0..<self.allAttendanceDates.count {
+                        if self.allAttendanceDates[index].date == newAttendanceDate.date {
+                            self.allAttendanceDates[index] = newAttendanceDate
+                            flag = true
+                            break
+                        }
+                    }
+
+                    if !flag {
+                        self.allAttendanceDates.append(newAttendanceDate)
+                    }
+
+                    self.search()
+                }
+
+                DatabaseHelper.shared.observeDeleteAttendanceDate(groupId: self.group.id) {
+                    newAttendanceDate in
+
+                    for index in 0..<self.allAttendanceDates.count {
+                        if self.allAttendanceDates[index].date == newAttendanceDate.date {
+                            self.allAttendanceDates.remove(at: index)
+                            self.search()
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func search() {
+        let source = allAttendanceDates
+
+        let searchText = attendanceView.searchBar.text ?? ""
+        var result = [AttendanceDate]()
+
+        if searchText.isEmpty {
+            result.append(contentsOf: source)
+        }
+        else {
+            let text = searchText.lowercased()
+
+            for item in source {
+                if (item.date.lowercased().contains(text)) {
+                    result.append(item)
+                }
+            }
+        }
+
+        attendanceDates.removeAll()
+        attendanceDates.append(contentsOf: result)
 
         attendanceView.tableView.reloadData()
     }
 
-    func gestureSectionHeader(sender: UIGestureRecognizer) {
-        if let section = sender.view?.tag {
-            if self.openedSections.contains(section) {
-                self.openedSections.remove(section)
-            } else {
-                self.openedSections.insert(section)
-            }
-            self.attendanceView.tableView.reloadSections(IndexSet(integer: section), with: .fade)
-        }
-    }
-
     func actionTapToCameraButton() {
 
+        let attendanceTime = AttendanceTime()
+        attendanceTime.time = Utils.getCurrentTime()
+
+        let attendance = Attendance()
+        attendance.employeeId = "-KoLsJq6nqULEdi1ImWH"
+        attendance.attendanceTimes.append(attendanceTime)
+        attendance.attendanceTimes.append(attendanceTime)
+        DatabaseHelper.shared.saveAttendance(groupId: group.id, date: Utils.getCurrentDate()!, attendance: attendance) { _ in
+
+        }
     }
 
     func cancel() {
@@ -98,58 +142,20 @@ class AttendanceViewController: UIViewController {
 extension AttendanceViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if openedSections.contains(section) {
-            return self.employees.count
-        }
-        else {
-            return 0
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
-        let rectName = NSString(string: "Citynow Floor-1").boundingRect(with: CGSize(width: view.frame.width - 105, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
-
-        let height: CGFloat = rectName.height + 20
-
-        return height
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "header") as! AttendanceHeaderView
-
-        cell.layoutIfNeeded()
-        cell.setNeedsLayout()
-
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.gestureSectionHeader(sender:)))
-        cell.contentView.addGestureRecognizer(gesture)
-        cell.contentView.tag = section
-        cell.contentView.backgroundColor = Global.colorDateHeadView
-
-        return cell.contentView
+        return attendanceDates.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        let employee = employees[indexPath.row]
+        let attendanceDate = attendanceDates[indexPath.row]
 
-        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+        let rectName = NSString(string: attendanceDate.date).boundingRect(with: CGSize(width: view.frame.width - 45, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
 
-        let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        var height: CGFloat = rectEmployeeID.height + rectName.height + rectDob.height + rectGender.height + 16 + 10 + 10
-
-        if height < 100 {
-            height = 100
-        }
+        let height: CGFloat = rectName.height + 20
 
         return height
     }
@@ -157,16 +163,54 @@ extension AttendanceViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AttendanceTableViewCell
 
-        cell.bindingData(employee: employees[indexPath.row])
-        
+        cell.bindingDate(attendanceDate: attendanceDates[indexPath.row])
         return cell
     }
 }
 
 extension AttendanceViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
+        let viewController = AttendanceDetailViewController()
+        viewController.group = group
+        viewController.attendanceDate = attendanceDates[indexPath.row]
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AttendanceViewController: DZNEmptyDataSetSource {
+
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No date list found"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
+                     NSForegroundColorAttributeName: Global.colorSelected]
+        return NSAttributedString(string: text, attributes: attrs)
+    }
+}
+
+extension AttendanceViewController: UISearchBarDelegate {
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        search()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        search()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
