@@ -18,4 +18,5 @@ target 'Attendance' do
     pod 'Firebase/Auth'
     pod 'Firebase/Storage'
     pod 'Firebase/Messaging'
+    pod 'OpenCV', '~> 2.4'
 end

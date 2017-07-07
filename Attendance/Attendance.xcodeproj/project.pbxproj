@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EEC47061F0F6DB800FBAE89 /* FaceRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC47051F0F6DB700FBAE89 /* FaceRecognitionViewController.swift */; };
+		0EEC47081F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC47071F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift */; };
+		0EEC47201F0F6E1100FBAE89 /* FJFaceDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC470F1F0F6E1100FBAE89 /* FJFaceDetector.mm */; };
+		0EEC47211F0F6E1100FBAE89 /* FJFaceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC47111F0F6E1100FBAE89 /* FJFaceRecognizer.mm */; };
+		0EEC47221F0F6E1100FBAE89 /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47121F0F6E1100FBAE89 /* haarcascade_eye_tree_eyeglasses.xml */; };
+		0EEC47231F0F6E1100FBAE89 /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47131F0F6E1100FBAE89 /* haarcascade_frontalface_alt2.xml */; };
+		0EEC47241F0F6E1100FBAE89 /* person1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47151F0F6E1100FBAE89 /* person1.jpg */; };
+		0EEC47251F0F6E1100FBAE89 /* person2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47161F0F6E1100FBAE89 /* person2.jpg */; };
+		0EEC47261F0F6E1100FBAE89 /* person3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47171F0F6E1100FBAE89 /* person3.jpg */; };
+		0EEC47271F0F6E1100FBAE89 /* person4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47181F0F6E1100FBAE89 /* person4.jpg */; };
+		0EEC47281F0F6E1100FBAE89 /* person5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47191F0F6E1100FBAE89 /* person5.jpg */; };
+		0EEC47291F0F6E1100FBAE89 /* person6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC471A1F0F6E1100FBAE89 /* person6.jpg */; };
+		0EEC472A1F0F6E1100FBAE89 /* person7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC471B1F0F6E1100FBAE89 /* person7.jpg */; };
+		0EEC472B1F0F6E1100FBAE89 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC471D1F0F6E1100FBAE89 /* UIImage+OpenCV.mm */; };
+		0EEC472E1F0F6F7C00FBAE89 /* RealTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC472D1F0F6F7C00FBAE89 /* RealTime.storyboard */; };
 		AA27BCA8936DE0739A462AC4 /* Pods_Attendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D8078975417919BE82806 /* Pods_Attendance.framework */; };
 		E61B8E241F0CA56C00FC6034 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E231F0CA56C00FC6034 /* SettingView.swift */; };
 		E61B8E261F0CA6DB00FC6034 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B8E251F0CA6DB00FC6034 /* ProfileViewController.swift */; };
@@ -95,6 +110,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EEC47051F0F6DB700FBAE89 /* FaceRecognitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceRecognitionViewController.swift; sourceTree = "<group>"; };
+		0EEC47071F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealTimeCameraViewController.swift; sourceTree = "<group>"; };
+		0EEC470E1F0F6E1100FBAE89 /* FJFaceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJFaceDetector.h; sourceTree = "<group>"; };
+		0EEC470F1F0F6E1100FBAE89 /* FJFaceDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FJFaceDetector.mm; sourceTree = "<group>"; };
+		0EEC47101F0F6E1100FBAE89 /* FJFaceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJFaceRecognizer.h; sourceTree = "<group>"; };
+		0EEC47111F0F6E1100FBAE89 /* FJFaceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FJFaceRecognizer.mm; sourceTree = "<group>"; };
+		0EEC47121F0F6E1100FBAE89 /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
+		0EEC47131F0F6E1100FBAE89 /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt2.xml; sourceTree = "<group>"; };
+		0EEC47151F0F6E1100FBAE89 /* person1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person1.jpg; sourceTree = "<group>"; };
+		0EEC47161F0F6E1100FBAE89 /* person2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person2.jpg; sourceTree = "<group>"; };
+		0EEC47171F0F6E1100FBAE89 /* person3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person3.jpg; sourceTree = "<group>"; };
+		0EEC47181F0F6E1100FBAE89 /* person4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person4.jpg; sourceTree = "<group>"; };
+		0EEC47191F0F6E1100FBAE89 /* person5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person5.jpg; sourceTree = "<group>"; };
+		0EEC471A1F0F6E1100FBAE89 /* person6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person6.jpg; sourceTree = "<group>"; };
+		0EEC471B1F0F6E1100FBAE89 /* person7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = person7.jpg; sourceTree = "<group>"; };
+		0EEC471C1F0F6E1100FBAE89 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		0EEC471D1F0F6E1100FBAE89 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		0EEC472D1F0F6F7C00FBAE89 /* RealTime.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RealTime.storyboard; sourceTree = "<group>"; };
 		194D8078975417919BE82806 /* Pods_Attendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Attendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0F7687815F0A00A144C27E /* Pods-Attendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.release.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.release.xcconfig"; sourceTree = "<group>"; };
 		A042DFAFFEAC0E77E3601C49 /* Pods-Attendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Attendance/Pods-Attendance.debug.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +237,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EEC47091F0F6E1100FBAE89 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				0EEC470E1F0F6E1100FBAE89 /* FJFaceDetector.h */,
+				0EEC470F1F0F6E1100FBAE89 /* FJFaceDetector.mm */,
+				0EEC47101F0F6E1100FBAE89 /* FJFaceRecognizer.h */,
+				0EEC47111F0F6E1100FBAE89 /* FJFaceRecognizer.mm */,
+				0EEC47121F0F6E1100FBAE89 /* haarcascade_eye_tree_eyeglasses.xml */,
+				0EEC47131F0F6E1100FBAE89 /* haarcascade_frontalface_alt2.xml */,
+				0EEC47141F0F6E1100FBAE89 /* Person */,
+				0EEC471C1F0F6E1100FBAE89 /* UIImage+OpenCV.h */,
+				0EEC471D1F0F6E1100FBAE89 /* UIImage+OpenCV.mm */,
+			);
+			path = OpenCV;
+			sourceTree = "<group>";
+		};
+		0EEC47141F0F6E1100FBAE89 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				0EEC47151F0F6E1100FBAE89 /* person1.jpg */,
+				0EEC47161F0F6E1100FBAE89 /* person2.jpg */,
+				0EEC47171F0F6E1100FBAE89 /* person3.jpg */,
+				0EEC47181F0F6E1100FBAE89 /* person4.jpg */,
+				0EEC47191F0F6E1100FBAE89 /* person5.jpg */,
+				0EEC471A1F0F6E1100FBAE89 /* person6.jpg */,
+				0EEC471B1F0F6E1100FBAE89 /* person7.jpg */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		0EEC472C1F0F6F3F00FBAE89 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0EEC472D1F0F6F7C00FBAE89 /* RealTime.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		4D162527C4045C5B80909324 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +320,7 @@
 				E645D9331EF3983500C91617 /* Manager */,
 				E645D8EE1EF3981B00C91617 /* Views */,
 				E645D9051EF3982700C91617 /* Controllers */,
+				0EEC472C1F0F6F3F00FBAE89 /* Storyboards */,
 				E645D9381EF3983500C91617 /* Resources */,
 				E645D8D11EF3952D00C91617 /* AppDelegate.swift */,
 				E645D8D81EF3952D00C91617 /* Assets.xcassets */,
@@ -308,6 +380,8 @@
 			children = (
 				E6C02F1D1F0657FA00B003B7 /* Utils */,
 				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
+				0EEC47071F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift */,
+				0EEC47051F0F6DB700FBAE89 /* FaceRecognitionViewController.swift */,
 				E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */,
 				E61BE2951F0A35050062339D /* AttendanceViewController.swift */,
 				E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */,
@@ -395,6 +469,7 @@
 		E645D94A1EF398DE00C91617 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0EEC47091F0F6E1100FBAE89 /* OpenCV */,
 				E645D94B1EF398DE00C91617 /* AIDatePickerController */,
 				E645D94E1EF398DE00C91617 /* SWRevealViewController */,
 				E645D9511EF398DE00C91617 /* UIView+TouchHighlighting */,
@@ -512,13 +587,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EEC47281F0F6E1100FBAE89 /* person5.jpg in Resources */,
+				0EEC47261F0F6E1100FBAE89 /* person3.jpg in Resources */,
 				E645D9421EF3983500C91617 /* OpenSans-bold.ttf in Resources */,
 				E645D8DC1EF3952D00C91617 /* LaunchScreen.storyboard in Resources */,
 				E645D9441EF3983500C91617 /* OpenSans-semibold.ttf in Resources */,
+				0EEC47271F0F6E1100FBAE89 /* person4.jpg in Resources */,
+				0EEC47291F0F6E1100FBAE89 /* person6.jpg in Resources */,
 				E645D9431EF3983500C91617 /* OpenSans-light.ttf in Resources */,
+				0EEC472A1F0F6E1100FBAE89 /* person7.jpg in Resources */,
+				0EEC47251F0F6E1100FBAE89 /* person2.jpg in Resources */,
 				E645D8D91EF3952D00C91617 /* Assets.xcassets in Resources */,
 				E645D9451EF3983500C91617 /* OpenSans.ttf in Resources */,
+				0EEC47241F0F6E1100FBAE89 /* person1.jpg in Resources */,
+				0EEC47231F0F6E1100FBAE89 /* haarcascade_frontalface_alt2.xml in Resources */,
 				E61BE29C1F0A451A0062339D /* GoogleService-Info.plist in Resources */,
+				0EEC472E1F0F6F7C00FBAE89 /* RealTime.storyboard in Resources */,
+				0EEC47221F0F6E1100FBAE89 /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,9 +616,36 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Attendance/Pods-Attendance-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/INSPhotoGallery/INSPhotoGallery.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftOverlays/SwiftOverlays.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/INSPhotoGallery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPopup.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOverlays.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -546,13 +658,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Attendance-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3AB5A14DCA0CC85883C508BE /* [CP] Copy Pods Resources */ = {
@@ -581,7 +696,9 @@
 				E61BE2941F09FAEA0062339D /* AttendanceTableViewCell.swift in Sources */,
 				E64CECE41F0F364900A216A3 /* AttendanceDetailTableViewCell.swift in Sources */,
 				E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */,
+				0EEC472B1F0F6E1100FBAE89 /* UIImage+OpenCV.mm in Sources */,
 				E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */,
+				0EEC47061F0F6DB800FBAE89 /* FaceRecognitionViewController.swift in Sources */,
 				E67035C31F00C956000C5FA5 /* ForgotPasswordViewController.swift in Sources */,
 				E6C02F1F1F06580100B003B7 /* CameraViewController.swift in Sources */,
 				E645D9271EF3982700C91617 /* NSData.swift in Sources */,
@@ -592,12 +709,14 @@
 				E645D9281EF3982700C91617 /* NSDate.swift in Sources */,
 				E61BE29E1F0A51320062339D /* SplashScreenView.swift in Sources */,
 				E6C02F1A1F0639D900B003B7 /* AddEmployeeView.swift in Sources */,
+				0EEC47201F0F6E1100FBAE89 /* FJFaceDetector.mm in Sources */,
 				E67035C51F00FC70000C5FA5 /* MenuView.swift in Sources */,
 				E64CECE81F0F4C3D00A216A3 /* TrainingViewController.swift in Sources */,
 				E645D8F71EF3981B00C91617 /* CaptureButton.swift in Sources */,
 				E64CECEE1F0F4F9500A216A3 /* TrainingDetailTableViewCell.swift in Sources */,
 				E61BE2981F0A351E0062339D /* AttendanceView.swift in Sources */,
 				E61BE2A01F0A513F0062339D /* SplashScreenViewController.swift in Sources */,
+				0EEC47081F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift in Sources */,
 				E645D92D1EF3982700C91617 /* UIImage.swift in Sources */,
 				E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */,
 				E645D92F1EF3982700C91617 /* UITableView.swift in Sources */,
@@ -627,6 +746,7 @@
 				E64BB5F51F0BAB9C001AE835 /* SettingViewController.swift in Sources */,
 				E6C02F1C1F0639E700B003B7 /* AddEmployeeViewController.swift in Sources */,
 				E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */,
+				0EEC47211F0F6E1100FBAE89 /* FJFaceRecognizer.mm in Sources */,
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
 				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
