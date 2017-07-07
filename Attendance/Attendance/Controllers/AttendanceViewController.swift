@@ -122,10 +122,10 @@ class AttendanceViewController: UIViewController {
 
     func actionTapToCameraButton() {
         let realTimeStoryBoard = UIStoryboard(name: "RealTime", bundle: nil)
-        if let realTimeViewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "RealTimeCameraViewController") as? RealTimeCameraViewController {
-            self.present(realTimeViewController, animated: true, completion: nil)
+        if let viewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "RealTimeCameraViewController") as? RealTimeCameraViewController {
+            viewController.group = group
+            navigationController?.pushViewController(viewController, animated: true)
         }
-        
     }
 
     func cancel() {

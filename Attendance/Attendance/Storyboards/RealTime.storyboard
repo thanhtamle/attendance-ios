@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +36,6 @@
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="GYt-Kr-ewV" id="eqI-fR-Cce"/>
-                        <segue destination="Zxz-ex-Cpv" kind="presentation" identifier="RecognizeFace" id="5Mo-Rd-KWG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dls-Th-POS" sceneMemberID="firstResponder"/>
@@ -69,15 +68,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recognized Person:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMp-1Y-8WF">
-                                <rect key="frame" x="16" y="195" width="150" height="20"/>
+                                <rect key="frame" x="16" y="195" width="300" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confidence:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCk-0K-Wrn">
-                                <rect key="frame" x="16" y="222" width="150" height="20"/>
+                                <rect key="frame" x="16" y="222" width="300" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="xon-HG-m2A"/>
+                                    <constraint firstAttribute="width" constant="300" id="xon-HG-m2A"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -94,7 +93,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hh2-hR-uUw">
-                                <rect key="frame" x="0.0" y="306" width="193" height="30"/>
+                                <rect key="frame" x="15" y="306" width="193" height="30"/>
                                 <color key="backgroundColor" red="0.52651094539999999" green="0.092725888739999998" blue="0.1621364102" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="9jo-cv-JMR"/>
@@ -120,7 +119,7 @@
                             <constraint firstItem="ifA-X6-LCT" firstAttribute="leading" secondItem="qho-hq-In6" secondAttribute="leadingMargin" id="jYF-Bo-4Nw"/>
                             <constraint firstItem="JCk-0K-Wrn" firstAttribute="leading" secondItem="XMp-1Y-8WF" secondAttribute="leading" id="kR3-hN-pQC"/>
                             <constraint firstItem="XMp-1Y-8WF" firstAttribute="leading" secondItem="qho-hq-In6" secondAttribute="leadingMargin" id="lmD-tA-DbR"/>
-                            <constraint firstItem="Hh2-hR-uUw" firstAttribute="leading" secondItem="qho-hq-In6" secondAttribute="leading" id="loX-KR-Y2Y"/>
+                            <constraint firstItem="Hh2-hR-uUw" firstAttribute="leading" secondItem="qho-hq-In6" secondAttribute="leading" constant="15" id="loX-KR-Y2Y"/>
                             <constraint firstItem="JCk-0K-Wrn" firstAttribute="trailing" secondItem="XMp-1Y-8WF" secondAttribute="trailing" id="oyX-CE-TWA"/>
                             <constraint firstItem="ifA-X6-LCT" firstAttribute="top" secondItem="HjA-3C-b8w" secondAttribute="bottom" constant="8" symbolic="YES" id="y8x-lM-lPS"/>
                             <constraint firstItem="XMp-1Y-8WF" firstAttribute="top" secondItem="ifA-X6-LCT" secondAttribute="bottom" constant="27" id="yrb-GN-Tco"/>
