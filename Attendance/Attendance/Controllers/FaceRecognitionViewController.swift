@@ -62,21 +62,6 @@ class FaceRecognitionViewController: UIViewController {
         DatabaseHelper.shared.saveAttendance(groupId: group.id, date: Utils.getCurrentDate()!, attendance: attendance) { _ in
 
         }
-
-        //TODO: compare detect face when result form Real-time opencv and call Face API Microsoft.
-        //compare confidence with item in list face in Face api array.
-        //        let itemsFaceArray = NSMutableArray()
-        //
-        //        for  itemIndex in 0...itemsFaceArray.count {
-        //            if confidence == itemsFaceArray[itemIndex] as! Double{
-        //                return
-        //
-        //            } else {
-        //                //print
-        //                print("not found item in List Face!!!")
-        //            }
-        //        }
-
     }
 
     func actionTapToBackButton() {
@@ -91,16 +76,14 @@ class FaceRecognitionViewController: UIViewController {
         return modelURL
     }
 
-    @IBAction func didTapCorrect(_ sender: Any) {
-        //Positive feedback for the correct prediction
+    @IBAction func actionTapToCorrectButton(_ sender: Any) {
         faceModel.update(withFace: inputImage, name: nameLabel.text)
         faceModel.serializeFaceRecognizerParamaters(toFile: faceModelFileURL().path)
 
         _ = navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func didTapWrong(_ sender: Any) {
-        //Update our face model with the new person
+    @IBAction func actionTapToWrongButton(_ sender: Any) {
         let name: String? = "Person " + ("\(UInt(faceModel.labels().count))")
         faceModel.update(withFace: inputImage, name: name)
         faceModel.serializeFaceRecognizerParamaters(toFile: faceModelFileURL().path)

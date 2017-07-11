@@ -31,7 +31,7 @@ class RealTimeCameraViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = backBarButton
 
         faceDetector = FJFaceDetector(cameraView: cameraView, scale: 2.0)
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTapOnCamera))
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(actionTapOnCamera))
         view.addGestureRecognizer(tapGestureRecognizer!)
         view.isUserInteractionEnabled = true
     }
@@ -50,7 +50,7 @@ class RealTimeCameraViewController: UIViewController {
         faceDetector.stopCapture()
     }
 
-    func handleTapOnCamera(_ tapGesture: UITapGestureRecognizer) {
+    func actionTapOnCamera(_ tapGesture: UITapGestureRecognizer) {
 
         let detectedFaces = faceDetector.detectedFaces()
         let windowSize: CGSize = view.bounds.size
