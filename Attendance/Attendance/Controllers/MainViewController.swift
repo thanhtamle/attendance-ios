@@ -46,22 +46,34 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
         trainingImage = UIImage(named: "Client")
         settingImage = UIImage(named: "Setting")
 
-        let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
-        MainViewController.homeViewController.tabBarItem = homeBarItem
-        let nc1 = UINavigationController(rootViewController: MainViewController.homeViewController)
+        #if User
+            let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
+            MainViewController.homeViewController.tabBarItem = homeBarItem
+            let nc1 = UINavigationController(rootViewController: MainViewController.homeViewController)
 
-        let groupBarItem = UITabBarItem(title: "GROUPS", image: groupImage, tag: 2)
-        MainViewController.employeeGroupViewController.tabBarItem = groupBarItem
-        let nc2 = UINavigationController(rootViewController: MainViewController.employeeGroupViewController)
+            let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
+            MainViewController.settingViewController.tabBarItem = settingBarItem
+            let nc2 = UINavigationController(rootViewController: MainViewController.settingViewController)
 
-        let trainingBarItem = UITabBarItem(title: "TRAINING", image: trainingImage, tag: 3)
-        MainViewController.trainingViewController.tabBarItem = trainingBarItem
-        let nc3 = UINavigationController(rootViewController: MainViewController.trainingViewController)
+            self.viewControllers = [nc1, nc2]
+        #else
+            let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
+            MainViewController.homeViewController.tabBarItem = homeBarItem
+            let nc1 = UINavigationController(rootViewController: MainViewController.homeViewController)
 
-        let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
-        MainViewController.settingViewController.tabBarItem = settingBarItem
-        let nc4 = UINavigationController(rootViewController: MainViewController.settingViewController)
+            let groupBarItem = UITabBarItem(title: "GROUPS", image: groupImage, tag: 2)
+            MainViewController.employeeGroupViewController.tabBarItem = groupBarItem
+            let nc2 = UINavigationController(rootViewController: MainViewController.employeeGroupViewController)
 
-        self.viewControllers = [nc1, nc2, nc3, nc4]
+            let trainingBarItem = UITabBarItem(title: "TRAINING", image: trainingImage, tag: 3)
+            MainViewController.trainingViewController.tabBarItem = trainingBarItem
+            let nc3 = UINavigationController(rootViewController: MainViewController.trainingViewController)
+
+            let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
+            MainViewController.settingViewController.tabBarItem = settingBarItem
+            let nc4 = UINavigationController(rootViewController: MainViewController.settingViewController)
+
+            self.viewControllers = [nc1, nc2, nc3, nc4]
+        #endif
     }
 }

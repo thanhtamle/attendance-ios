@@ -46,7 +46,10 @@ class SettingViewController: UIViewController {
     }
 
     func refreshView() {
-        let height : CGFloat = 180
+        var height : CGFloat = 180
+        #if User
+            height = 60
+        #endif
         settingView.containerView.autoSetDimension(.height, toSize: height)
         settingView.scrollView.contentSize = CGSize(width: view.frame.width, height: height)
     }

@@ -32,6 +32,7 @@ class SettingView: UIView {
     let logoutIconImgView = UIImageView()
     let logoutLabel = UILabel()
     let logoutAbstractView = UIView()
+    let logoutBorderAboveView = UIView()
 
     var constraintsAdded = false
 
@@ -73,6 +74,7 @@ class SettingView: UIView {
 
         profileBorderView.backgroundColor = Global.colorSeparator
         profileBorderAboveView.backgroundColor = Global.colorSeparator
+        logoutBorderAboveView.backgroundColor = Global.colorSeparator
 
         exportLabel.text = "Export"
         exportLabel.font = UIFont(name: "OpenSans-semibold", size: 17)
@@ -117,8 +119,13 @@ class SettingView: UIView {
         logoutView.addSubview(logoutIconImgView)
         logoutView.addSubview(logoutAbstractView)
 
-        containerView.addSubview(profileView)
-        containerView.addSubview(exportView)
+        #if Admin
+            containerView.addSubview(profileView)
+            containerView.addSubview(exportView)
+        #else
+            logoutView.addSubview(logoutBorderAboveView)
+        #endif
+
         containerView.addSubview(logoutView)
 
         scrollView.addSubview(containerView)
@@ -141,80 +148,106 @@ class SettingView: UIView {
 
             //------------------------------------------------------------------------
 
-            profileView.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            profileView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-            profileView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-            profileView.autoSetDimension(.height, toSize: height)
+            #if Admin
 
-            profileIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
-            profileIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-            profileIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+                profileView.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                profileView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+                profileView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+                profileView.autoSetDimension(.height, toSize: height)
 
-            profileLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            profileLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
-            profileLabel.autoPinEdge(.left, to: .right, of: profileIconImgView, withOffset: 10)
-            profileLabel.autoPinEdge(.right, to: .left, of: profileArrowRightImgView, withOffset: -10)
+                profileIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+                profileIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                profileIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
 
-            profileArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
-            profileArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-            profileArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+                profileLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                profileLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+                profileLabel.autoPinEdge(.left, to: .right, of: profileIconImgView, withOffset: 10)
+                profileLabel.autoPinEdge(.right, to: .left, of: profileArrowRightImgView, withOffset: -10)
 
-            profileBorderAboveView.autoPinEdge(toSuperviewEdge: .top)
-            profileBorderAboveView.autoPinEdge(toSuperviewEdge: .right)
-            profileBorderAboveView.autoPinEdge(toSuperviewEdge: .left)
-            profileBorderAboveView.autoSetDimension(.height, toSize: 0.5)
+                profileArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
+                profileArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                profileArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
 
-            profileBorderView.autoPinEdge(toSuperviewEdge: .bottom)
-            profileBorderView.autoPinEdge(toSuperviewEdge: .right)
-            profileBorderView.autoPinEdge(toSuperviewEdge: .left)
-            profileBorderView.autoSetDimension(.height, toSize: 0.5)
+                profileBorderAboveView.autoPinEdge(toSuperviewEdge: .top)
+                profileBorderAboveView.autoPinEdge(toSuperviewEdge: .right)
+                profileBorderAboveView.autoPinEdge(toSuperviewEdge: .left)
+                profileBorderAboveView.autoSetDimension(.height, toSize: 0.5)
 
-            profileAbstractView.autoPinEdgesToSuperviewEdges()
+                profileBorderView.autoPinEdge(toSuperviewEdge: .bottom)
+                profileBorderView.autoPinEdge(toSuperviewEdge: .right)
+                profileBorderView.autoPinEdge(toSuperviewEdge: .left)
+                profileBorderView.autoSetDimension(.height, toSize: 0.5)
 
-            //------------------------------------------------------------------------
+                profileAbstractView.autoPinEdgesToSuperviewEdges()
 
-            exportView.autoPinEdge(.top, to: .bottom, of: profileView, withOffset: 0)
-            exportView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-            exportView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-            exportView.autoSetDimension(.height, toSize: height)
+                //------------------------------------------------------------------------
 
-            exportIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
-            exportIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-            exportIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+                exportView.autoPinEdge(.top, to: .bottom, of: profileView, withOffset: 0)
+                exportView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+                exportView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+                exportView.autoSetDimension(.height, toSize: height)
 
-            exportLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            exportLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
-            exportLabel.autoPinEdge(.left, to: .right, of: exportIconImgView, withOffset: 10)
-            exportLabel.autoPinEdge(.right, to: .left, of: exportArrowRightImgView, withOffset: -10)
+                exportIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+                exportIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                exportIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
 
-            exportArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
-            exportArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-            exportArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+                exportLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                exportLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+                exportLabel.autoPinEdge(.left, to: .right, of: exportIconImgView, withOffset: 10)
+                exportLabel.autoPinEdge(.right, to: .left, of: exportArrowRightImgView, withOffset: -10)
 
-            exportBorderView.autoPinEdge(toSuperviewEdge: .bottom)
-            exportBorderView.autoPinEdge(toSuperviewEdge: .right)
-            exportBorderView.autoPinEdge(toSuperviewEdge: .left)
-            exportBorderView.autoSetDimension(.height, toSize: 0.5)
-            
-            exportAbstractView.autoPinEdgesToSuperviewEdges()
+                exportArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
+                exportArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                exportArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
 
-            //------------------------------------------------------------------------
+                exportBorderView.autoPinEdge(toSuperviewEdge: .bottom)
+                exportBorderView.autoPinEdge(toSuperviewEdge: .right)
+                exportBorderView.autoPinEdge(toSuperviewEdge: .left)
+                exportBorderView.autoSetDimension(.height, toSize: 0.5)
 
-            logoutView.autoPinEdge(.top, to: .bottom, of: exportView, withOffset: 0)
-            logoutView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-            logoutView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-            logoutView.autoSetDimension(.height, toSize: height)
+                exportAbstractView.autoPinEdgesToSuperviewEdges()
 
-            logoutIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
-            logoutIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-            logoutIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+                //------------------------------------------------------------------------
 
-            logoutLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-            logoutLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
-            logoutLabel.autoPinEdge(.left, to: .right, of: logoutIconImgView, withOffset: 10)
-            logoutLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-            
-            logoutAbstractView.autoPinEdgesToSuperviewEdges()
+                logoutView.autoPinEdge(.top, to: .bottom, of: exportView, withOffset: 0)
+                logoutView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+                logoutView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+                logoutView.autoSetDimension(.height, toSize: height)
+
+                logoutIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+                logoutIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                logoutIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+
+                logoutLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                logoutLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+                logoutLabel.autoPinEdge(.left, to: .right, of: logoutIconImgView, withOffset: 10)
+                logoutLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
+
+                logoutAbstractView.autoPinEdgesToSuperviewEdges()
+
+            #else
+
+                logoutView.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                logoutView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+                logoutView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+                logoutView.autoSetDimension(.height, toSize: height)
+                
+                logoutIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+                logoutIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                logoutIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+                
+                logoutLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                logoutLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+                logoutLabel.autoPinEdge(.left, to: .right, of: logoutIconImgView, withOffset: 10)
+                logoutLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
+
+                logoutBorderAboveView.autoPinEdge(toSuperviewEdge: .top)
+                logoutBorderAboveView.autoPinEdge(toSuperviewEdge: .right)
+                logoutBorderAboveView.autoPinEdge(toSuperviewEdge: .left)
+                logoutBorderAboveView.autoSetDimension(.height, toSize: 0.5)
+
+                logoutAbstractView.autoPinEdgesToSuperviewEdges()
+            #endif
         }
     }
 }

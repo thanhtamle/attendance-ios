@@ -160,9 +160,17 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let viewController = AttendanceViewController()
-        viewController.group = groups[indexPath.row]
-        navigationController?.pushViewController(viewController, animated: true)
+        #if Admin
+            let viewController = AttendanceViewController()
+            viewController.group = groups[indexPath.row]
+            navigationController?.pushViewController(viewController, animated: true)
+        #else
+            let realTimeStoryBoard = UIStoryboard(name: "RealTime", bundle: nil)
+            if let viewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "RealTimeCameraViewController") as? RealTimeCameraViewController {
+                viewController.group = groups[indexPath.row]
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        #endif
     }
 }
 
