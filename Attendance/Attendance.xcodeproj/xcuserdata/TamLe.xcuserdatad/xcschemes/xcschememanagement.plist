@@ -6,12 +6,26 @@
 	<dict>
 		<key>Attendance.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>AttendanceUser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>E6396B431F14689E006F12C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E645D8CD1EF3952D00C91617</key>
 		<dict>
 			<key>primary</key>

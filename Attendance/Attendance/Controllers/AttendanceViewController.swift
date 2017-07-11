@@ -121,16 +121,10 @@ class AttendanceViewController: UIViewController {
     }
 
     func actionTapToCameraButton() {
-
-        let attendanceTime = AttendanceTime()
-        attendanceTime.time = Utils.getCurrentTime()
-
-        let attendance = Attendance()
-        attendance.employeeId = "-KoLsJq6nqULEdi1ImWH"
-        attendance.attendanceTimes.append(attendanceTime)
-        attendance.attendanceTimes.append(attendanceTime)
-        DatabaseHelper.shared.saveAttendance(groupId: group.id, date: Utils.getCurrentDate()!, attendance: attendance) { _ in
-
+        let realTimeStoryBoard = UIStoryboard(name: "RealTime", bundle: nil)
+        if let viewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "RealTimeCameraViewController") as? RealTimeCameraViewController {
+            viewController.group = group
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 
