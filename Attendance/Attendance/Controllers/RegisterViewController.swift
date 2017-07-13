@@ -22,6 +22,19 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.barTintColor = Global.colorMain
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
+
+        title = "SIGNUP"
+
+        let closeBarButton = UIBarButtonItem(image: UIImage(named: "ic_close_white"), style: .done, target: self, action: #selector(actionTapToCloseButton))
+        closeBarButton.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = closeBarButton
+
         registerView.nameField.delegate = self
         registerView.mailField.delegate = self
         registerView.phoneField.delegate = self
@@ -85,6 +98,7 @@ class RegisterViewController: UIViewController {
                     Auth.auth().signIn(withEmail: self.registerView.mailField.text ?? "", password: self.registerView.passwordField.text ?? "", completion: { (user, error) in
                         SwiftOverlays.removeAllBlockingOverlays()
                         if error == nil {
+                            UserDefaultManager.getInstance().setIsInitApp(value: true)
                             self.present(MainViewController(), animated: true, completion: nil)
                         }
                         else {

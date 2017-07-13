@@ -21,25 +21,37 @@ class SplashScreenViewController: UIViewController, SWRevealViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var isCheck = false
-        Auth.auth().addStateDidChangeListener() { auth, user in
-            if !isCheck {
-                isCheck = true
-                if user != nil {
-                    self.navToMainPage()
-                }
-                else {
-                    self.navToLogInPage()
+
+        if UserDefaultManager.getInstance().getIsInitApp() {
+            var isCheck = false
+            Auth.auth().addStateDidChangeListener() { auth, user in
+                if !isCheck {
+                    isCheck = true
+                    if user != nil {
+                        self.navToMainPage()
+                    }
+                    else {
+                        self.navToLogInPage()
+                    }
                 }
             }
+        }
+        else {
+            navToIntroPage()
         }
     }
 
     func navToLogInPage() {
-        present(LoginViewController(), animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: LoginViewController())
+        present(nav, animated: true, completion: nil)
     }
 
     func navToMainPage() {
         present(MainViewController(), animated: true, completion: nil)
+    }
+
+    func navToIntroPage() {
+        let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = IntroViewController()
     }
 }

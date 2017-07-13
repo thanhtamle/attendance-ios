@@ -21,9 +21,9 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = Global.colorMain
         navigationController?.navigationBar.tintColor = Global.colorMain
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -76,7 +76,8 @@ extension SettingViewController: AlertDelegate {
             do {
                 try Auth.auth().signOut()
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.window?.rootViewController = LoginViewController()
+                let nav = UINavigationController(rootViewController: LoginViewController())
+                appDelegate.window?.rootViewController = nav
             }
             catch let error as NSError {
                 Utils.showAlertAction(title: "Logout", message: error.localizedDescription, viewController: self, alertDelegate: self)

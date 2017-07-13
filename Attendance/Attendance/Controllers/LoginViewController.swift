@@ -22,6 +22,15 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.barTintColor = Global.colorMain
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
+
+        title = "LOGIN"
+
         loginView.mailField.delegate = self
         loginView.passwordField.delegate = self
 
@@ -70,6 +79,7 @@ class LoginViewController: UIViewController {
                     user in
                     SwiftOverlays.removeAllBlockingOverlays()
                     if user != nil {
+                        UserDefaultManager.getInstance().setIsInitApp(value: true)
                         self.present(MainViewController(), animated: true, completion: nil)
                     }
                     else {
@@ -85,11 +95,13 @@ class LoginViewController: UIViewController {
     }
 
     func actionTapToCreateNewAccountButton() {
-        present(RegisterViewController(), animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: RegisterViewController())
+        present(nav, animated: true, completion: nil)
     }
 
     func actionTapToForgotButton() {
-        present(ForgotPasswordViewController(), animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: ForgotPasswordViewController())
+        present(nav, animated: true, completion: nil)
     }
 
     func actionTapToCloseButton() {
