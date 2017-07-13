@@ -35,10 +35,6 @@ class AttendanceViewController: UIViewController {
         backBarButton.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = backBarButton
 
-        let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
-        cameraBarButton.tintColor = UIColor.black
-        self.navigationItem.rightBarButtonItem = cameraBarButton
-
         attendanceView.tableView.delegate = self
         attendanceView.tableView.dataSource = self
         attendanceView.tableView.emptyDataSetSource = self
@@ -118,14 +114,6 @@ class AttendanceViewController: UIViewController {
         attendanceDates.append(contentsOf: result)
 
         attendanceView.tableView.reloadData()
-    }
-
-    func actionTapToCameraButton() {
-        let realTimeStoryBoard = UIStoryboard(name: "RealTime", bundle: nil)
-        if let viewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "RealTimeCameraViewController") as? RealTimeCameraViewController {
-            viewController.group = group
-            navigationController?.pushViewController(viewController, animated: true)
-        }
     }
 
     func cancel() {
