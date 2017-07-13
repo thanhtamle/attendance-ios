@@ -11,7 +11,7 @@ import CoreLocation
 
 class Global {
     
-    static let colorMain = UIColor(0x4CAF50)
+    static let colorMain = UIColor(0x149565)
     static let colorSecond = UIColor(0x33B476)
     static let colorSelected = UIColor(0x434F5D)
     static let colorBg = UIColor(0xF9F9F9)
@@ -23,6 +23,9 @@ class Global {
     static let colorDeleteBtn = UIColor(0xDD6C6C)
     static let colorEditBtn = UIColor(0xCBCDCF)
     static let colorDateHeadView = UIColor(0xFF9800)
+    static let colorBlue = UIColor(0x149565)
+    static let colorYellow = UIColor(0xEEC62D)
+    static let colorPink = UIColor(0xF57E7E)
 
     static var SCREEN_WIDTH = UIScreen.main.bounds.size.width
     static var SCREEN_HEIGHT = UIScreen.main.bounds.size.height

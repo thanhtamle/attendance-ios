@@ -13,7 +13,8 @@ class UserDefaultManager {
     private static var sharedInstance: UserDefaultManager!
     
     private let defaults = UserDefaults.standard
-    
+
+    private let isInitApp = "isInitApp"
     private let userType = "userType"
     private let jobStatusFilter = "jobStatusFilter"
     private let assignmentStatusFilter = "assignmentStatusFilter"
@@ -30,6 +31,15 @@ class UserDefaultManager {
     
     private init() {
         
+    }
+
+    func setIsInitApp(value: Bool) {
+        defaults.set(value, forKey: isInitApp)
+        defaults.synchronize()
+    }
+
+    func getIsInitApp() -> Bool {
+        return defaults.bool(forKey: isInitApp)
     }
 
     func setUserType(value: Bool) {

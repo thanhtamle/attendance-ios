@@ -27,9 +27,9 @@ class EmployeeGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = Global.colorMain
         navigationController?.navigationBar.tintColor = Global.colorMain
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -37,7 +37,7 @@ class EmployeeGroupViewController: UIViewController {
         title = "GROUPS"
 
         let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
-        addBarButton.tintColor = UIColor.black
+        addBarButton.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = addBarButton
 
         employeeGroupView.tableView.delegate = self
