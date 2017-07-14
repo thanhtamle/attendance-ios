@@ -28,6 +28,14 @@ class ExportEmployeeView: UIView {
     let endDateArrowRightImgView = UIImageView()
     let endDateValueAbstractView = UIView()
 
+    let groupView = UIView()
+    let groupLabel = UILabel()
+
+    let groupValueView = UIView()
+    let groupValueField = UITextField()
+    let groupArrowRightImgView = UIImageView()
+    let groupValueAbstractView = UIView()
+
     let employeeView = UIView()
     let employeeLabel = UILabel()
 
@@ -45,6 +53,8 @@ class ExportEmployeeView: UIView {
         startDateValueView.backgroundColor = UIColor.white
         endDateView.backgroundColor = UIColor.clear
         endDateValueView.backgroundColor = UIColor.white
+        groupView.backgroundColor = UIColor.clear
+        groupValueView.backgroundColor = UIColor.white
         employeeView.backgroundColor = UIColor.clear
 
         startDateValueAbstractView.backgroundColor = UIColor.clear
@@ -52,6 +62,9 @@ class ExportEmployeeView: UIView {
 
         endDateValueAbstractView.backgroundColor = UIColor.clear
         endDateValueAbstractView.touchHighlightingStyle = .lightBackground
+
+        groupValueAbstractView.backgroundColor = UIColor.clear
+        groupValueAbstractView.touchHighlightingStyle = .lightBackground
 
         startDateLabel.text = "START DATE"
         startDateLabel.font = UIFont(name: "OpenSans", size: 15)
@@ -95,6 +108,33 @@ class ExportEmployeeView: UIView {
         endDateArrowRightImgView.contentMode = .scaleAspectFit
         endDateArrowRightImgView.image = UIImage(named: "ArrowRight")
 
+        groupLabel.text = "GROUP"
+        groupLabel.font = UIFont(name: "OpenSans", size: 15)
+        groupLabel.textAlignment = .left
+        groupLabel.textColor = Global.colorGray
+        groupLabel.numberOfLines = 1
+
+        groupValueField.textAlignment = .left
+        groupValueField.placeholder = "Enter Group"
+        groupValueField.textColor = UIColor.black
+        groupValueField.returnKeyType = .go
+        groupValueField.keyboardType = .namePhonePad
+        groupValueField.inputAccessoryView = UIView()
+        groupValueField.autocorrectionType = .no
+        groupValueField.autocapitalizationType = .none
+        groupValueField.font = UIFont(name: "OpenSans", size: 17)
+        groupValueField.isUserInteractionEnabled = false
+
+        groupArrowRightImgView.clipsToBounds = true
+        groupArrowRightImgView.contentMode = .scaleAspectFit
+        groupArrowRightImgView.image = UIImage(named: "ArrowRight")
+
+        employeeLabel.text = "STUDENTS"
+        employeeLabel.font = UIFont(name: "OpenSans", size: 15)
+        employeeLabel.textAlignment = .left
+        employeeLabel.textColor = Global.colorGray
+        employeeLabel.numberOfLines = 1
+
         startDateView.addSubview(startDateLabel)
         startDateValueView.addSubview(startDateValueField)
         startDateValueView.addSubview(startDateArrowRightImgView)
@@ -105,11 +145,10 @@ class ExportEmployeeView: UIView {
         endDateValueView.addSubview(endDateValueAbstractView)
         endDateValueView.addSubview(endDateValueField)
 
-        employeeLabel.text = "EMPLOYEES"
-        employeeLabel.font = UIFont(name: "OpenSans", size: 15)
-        employeeLabel.textAlignment = .left
-        employeeLabel.textColor = Global.colorGray
-        employeeLabel.numberOfLines = 1
+        groupView.addSubview(groupLabel)
+        groupValueView.addSubview(groupArrowRightImgView)
+        groupValueView.addSubview(groupValueAbstractView)
+        groupValueView.addSubview(groupValueField)
 
         employeeView.addSubview(employeeLabel)
 
@@ -125,6 +164,8 @@ class ExportEmployeeView: UIView {
         addSubview(startDateValueView)
         addSubview(endDateView)
         addSubview(endDateValueView)
+        addSubview(groupView)
+        addSubview(groupValueView)
         addSubview(employeeView)
         addSubview(tableView)
         addSubview(indicator)
@@ -196,7 +237,35 @@ class ExportEmployeeView: UIView {
 
             //------------------------------------------------------------------------
 
-            employeeView.autoPinEdge(.top, to: .bottom, of: endDateValueField)
+            groupView.autoPinEdge(.top, to: .bottom, of: endDateValueField)
+            groupView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+            groupView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+            groupView.autoSetDimension(.height, toSize: height)
+
+            groupLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 18)
+            groupLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+            groupLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 5)
+            groupLabel.autoSetDimension(.height, toSize: 20)
+
+            groupValueView.autoPinEdge(.top, to: .bottom, of: groupView)
+            groupValueView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+            groupValueView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+            groupValueView.autoSetDimension(.height, toSize: height)
+
+            groupValueField.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+            groupValueField.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+            groupValueField.autoPinEdge(toSuperviewEdge: .left, withInset: 24)
+            groupValueField.autoPinEdge(.right, to: .left, of: groupArrowRightImgView, withOffset: -10)
+
+            groupArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
+            groupArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+            groupArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+
+            groupValueAbstractView.autoPinEdgesToSuperviewEdges()
+
+            //------------------------------------------------------------------------
+
+            employeeView.autoPinEdge(.top, to: .bottom, of: groupValueField)
             employeeView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             employeeView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
             employeeView.autoSetDimension(.height, toSize: height)

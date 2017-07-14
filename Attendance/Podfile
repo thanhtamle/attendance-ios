@@ -20,6 +20,7 @@ def shared_pods
     pod 'Firebase/Messaging'
     pod 'OpenCV', '~> 2.4'
     pod 'EAIntroView'
+    pod 'FSCalendar'
 end
 
 target 'Attendance' do

@@ -16,6 +16,7 @@ class Employee: NSObject {
     var avatarUrl: String?
     var dob: String?
     var gender: String?
+    var groupId: String?
 
     var checkMark = true
 
@@ -27,6 +28,7 @@ class Employee: NSObject {
         avatarUrl = employee.avatarUrl
         dob = employee.dob
         gender = employee.gender
+        groupId = employee.groupId
     }
 
     convenience init(_ snapshot: DataSnapshot) {
@@ -38,6 +40,7 @@ class Employee: NSObject {
             avatarUrl = snapshotValue["avatarUrl"] as? String
             dob = snapshotValue["dob"] as? String
             gender = snapshotValue["gender"] as? String
+            groupId = snapshotValue["groupId"] as? String
         }
     }
 
@@ -47,7 +50,8 @@ class Employee: NSObject {
             "employeeID": employeeID ?? "",
             "avatarUrl": avatarUrl ?? "",
             "dob": dob ?? "",
-            "gender": gender ?? ""
+            "gender": gender ?? "",
+            "groupId": groupId ?? ""
         ]
     }
 }

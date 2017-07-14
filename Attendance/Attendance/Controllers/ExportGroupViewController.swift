@@ -31,7 +31,7 @@ class ExportGroupViewController: UIViewController {
         title = "EXPORT"
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.black
+        backBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = backBarButton
 
         exportGroupView.tableView.delegate = self
@@ -135,12 +135,12 @@ extension ExportGroupViewController: UITableViewDataSource {
 
         let group = groups[indexPath.row]
 
-        let rectName = NSString(string: group.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 105, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+        let rectName = NSString(string: group.name ?? "").boundingRect(with: CGSize(width: view.frame.width - (105 + 24), height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
 
-        var height: CGFloat = rectName.height + 20
+        var height: CGFloat = rectName.height + 20 + 10
 
-        if height <= 70 {
-            height = 70
+        if height < 80 {
+            height = 80
         }
 
         return height

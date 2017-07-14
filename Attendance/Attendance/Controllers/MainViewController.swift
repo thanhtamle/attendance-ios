@@ -11,9 +11,9 @@ import DZNEmptyDataSet
 
 class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavigationControllerDelegate {
 
-    static var homeViewController = HomeViewController()
+    static var calendarViewController = CalendarViewController()
     static var employeeGroupViewController = EmployeeGroupViewController()
-    static var trainingViewController = TrainingViewController()
+    static var exportEmployeeViewController = ExportEmployeeViewController()
     static var settingViewController = SettingViewController()
 
     var homeImage: UIImage!
@@ -36,14 +36,14 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
         UITabBarItem.appearance().setTitleTextAttributes(attributesNormal, for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes(attributesSelected, for: .selected)
 
-        MainViewController.homeViewController = HomeViewController()
+        MainViewController.calendarViewController = CalendarViewController()
         MainViewController.employeeGroupViewController = EmployeeGroupViewController()
-        MainViewController.trainingViewController = TrainingViewController()
+        MainViewController.exportEmployeeViewController = ExportEmployeeViewController()
         MainViewController.settingViewController = SettingViewController()
 
-        homeImage = UIImage(named: "Job")
+        homeImage = UIImage(named: "calendar-check")
         groupImage = UIImage(named: "Staff")
-        trainingImage = UIImage(named: "Client")
+        trainingImage = UIImage(named: "ic_data_usage")
         settingImage = UIImage(named: "Setting")
 
         #if User
@@ -57,17 +57,17 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
 
             self.viewControllers = [nc1, nc2]
         #else
-            let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
-            MainViewController.homeViewController.tabBarItem = homeBarItem
-            let nc1 = UINavigationController(rootViewController: MainViewController.homeViewController)
+            let homeBarItem = UITabBarItem(title: "CALENDAR", image: homeImage, tag: 1)
+            MainViewController.calendarViewController.tabBarItem = homeBarItem
+            let nc1 = UINavigationController(rootViewController: MainViewController.calendarViewController)
 
-            let groupBarItem = UITabBarItem(title: "GROUPS", image: groupImage, tag: 2)
+            let groupBarItem = UITabBarItem(title: "STUDENTS/GROUPS", image: groupImage, tag: 2)
             MainViewController.employeeGroupViewController.tabBarItem = groupBarItem
             let nc2 = UINavigationController(rootViewController: MainViewController.employeeGroupViewController)
 
-            let trainingBarItem = UITabBarItem(title: "TRAINING", image: trainingImage, tag: 3)
-            MainViewController.trainingViewController.tabBarItem = trainingBarItem
-            let nc3 = UINavigationController(rootViewController: MainViewController.trainingViewController)
+            let trainingBarItem = UITabBarItem(title: "EXPORT", image: trainingImage, tag: 3)
+            MainViewController.exportEmployeeViewController.tabBarItem = trainingBarItem
+            let nc3 = UINavigationController(rootViewController: MainViewController.exportEmployeeViewController)
 
             let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
             MainViewController.settingViewController.tabBarItem = settingBarItem

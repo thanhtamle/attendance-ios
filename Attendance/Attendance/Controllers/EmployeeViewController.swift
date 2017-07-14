@@ -33,11 +33,11 @@ class EmployeeViewController: UIViewController {
         title = group.name
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.black
+        backBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = backBarButton
 
         let addBarButton = UIBarButtonItem(image: UIImage(named: "add"), style: .done, target: self, action: #selector(actionTapToAddEmployeeButton))
-        addBarButton.tintColor = UIColor.black
+        addBarButton.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = addBarButton
 
         employeeView.tableView.delegate = self
@@ -59,38 +59,7 @@ class EmployeeViewController: UIViewController {
                 employees in
                 self.employeeView.indicator.stopAnimating()
                 self.allEmployees = employees
-
-                DatabaseHelper.shared.observeEmployees(groupId: self.group.id) {
-                    newEmployee in
-
-                    var flag = false
-
-                    for index in 0..<self.allEmployees.count {
-                        if self.allEmployees[index].id == newEmployee.id {
-                            self.allEmployees[index] = newEmployee
-                            flag = true
-                            break
-                        }
-                    }
-
-                    if !flag {
-                        self.allEmployees.append(newEmployee)
-                    }
-
-                    self.search()
-                }
-
-                DatabaseHelper.shared.observeDeleteEmployee(groupId: self.group.id) {
-                    newEmployee in
-
-                    for index in 0..<self.allEmployees.count {
-                        if self.allEmployees[index].id == newEmployee.id {
-                            self.allEmployees.remove(at: index)
-                            self.search()
-                            break
-                        }
-                    }
-                }
+                self.search()
             }
         }
     }
@@ -113,10 +82,10 @@ class EmployeeViewController: UIViewController {
                 }
             }
         }
-        
+
         employees.removeAll()
         employees.append(contentsOf: result)
-        
+
         employeeView.tableView.reloadData()
     }
 
@@ -130,7 +99,7 @@ class EmployeeViewController: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
-    func navigateToAddEmployeePage(employee: Employee?, group: Group) {
+    func navigateToAddEmployeePage(employee: Employee?, group: Group?) {
         let viewController = AddEmployeeViewController()
         viewController.addEmployeeDelegate = self
         viewController.employee = employee
@@ -175,7 +144,7 @@ extension EmployeeViewController: UITableViewDataSource {
 
             if self.group.id != "" && employee.id != "" {
                 SwiftOverlays.showBlockingWaitOverlay()
-                DatabaseHelper.shared.deleteEmployee(groupId: self.group.id, employeeId: employee.id) {
+                DatabaseHelper.shared.deleteEmployee(employeeId: employee.id) {
                     SwiftOverlays.removeAllBlockingOverlays()
                     if self.employees.count == 0 {
                         tableView.reloadData()
@@ -193,7 +162,7 @@ extension EmployeeViewController: UITableViewDataSource {
             self.navigateToAddEmployeePage(employee: employee, group: self.group)
         }
         edit.backgroundColor = Global.colorEditBtn
-        
+
         return [edit, delete]
     }
 
@@ -201,18 +170,12 @@ extension EmployeeViewController: UITableViewDataSource {
 
         let employee = employees[indexPath.row]
 
-        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
-
         let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
 
-        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+        var height: CGFloat = rectName.height + 10 + 10
 
-        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 135, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        var height: CGFloat = rectEmployeeID.height + rectName.height + rectDob.height + rectGender.height + 16 + 10 + 10
-
-        if height < 100 {
-            height = 100
+        if height < 70 {
+            height = 70
         }
 
         return height
@@ -223,7 +186,8 @@ extension EmployeeViewController: UITableViewDataSource {
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
-        
+        cell.selectionStyle = .none
+
         cell.bindingData(employee: employees[indexPath.row])
         return cell
     }
@@ -242,7 +206,7 @@ extension EmployeeViewController: UITableViewDelegate {
 extension EmployeeViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No employee list found"
+        let text = "No student list found"
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
                      NSForegroundColorAttributeName: Global.colorSelected]
         return NSAttributedString(string: text, attributes: attrs)

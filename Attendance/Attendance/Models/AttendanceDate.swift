@@ -20,14 +20,5 @@ class AttendanceDate: NSObject {
     convenience init(_ snapshot: DataSnapshot) {
         self.init()
         date = snapshot.key
-//        if let _ = snapshot.value as? [String:Any] {
-//
-//            if let attendances = snapshot.children.allObjects as? [DataSnapshot] {
-//                for snap in attendances {
-//                    let attendance = Attendance(snap)
-//                    self.attendances.append(attendance)
-//                }
-//            }
-//        }
     }
 }

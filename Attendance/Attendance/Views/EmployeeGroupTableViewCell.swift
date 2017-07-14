@@ -11,6 +11,7 @@ import SDWebImage
 
 class EmployeeGroupTableViewCell: UITableViewCell {
 
+    let containerView = UIView()
     let userIconImgView = UIImageView()
     let nameLabel = UILabel()
     let arrowRightImgView = UIButton()
@@ -28,7 +29,15 @@ class EmployeeGroupTableViewCell: UITableViewCell {
     }
 
     func commonInit() {
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.clear
+
+        containerView.backgroundColor = UIColor.white
+        containerView.layer.cornerRadius = 5
+        containerView.layer.shadowColor = UIColor.darkGray.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
+        containerView.layer.shadowOpacity = 0.5
+        containerView.layer.shadowRadius = 2
+        containerView.layer.masksToBounds = false
 
         userIconImgView.clipsToBounds = true
         userIconImgView.contentMode = .scaleAspectFill
@@ -49,9 +58,11 @@ class EmployeeGroupTableViewCell: UITableViewCell {
         arrowRightImgView.contentMode = .scaleAspectFit
         arrowRightImgView.setImage(UIImage(named: "ArrowRight"), for: .normal)
 
-        addSubview(userIconImgView)
-        addSubview(nameLabel)
-        addSubview(arrowRightImgView)
+        containerView.addSubview(userIconImgView)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(arrowRightImgView)
+
+        addSubview(containerView)
         setNeedsUpdateConstraints()
     }
 
@@ -59,6 +70,11 @@ class EmployeeGroupTableViewCell: UITableViewCell {
         super.updateConstraints()
         if !constraintAdded {
             constraintAdded = true
+
+            containerView.autoPinEdge(toSuperviewEdge: .top, withInset: 10)
+            containerView.autoPinEdge(toSuperviewEdge: .left, withInset: 12)
+            containerView.autoPinEdge(toSuperviewEdge: .right, withInset: 12)
+            containerView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 2)
 
             userIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
             userIconImgView.autoSetDimensions(to: CGSize(width: 50, height: 50))
@@ -80,7 +96,9 @@ class EmployeeGroupTableViewCell: UITableViewCell {
 
         if let url = group.imageUrl {
             if url != "" {
-                userIconImgView.sd_setImage(with: URL(string: url))
+                userIconImgView.sd_setImage(with: URL(string: url), completed: { (image, error, cacheType, url) in
+                    self.userIconImgView.image = image?.resizeImage(scale: 0.5)
+                })
             }
             else {
                 userIconImgView.image = UIImage(named: "ic_group")
@@ -88,6 +106,11 @@ class EmployeeGroupTableViewCell: UITableViewCell {
         }
         else {
             userIconImgView.image = UIImage(named: "ic_group")
+        }
+
+
+        DispatchQueue.main.async {
+            self.containerView.layer.shadowPath = UIBezierPath(rect: self.containerView.bounds).cgPath
         }
     }
 }

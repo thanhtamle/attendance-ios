@@ -40,7 +40,7 @@ class ForgotPasswordView: UIView {
 
         iconImgView.clipsToBounds = true
         iconImgView.contentMode = .scaleAspectFit
-        iconImgView.image = UIImage(named: "gaijin-greenery")
+        iconImgView.image = UIImage(named: "Icon")
 
         mailImgView.clipsToBounds = true
         mailImgView.contentMode = .scaleAspectFit
@@ -129,18 +129,18 @@ class ForgotPasswordView: UIView {
             var buttonSize: CGFloat = 40
             var fieldSize: CGFloat = 40
             var fieldAlign: CGFloat = 12
-            var imageSize: CGFloat = 45
+            var imageSize: CGFloat = 100
 
             if DeviceType.IS_IPAD {
                 alpha = 100
                 buttonSize = 50
                 fieldSize = 50
                 fieldAlign = 17
-                imageSize = 100
+                imageSize = 200
             }
 
-            iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 80)
-            iconImgView.autoSetDimensions(to: CGSize(width: 300, height: imageSize))
+            iconImgView.autoPinEdge(toSuperviewEdge: .top, withInset: 50)
+            iconImgView.autoSetDimensions(to: CGSize(width: imageSize, height: imageSize))
             iconImgView.autoAlignAxis(toSuperviewAxis: .vertical)
 
             //---------------------------------------------------------------------------

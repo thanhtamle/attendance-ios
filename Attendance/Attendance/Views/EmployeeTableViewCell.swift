@@ -10,12 +10,9 @@ import UIKit
 
 class EmployeeTableViewCell: UITableViewCell {
 
+    let containerView = UIView()
     let iconImgView = UIImageView()
-    let employeeIDLabel = UILabel()
     let nameLabel = UILabel()
-    let lineView = UIView()
-    let dobLabel = UILabel()
-    let genderLabel = UILabel()
     let arrowRightImgView = UIButton()
 
     var constraintAdded = false
@@ -31,23 +28,22 @@ class EmployeeTableViewCell: UITableViewCell {
     }
 
     func commonInit() {
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.clear
 
-        lineView.isHidden = true
+        containerView.backgroundColor = UIColor.white
+        containerView.layer.cornerRadius = 5
+        containerView.layer.shadowColor = UIColor.darkGray.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
+        containerView.layer.shadowOpacity = 0.5
+        containerView.layer.shadowRadius = 2
+        containerView.layer.masksToBounds = false
 
         iconImgView.clipsToBounds = true
         iconImgView.contentMode = .scaleAspectFill
-        iconImgView.image = UIImage(named: "ic_user")
-        iconImgView.layer.cornerRadius = 40
+        iconImgView.layer.cornerRadius = 20
         iconImgView.backgroundColor = Global.colorGray
         iconImgView.sd_setShowActivityIndicatorView(true)
         iconImgView.sd_setIndicatorStyle(.gray)
-
-        employeeIDLabel.font = UIFont(name: "OpenSans-bold", size: 18)
-        employeeIDLabel.textAlignment = .left
-        employeeIDLabel.textColor = Global.colorMain
-        employeeIDLabel.lineBreakMode = .byWordWrapping
-        employeeIDLabel.numberOfLines = 0
 
         nameLabel.font = UIFont(name: "OpenSans", size: 16)
         nameLabel.textAlignment = .left
@@ -55,29 +51,15 @@ class EmployeeTableViewCell: UITableViewCell {
         nameLabel.lineBreakMode = .byWordWrapping
         nameLabel.numberOfLines = 0
 
-        dobLabel.font = UIFont(name: "OpenSans", size: 16)
-        dobLabel.textAlignment = .left
-        dobLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        dobLabel.lineBreakMode = .byWordWrapping
-        dobLabel.numberOfLines = 0
-
-        genderLabel.font = UIFont(name: "OpenSans", size: 16)
-        genderLabel.textAlignment = .left
-        genderLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        genderLabel.lineBreakMode = .byWordWrapping
-        genderLabel.numberOfLines = 0
-
         arrowRightImgView.clipsToBounds = true
         arrowRightImgView.contentMode = .scaleAspectFit
         arrowRightImgView.setImage(UIImage(named: "ArrowRight"), for: .normal)
 
-        addSubview(iconImgView)
-        addSubview(employeeIDLabel)
-        addSubview(nameLabel)
-        addSubview(lineView)
-        addSubview(dobLabel)
-        addSubview(genderLabel)
-        addSubview(arrowRightImgView)
+        containerView.addSubview(iconImgView)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(arrowRightImgView)
+
+        addSubview(containerView)
         setNeedsUpdateConstraints()
     }
 
@@ -86,46 +68,33 @@ class EmployeeTableViewCell: UITableViewCell {
         if !constraintAdded {
             constraintAdded = true
 
+            containerView.autoPinEdge(toSuperviewEdge: .top, withInset: 10)
+            containerView.autoPinEdge(toSuperviewEdge: .left, withInset: 12)
+            containerView.autoPinEdge(toSuperviewEdge: .right, withInset: 12)
+            containerView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 2)
+
             iconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
             iconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
-            iconImgView.autoSetDimensions(to: CGSize(width: 80, height: 80))
+            iconImgView.autoSetDimensions(to: CGSize(width: 40, height: 40))
 
-            employeeIDLabel.autoPinEdge(.left, to: .right, of: iconImgView, withOffset: 10)
-            employeeIDLabel.autoPinEdge(.right, to: .left, of: arrowRightImgView, withOffset: -10)
-            employeeIDLabel.autoPinEdge(.bottom, to: .top, of: nameLabel, withOffset: -4)
-
-            nameLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            nameLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
-            nameLabel.autoPinEdge(.bottom, to: .top, of: lineView, withOffset: -1)
-
-            lineView.autoPinEdge(toSuperviewEdge: .left)
-            lineView.autoAlignAxis(toSuperviewAxis: .horizontal)
-            lineView.autoPinEdge(toSuperviewEdge: .right)
-            lineView.autoSetDimension(.height, toSize: 2)
-
-            dobLabel.autoPinEdge(.top, to: .bottom, of: lineView, withOffset: 1)
-            dobLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            dobLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
-
-            genderLabel.autoPinEdge(.top, to: .bottom, of: dobLabel, withOffset: 4)
-            genderLabel.autoPinEdge(.left, to: .left, of: employeeIDLabel)
-            genderLabel.autoPinEdge(.right, to: .right, of: employeeIDLabel)
+            nameLabel.autoPinEdge(.left, to: .right, of: iconImgView, withOffset: 10)
+            nameLabel.autoPinEdge(.right, to: .left, of: arrowRightImgView, withOffset: -10)
+            nameLabel.autoAlignAxis(toSuperviewAxis: .horizontal)
 
             arrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
             arrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
             arrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
         }
     }
-    
+
     func bindingData(employee: Employee) {
-        employeeIDLabel.text = employee.employeeID
         nameLabel.text = employee.name
-        dobLabel.text = employee.dob
-        genderLabel.text = employee.gender
 
         if let url = employee.avatarUrl {
             if url != "" {
-                iconImgView.sd_setImage(with: URL(string: url))
+                iconImgView.sd_setImage(with: URL(string: url), completed: { (image, error, cacheType, url) in
+                    self.iconImgView.image = image?.resizeImage(scale: 0.5)
+                })
             }
             else {
                 iconImgView.image = UIImage(named: "ic_user")
@@ -133,6 +102,10 @@ class EmployeeTableViewCell: UITableViewCell {
         }
         else {
             iconImgView.image = UIImage(named: "ic_user")
+        }
+
+        DispatchQueue.main.async {
+            self.containerView.layer.shadowPath = UIBezierPath(rect: self.containerView.bounds).cgPath
         }
     }
 }

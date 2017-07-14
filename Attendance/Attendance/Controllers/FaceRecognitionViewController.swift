@@ -59,7 +59,7 @@ class FaceRecognitionViewController: UIViewController {
         attendance.attendanceTimes.append(attendanceTime)
         attendance.attendanceTimes.append(attendanceTime)
 
-        DatabaseHelper.shared.saveAttendance(groupId: group.id, date: Utils.getCurrentDate()!, attendance: attendance) { _ in
+        DatabaseHelper.shared.saveAttendance(date: Utils.getCurrentDate()!, attendance: attendance) { _ in
 
         }
     }

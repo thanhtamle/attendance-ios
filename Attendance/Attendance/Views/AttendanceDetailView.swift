@@ -25,7 +25,7 @@ class AttendanceDetailView: UIView {
 
         searchBar.frame = CGRect(x: 0, y: 0, width: Global.SCREEN_WIDTH, height: 44)
         searchBar.searchBarStyle = UISearchBarStyle.prominent
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "Search for Attendace"
         searchBar.isTranslucent = true
         searchBar.backgroundImage = UIImage()
         searchBar.backgroundColor = UIColor.clear
@@ -44,7 +44,7 @@ class AttendanceDetailView: UIView {
         }
 
         tableView.backgroundColor = UIColor.clear
-        tableView.separatorColor = Global.colorSeparator
+        tableView.separatorStyle = .none
         tableView.register(AttendanceDetailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
 

@@ -25,7 +25,7 @@ class AddEmployeeViewController: UIViewController {
     var photos: [INSPhotoViewable] = [INSPhotoViewable]()
 
     var employee: Employee?
-    var group = Group()
+    var group: Group?
     var imageUrl: String?
 
     override func loadView() {
@@ -36,7 +36,7 @@ class AddEmployeeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "ADD EMPLOYEE"
+        title = "ADD STUDENT"
 
         var portraitSize: CGSize!
         var landscapeSize: CGSize!
@@ -49,7 +49,7 @@ class AddEmployeeViewController: UIViewController {
             portraitSize = CGSize(width: Global.SCREEN_WIDTH - 50, height: Global.SCREEN_HEIGHT - 240)
             landscapeSize = CGSize(width: Global.SCREEN_HEIGHT - 200, height: Global.SCREEN_WIDTH - 100)
         }
-        
+
         self.contentSizeInPopup = portraitSize
         self.landscapeContentSizeInPopup = landscapeSize
 
@@ -69,7 +69,7 @@ class AddEmployeeViewController: UIViewController {
         createPhotoFromImage(image: UIImage(named: "ic_user")!)
 
         if let newEmployee = employee {
-            title = "EDIT EMPLOYEE"
+            title = "EDIT STUDENT"
             addEmployeeView.idField.text = newEmployee.employeeID
             addEmployeeView.nameField.text = newEmployee.name
             addEmployeeView.dobField.text = newEmployee.dob
@@ -223,15 +223,13 @@ class AddEmployeeViewController: UIViewController {
         employee?.dob = addEmployeeView.dobField.text
         employee?.gender = addEmployeeView.genderField.text
 
-        if group.id != "" {
-            DatabaseHelper.shared.saveEmployee(groupId: group.id, employee: employee!) { _ in
-                SwiftOverlays.removeAllBlockingOverlays()
-                self.addEmployeeDelegate?.actionTapToAddButton()
-            }
+        if let newGroup = group {
+            employee?.groupId = newGroup.id
         }
-        else {
+
+        DatabaseHelper.shared.saveEmployee(employee: employee!) { _ in
             SwiftOverlays.removeAllBlockingOverlays()
-            Utils.showAlert(title: "Attendance", message: "Add Employee error. Please try again!", viewController: self)
+            self.addEmployeeDelegate?.actionTapToAddButton()
         }
     }
 
@@ -277,12 +275,12 @@ extension AddEmployeeViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
             addEmployeeView.nameField.becomeFirstResponder()
             return true
-
+            
         case addEmployeeView.nameField:
             textField.resignFirstResponder()
             actionTapToDobView()
             return true
-
+            
         default:
             textField.resignFirstResponder()
             return true

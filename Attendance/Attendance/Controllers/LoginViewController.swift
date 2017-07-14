@@ -44,15 +44,15 @@ class LoginViewController: UIViewController {
 
         var buttonSize: CGFloat = 40
         var fieldSize: CGFloat = 40
-        var imageSize: CGFloat = 45
+        var imageSize: CGFloat = 100
 
         if DeviceType.IS_IPAD {
             buttonSize = 50
             fieldSize = 50
-            imageSize = 100
+            imageSize = 200
         }
 
-        let height: CGFloat = 80 + imageSize + 30 + 20 + 20 + fieldSize + 10 + fieldSize + 30 + buttonSize + 10 + 30 + 10 + buttonSize + 20 + 30 + 20
+        let height: CGFloat = 50 + imageSize + 30 + 20 + 20 + fieldSize + 10 + fieldSize + 30 + buttonSize + 10 + 30 + 10 + buttonSize + 20 + 30 + 20
 
         loginView.containerView.autoSetDimension(.height, toSize: height)
         loginView.scrollView.contentSize = loginView.containerView.bounds.size

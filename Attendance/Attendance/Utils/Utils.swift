@@ -87,21 +87,49 @@ class Utils {
     }
     
     static func stringtoDate(string: String) -> Date {
-        // Set date format
-        let dateFmt = DateFormatter()
-        dateFmt.timeZone = NSTimeZone.default
-        dateFmt.dateFormat =  "yyyy-MM-dd HH:mm:ss"
-        
-        // Get NSDate for the given string
-        let date = dateFmt.date(from: string)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = NSTimeZone.default
+        dateFormatter.dateStyle = .medium
+        let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale as Locale!
+        dateFormatter.dateFormat =  "dd-MM-yyyy"
+
+        let date = dateFormatter.date(from: string)
         return date!
     }
-    
+
+    static func dateFormate(date: Date) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = NSTimeZone.default
+        dateFormatter.dateStyle = .medium
+        let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale as Locale!
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+
+        let result = dateFormatter.string(from: date)
+
+        return result
+    }
+
+    static func getWeekdayFromDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale as Locale!
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "EEEE"
+
+        let dayOfWeekString = dateFormatter.string(from: date)
+
+        return dayOfWeekString
+    }
+
     static func getCurrentDate() -> String? {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = NSTimeZone.default
         dateFormatter.dateStyle = .medium
+        let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale as Locale!
         dateFormatter.dateFormat = "dd-MM-yyyy"
         
         let result = dateFormatter.string(from: date)
@@ -114,6 +142,8 @@ class Utils {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = NSTimeZone.default
         dateFormatter.dateStyle = .medium
+        let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale as Locale!
         dateFormatter.dateFormat = "HH:mm"
 
         let result = dateFormatter.string(from: date)
@@ -125,6 +155,8 @@ class Utils {
         let date = NSDate()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+        let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale as Locale!
         return "\(dateFormatter.string(from: date as Date))"
     }
     
