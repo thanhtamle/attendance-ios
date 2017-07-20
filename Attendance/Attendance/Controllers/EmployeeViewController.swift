@@ -101,23 +101,9 @@ class EmployeeViewController: UIViewController {
 
     func navigateToAddEmployeePage(employee: Employee?, group: Group?) {
         let viewController = AddEmployeeViewController()
-        viewController.addEmployeeDelegate = self
         viewController.employee = employee
         viewController.group = group
-        self.viewPopupController = STPopupController(rootViewController: viewController)
-        self.viewPopupController.containerView.layer.cornerRadius = 4
-        self.viewPopupController.present(in: self)
-    }
-}
-
-extension EmployeeViewController: AddEmployeeDelegate {
-
-    func actionTapToAddButton() {
-        viewPopupController.dismiss()
-    }
-
-    func actionTapToCancelButton() {
-        viewPopupController.dismiss()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

@@ -138,6 +138,25 @@ class DatabaseHelper: NSObject {
 
     //---------------------employees-------------------------------
 
+    func getIdMax(completion: @escaping (Int64) -> Void) {
+        var idMax: Int64 = -1
+        let ref = self.databaseRef.child("employees")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                for snap in data {
+                    let employeee = Employee(snap)
+                    if employeee.label! > idMax {
+                        idMax = employeee.label!
+                    }
+                }
+                completion(idMax + 1)
+            }
+            else {
+                completion(0)
+            }
+        })
+    }
+
     func getAllEmployees(completion: @escaping ([Employee]) -> Void) {
         let ref = self.databaseRef.child("employees")
         ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -385,6 +404,17 @@ class DatabaseHelper: NSObject {
             }
             
             completion(metadata.downloadURL()!.absoluteString)
+        }
+    }
+
+    func fetchImage(label: Int64, url: String, completion: @escaping (Int64, UIImage?) -> Void) {
+        let storage = Storage.storage()
+        var reference: StorageReference!
+
+        reference = storage.reference(forURL: url)
+        reference.getData(maxSize: 5 * 1024 * 1024) { (data, error) -> Void in
+            let image = UIImage(data: data! as Data)
+            completion(label, image)
         }
     }
 }

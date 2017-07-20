@@ -11,17 +11,12 @@
 
 @interface FJFaceRecognizer : NSObject
 
-+ (FJFaceRecognizer *)faceRecognizerWithFile:(NSString *)path;
++ (FJFaceRecognizer*)sharedManager;
 
-- (BOOL)serializeFaceRecognizerParamatersToFile:(NSString *)path;
+- (NSInteger)predict:(UIImage*)img confidence:(double)confidence;
 
-- (NSString *)predict:(UIImage*)img confidence:(double *)confidence;
-
-- (void)updateWithFace:(UIImage *)img name:(NSString *)name;
-
-- (NSArray *)labels;
+- (void)createDataForTrain:(UIImage*)img label:(NSInteger)label;
 
 - (void)trainingFace;
 
-- (void)trainingImage;
 @end

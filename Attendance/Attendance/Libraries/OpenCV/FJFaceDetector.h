@@ -18,6 +18,9 @@
 - (void)startCapture;
 - (void)stopCapture;
 - (NSArray *)detectedFaces;
+- (NSArray *)detectedFaces1;
 - (UIImage *)faceWithIndex:(NSInteger)idx;
+- (UIImage *)getImageFromCamera;
+- (void)detectFace:(UIImage*)image scale:(double) scale;
 //- (void)readAndLoadFile;
 @end

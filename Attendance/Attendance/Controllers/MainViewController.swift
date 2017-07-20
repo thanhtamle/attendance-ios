@@ -11,6 +11,7 @@ import DZNEmptyDataSet
 
 class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavigationControllerDelegate {
 
+    static var realTimeCameraViewController = PhotoViewController()
     static var calendarViewController = CalendarViewController()
     static var employeeGroupViewController = EmployeeGroupViewController()
     static var exportEmployeeViewController = ExportEmployeeViewController()
@@ -36,6 +37,9 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
         UITabBarItem.appearance().setTitleTextAttributes(attributesNormal, for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes(attributesSelected, for: .selected)
 
+
+        MainViewController.realTimeCameraViewController = PhotoViewController()
+
         MainViewController.calendarViewController = CalendarViewController()
         MainViewController.employeeGroupViewController = EmployeeGroupViewController()
         MainViewController.exportEmployeeViewController = ExportEmployeeViewController()
@@ -47,9 +51,9 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
         settingImage = UIImage(named: "Setting")
 
         #if User
-            let homeBarItem = UITabBarItem(title: "HOME", image: homeImage, tag: 1)
-            MainViewController.homeViewController.tabBarItem = homeBarItem
-            let nc1 = UINavigationController(rootViewController: MainViewController.homeViewController)
+            let homeBarItem = UITabBarItem(title: "CAMERA", image: homeImage, tag: 1)
+            MainViewController.realTimeCameraViewController.tabBarItem = homeBarItem
+            let nc1 = UINavigationController(rootViewController: MainViewController.realTimeCameraViewController)
 
             let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
             MainViewController.settingViewController.tabBarItem = settingBarItem
@@ -72,7 +76,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
             let settingBarItem = UITabBarItem(title: "SETTINGS", image: settingImage, tag: 4)
             MainViewController.settingViewController.tabBarItem = settingBarItem
             let nc4 = UINavigationController(rootViewController: MainViewController.settingViewController)
-
+            
             self.viewControllers = [nc1, nc2, nc3, nc4]
         #endif
     }

@@ -184,12 +184,9 @@ class EmployeeGroupViewController: UIViewController {
 
     func navigateToAddEmployeePage(employee: Employee?, group: Group?) {
         let viewController = AddEmployeeViewController()
-        viewController.addEmployeeDelegate = self
         viewController.employee = employee
         viewController.group = group
-        self.viewPopupController = STPopupController(rootViewController: viewController)
-        self.viewPopupController.containerView.layer.cornerRadius = 4
-        self.viewPopupController.present(in: self)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

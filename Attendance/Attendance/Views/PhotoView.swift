@@ -1,15 +1,14 @@
 //
-//  AddEmployeeView.swift
+//  PhotoView.swift
 //  Attendance
 //
-//  Created by Thanh-Tam Le on 6/30/17.
+//  Created by Thanh-Tam Le on 7/20/17.
 //  Copyright © 2017 citynow. All rights reserved.
 //
 
 import UIKit
-import DropDown
 
-class AddEmployeeView: UIView {
+class PhotoView: UIView {
 
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -26,7 +25,6 @@ class AddEmployeeView: UIView {
         let p: CGFloat = 5
 
         collectionView.backgroundColor = Global.colorBg
-        collectionView.register(EmployeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.indicatorStyle = .white
 
@@ -36,7 +34,7 @@ class AddEmployeeView: UIView {
 
         let width = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 4 - p * 2
         layout.itemSize = CGSize(width: width, height: width)
-        
+
         indicator.hidesWhenStopped = true
         indicator.backgroundColor = Global.colorBg
 
@@ -54,7 +52,7 @@ class AddEmployeeView: UIView {
             collectionView.autoMatch(.width, to: .width, of: self)
             collectionView.autoPinEdge(toSuperviewMargin: .top)
             collectionView.autoPinEdge(toSuperviewMargin: .bottom)
-
+            
             indicator.autoPinEdgesToSuperviewEdges()
         }
     }

@@ -10,15 +10,15 @@ import UIKit
 
 class FaceRecognitionViewController: UIViewController {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var confidenceLabel: UILabel!
     @IBOutlet weak var inputImageView: UIImageView!
 
     var group = Group()
+    var employees = [Employee]()
 
     var inputImage: UIImage!
     private var confidence: Double = 0.0
-    var faceModel = FJFaceRecognizer()
+
+    var faceRecognizer = FJFaceRecognizer.sharedManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,35 +33,25 @@ class FaceRecognitionViewController: UIViewController {
         title = group.name
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.black
+        backBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = backBarButton
 
         inputImageView.image = inputImage
-        let modelURL = faceModelFileURL()
-        faceModel = FJFaceRecognizer(file: modelURL.path)
 
-        if faceModel.labels().count == 0 {
-            faceModel.update(withFace: inputImage, name: "Person")
+        let label = self.faceRecognizer?.predict(inputImage, confidence: 0)
+        if (label == -1) {
+            Utils.showAlert(title: "Hello", message: "Who are you? I was thinking that you are not member of Citynow", viewController: self)
         }
-        let name: String? = faceModel.predict(inputImage, confidence: &confidence)
-        nameLabel.text = name
-        confidenceLabel.text = String(confidence)
-
-
-        let attendanceTime = AttendanceTime()
-        attendanceTime.time = Utils.getCurrentTime()
-
-        let attendance = Attendance()
-        attendance.employeeId = "-KoLIlzuCYh41qawjtZ6"
-        attendance.attendanceTimes.append(attendanceTime)
-        attendance.attendanceTimes.append(attendanceTime)
-        attendance.attendanceTimes.append(attendanceTime)
-        attendance.attendanceTimes.append(attendanceTime)
-        attendance.attendanceTimes.append(attendanceTime)
-
-        DatabaseHelper.shared.saveAttendance(date: Utils.getCurrentDate()!, attendance: attendance) { _ in
-
+        else {
+            for item in employees {
+                if Int(item.label!) == label {
+                    let name = item.name ?? ""
+                    Utils.showAlert(title: "Hello", message: "Are you " + name + "?", viewController: self)
+                    break
+                }
+            }
         }
+
     }
 
     func actionTapToBackButton() {
@@ -77,16 +67,13 @@ class FaceRecognitionViewController: UIViewController {
     }
 
     @IBAction func actionTapToCorrectButton(_ sender: Any) {
-        faceModel.update(withFace: inputImage, name: nameLabel.text)
-        faceModel.serializeFaceRecognizerParamaters(toFile: faceModelFileURL().path)
-
+//        faceModel.update(withFace: inputImage, name: nameLabel.text)
         _ = navigationController?.popViewController(animated: true)
     }
 
     @IBAction func actionTapToWrongButton(_ sender: Any) {
-        let name: String? = "Person " + ("\(UInt(faceModel.labels().count))")
-        faceModel.update(withFace: inputImage, name: name)
-        faceModel.serializeFaceRecognizerParamaters(toFile: faceModelFileURL().path)
+//        let name: String? = "Person " + ("\(UInt(faceModel.labels().count))")
+//        faceModel.update(withFace: inputImage, name: name)
         self.dismiss(animated: true, completion: nil)
         
     }
