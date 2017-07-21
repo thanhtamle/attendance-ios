@@ -37,6 +37,17 @@
 		E61BE29C1F0A451A0062339D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E61BE29B1F0A451A0062339D /* GoogleService-Info.plist */; };
 		E61BE29E1F0A51320062339D /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE29D1F0A51320062339D /* SplashScreenView.swift */; };
 		E61BE2A01F0A513F0062339D /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */; };
+		E622B53F1F204DB500D26C00 /* ImageUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E642479F1F1F9B3300C384D2 /* ImageUrl.swift */; };
+		E622B5401F204DD000D26C00 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64247A31F1FBAAE00C384D2 /* PhotoCollectionViewCell.swift */; };
+		E622B5411F204DD300D26C00 /* EmployeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64247A11F1FB6CB00C384D2 /* EmployeHeaderView.swift */; };
+		E622B5421F204DFF00D26C00 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD00BB1F18A43600912AFA /* GroupViewController.swift */; };
+		E622B5431F204E2300D26C00 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E649B4871F1859050014E861 /* CalendarView.swift */; };
+		E622B5441F204E2600D26C00 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD00BD1F18A44500912AFA /* GroupView.swift */; };
+		E622B5451F204E6600D26C00 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E649B4891F1859150014E861 /* CalendarViewController.swift */; };
+		E622B5471F206AF100D26C00 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5461F206AF100D26C00 /* PhotoViewController.swift */; };
+		E622B5491F206B1900D26C00 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5481F206B1900D26C00 /* PhotoView.swift */; };
+		E622B54A1F206D1C00D26C00 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5461F206AF100D26C00 /* PhotoViewController.swift */; };
+		E622B54B1F206D2200D26C00 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5481F206B1900D26C00 /* PhotoView.swift */; };
 		E62982441F0E3973006A22CB /* Attendance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62982431F0E3973006A22CB /* Attendance.swift */; };
 		E62982461F0E3D98006A22CB /* AttendanceTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62982451F0E3D98006A22CB /* AttendanceTime.swift */; };
 		E63588861F170A4B0073D3F9 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63588851F170A4B0073D3F9 /* IntroViewController.swift */; };
@@ -152,6 +163,9 @@
 		E6396BAF1F14689E006F12C7 /* RealTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC472D1F0F6F7C00FBAE89 /* RealTime.storyboard */; };
 		E6396BB01F14689E006F12C7 /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0EEC47121F0F6E1100FBAE89 /* haarcascade_eye_tree_eyeglasses.xml */; };
 		E6396BB91F146E41006F12C7 /* Info-User.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6396BB81F146E41006F12C7 /* Info-User.plist */; };
+		E64247A01F1F9B3300C384D2 /* ImageUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E642479F1F1F9B3300C384D2 /* ImageUrl.swift */; };
+		E64247A21F1FB6CB00C384D2 /* EmployeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64247A11F1FB6CB00C384D2 /* EmployeHeaderView.swift */; };
+		E64247A41F1FBAAE00C384D2 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64247A31F1FBAAE00C384D2 /* PhotoCollectionViewCell.swift */; };
 		E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D8D11EF3952D00C91617 /* AppDelegate.swift */; };
 		E645D8D91EF3952D00C91617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E645D8D81EF3952D00C91617 /* Assets.xcassets */; };
 		E645D8DC1EF3952D00C91617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E645D8DA1EF3952D00C91617 /* LaunchScreen.storyboard */; };
@@ -185,6 +199,8 @@
 		E645D95D1EF398DE00C91617 /* UIView+TouchHighlighting.m in Sources */ = {isa = PBXBuildFile; fileRef = E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */; };
 		E645D95F1EF39B7100C91617 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D95E1EF39B7100C91617 /* MainViewController.swift */; };
 		E645D9611EF39B7D00C91617 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645D9601EF39B7D00C91617 /* MainView.swift */; };
+		E649B4881F1859050014E861 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E649B4871F1859050014E861 /* CalendarView.swift */; };
+		E649B48A1F1859150014E861 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E649B4891F1859150014E861 /* CalendarViewController.swift */; };
 		E64BB5F31F0BAAED001AE835 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */; };
 		E64BB5F51F0BAB9C001AE835 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64BB5F41F0BAB9C001AE835 /* SettingViewController.swift */; };
 		E64BB5F71F0BB186001AE835 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64BB5F61F0BB186001AE835 /* HomeView.swift */; };
@@ -207,6 +223,13 @@
 		E64CECF41F0F732900A216A3 /* ExportEmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF31F0F732900A216A3 /* ExportEmployeeView.swift */; };
 		E64CECF61F0F733900A216A3 /* ExportEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF51F0F733900A216A3 /* ExportEmployeeViewController.swift */; };
 		E64CECF81F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64CECF71F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift */; };
+		E661F10C1F1735720087B05B /* ItemIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63588891F170B8D0073D3F9 /* ItemIntroView.swift */; };
+		E661F10D1F1735750087B05B /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63588871F170A6D0073D3F9 /* IntroView.swift */; };
+		E661F10E1F1735790087B05B /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63588851F170A4B0073D3F9 /* IntroViewController.swift */; };
+		E661F1101F1749330087B05B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661F10F1F1749330087B05B /* GradientView.swift */; };
+		E661F1111F1749330087B05B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661F10F1F1749330087B05B /* GradientView.swift */; };
+		E661F1131F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661F1121F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift */; };
+		E661F1141F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661F1121F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift */; };
 		E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035B81F009EF4000C5FA5 /* LoginView.swift */; };
 		E67035BB1F00ADEF000C5FA5 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */; };
 		E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */; };
@@ -222,6 +245,8 @@
 		E6C02F1A1F0639D900B003B7 /* AddEmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */; };
 		E6C02F1C1F0639E700B003B7 /* AddEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C02F1B1F0639E700B003B7 /* AddEmployeeViewController.swift */; };
 		E6C02F1F1F06580100B003B7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C02F1E1F06580100B003B7 /* CameraViewController.swift */; };
+		E6FD00BC1F18A43600912AFA /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD00BB1F18A43600912AFA /* GroupViewController.swift */; };
+		E6FD00BE1F18A44500912AFA /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD00BD1F18A44500912AFA /* GroupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -262,6 +287,8 @@
 		E61BE29B1F0A451A0062339D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E61BE29D1F0A51320062339D /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		E622B5461F206AF100D26C00 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		E622B5481F206B1900D26C00 /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		E62982431F0E3973006A22CB /* Attendance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attendance.swift; sourceTree = "<group>"; };
 		E62982451F0E3D98006A22CB /* AttendanceTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceTime.swift; sourceTree = "<group>"; };
 		E63588851F170A4B0073D3F9 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -273,6 +300,9 @@
 		E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeTableViewCell.swift; sourceTree = "<group>"; };
 		E6396BB61F14689E006F12C7 /* AttendanceUser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AttendanceUser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6396BB81F146E41006F12C7 /* Info-User.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-User.plist"; sourceTree = "<group>"; };
+		E642479F1F1F9B3300C384D2 /* ImageUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUrl.swift; sourceTree = "<group>"; };
+		E64247A11F1FB6CB00C384D2 /* EmployeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeHeaderView.swift; sourceTree = "<group>"; };
+		E64247A31F1FBAAE00C384D2 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		E645D8CE1EF3952D00C91617 /* Attendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E645D8D11EF3952D00C91617 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E645D8D81EF3952D00C91617 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -314,6 +344,8 @@
 		E645D9581EF398DE00C91617 /* UIView+TouchHighlighting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchHighlighting.m"; sourceTree = "<group>"; };
 		E645D95E1EF39B7100C91617 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E645D9601EF39B7D00C91617 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E649B4871F1859050014E861 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		E649B4891F1859150014E861 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E64BB5F41F0BAB9C001AE835 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		E64BB5F61F0BB186001AE835 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -336,6 +368,8 @@
 		E64CECF31F0F732900A216A3 /* ExportEmployeeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportEmployeeView.swift; sourceTree = "<group>"; };
 		E64CECF51F0F733900A216A3 /* ExportEmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportEmployeeViewController.swift; sourceTree = "<group>"; };
 		E64CECF71F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChosenEmployeeTableViewCell.swift; sourceTree = "<group>"; };
+		E661F10F1F1749330087B05B /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		E661F1121F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeGroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		E67035B81F009EF4000C5FA5 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E67035BA1F00ADEF000C5FA5 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		E67035BC1F00ADFE000C5FA5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -351,6 +385,8 @@
 		E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEmployeeView.swift; sourceTree = "<group>"; };
 		E6C02F1B1F0639E700B003B7 /* AddEmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEmployeeViewController.swift; sourceTree = "<group>"; };
 		E6C02F1E1F06580100B003B7 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		E6FD00BB1F18A43600912AFA /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		E6FD00BD1F18A44500912AFA /* GroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -477,6 +513,7 @@
 		E645D8E71EF3981B00C91617 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E661F10F1F1749330087B05B /* GradientView.swift */,
 				E645D8E81EF3981B00C91617 /* CaptureButton.swift */,
 				E645D8E91EF3981B00C91617 /* Global.swift */,
 				E645D8EB1EF3981B00C91617 /* SizeUtils.swift */,
@@ -498,9 +535,12 @@
 				E64BB5F61F0BB186001AE835 /* HomeView.swift */,
 				E64C70371F09DB530040C71C /* EmployeeGroupView.swift */,
 				E64C703B1F09DB9F0040C71C /* EmployeeGroupTableViewCell.swift */,
+				E661F1121F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift */,
 				E64C703D1F09E3F70040C71C /* AddGroupView.swift */,
 				E6377D7D1F021D4900023222 /* EmployeeView.swift */,
 				E6377D811F021D7000023222 /* EmployeeTableViewCell.swift */,
+				E64247A31F1FBAAE00C384D2 /* PhotoCollectionViewCell.swift */,
+				E64247A11F1FB6CB00C384D2 /* EmployeHeaderView.swift */,
 				E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */,
 				E61BE2931F09FAEA0062339D /* AttendanceTableViewCell.swift */,
 				E61BE2971F0A351E0062339D /* AttendanceView.swift */,
@@ -518,6 +558,9 @@
 				E64CECF71F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift */,
 				E63588871F170A6D0073D3F9 /* IntroView.swift */,
 				E63588891F170B8D0073D3F9 /* ItemIntroView.swift */,
+				E649B4871F1859050014E861 /* CalendarView.swift */,
+				E6FD00BD1F18A44500912AFA /* GroupView.swift */,
+				E622B5481F206B1900D26C00 /* PhotoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -527,6 +570,7 @@
 			children = (
 				E6C02F1D1F0657FA00B003B7 /* Utils */,
 				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
+				E622B5461F206AF100D26C00 /* PhotoViewController.swift */,
 				0EEC47071F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift */,
 				0EEC47051F0F6DB700FBAE89 /* FaceRecognitionViewController.swift */,
 				E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */,
@@ -549,6 +593,8 @@
 				E64CECF11F0F700900A216A3 /* ExportGroupViewController.swift */,
 				E64CECF51F0F733900A216A3 /* ExportEmployeeViewController.swift */,
 				E63588851F170A4B0073D3F9 /* IntroViewController.swift */,
+				E649B4891F1859150014E861 /* CalendarViewController.swift */,
+				E6FD00BB1F18A43600912AFA /* GroupViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -593,6 +639,7 @@
 				E64CECDB1F0F2AD300A216A3 /* AttendanceDate.swift */,
 				E62982431F0E3973006A22CB /* Attendance.swift */,
 				E62982451F0E3D98006A22CB /* AttendanceTime.swift */,
+				E642479F1F1F9B3300C384D2 /* ImageUrl.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -963,15 +1010,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E622B5421F204DFF00D26C00 /* GroupViewController.swift in Sources */,
 				E6396B461F14689E006F12C7 /* EmployeeGroupView.swift in Sources */,
+				E622B5441F204E2600D26C00 /* GroupView.swift in Sources */,
 				E6396B471F14689E006F12C7 /* AttendanceTableViewCell.swift in Sources */,
 				E6396B481F14689E006F12C7 /* AttendanceDetailTableViewCell.swift in Sources */,
 				E6396B491F14689E006F12C7 /* UIView+TouchHighlighting.m in Sources */,
 				E6396B4A1F14689E006F12C7 /* UIImage+OpenCV.mm in Sources */,
+				E622B5401F204DD000D26C00 /* PhotoCollectionViewCell.swift in Sources */,
 				E6396B4B1F14689E006F12C7 /* MainViewController.swift in Sources */,
 				E6396B4C1F14689E006F12C7 /* FaceRecognitionViewController.swift in Sources */,
 				E6396B4D1F14689E006F12C7 /* ForgotPasswordViewController.swift in Sources */,
 				E6396B4E1F14689E006F12C7 /* CameraViewController.swift in Sources */,
+				E661F10D1F1735750087B05B /* IntroView.swift in Sources */,
 				E6396B4F1F14689E006F12C7 /* NSData.swift in Sources */,
 				E6396B501F14689E006F12C7 /* NSArray.swift in Sources */,
 				E6396B511F14689E006F12C7 /* NSObject.swift in Sources */,
@@ -992,6 +1043,7 @@
 				E6396B601F14689E006F12C7 /* UIImage.swift in Sources */,
 				E6396B611F14689E006F12C7 /* RegisterView.swift in Sources */,
 				E6396B621F14689E006F12C7 /* UITableView.swift in Sources */,
+				E622B5431F204E2300D26C00 /* CalendarView.swift in Sources */,
 				E6396B631F14689E006F12C7 /* AddGroupView.swift in Sources */,
 				E6396B641F14689E006F12C7 /* SizeUtils.swift in Sources */,
 				E6396B651F14689E006F12C7 /* ProfileView.swift in Sources */,
@@ -1007,6 +1059,8 @@
 				E6396B6F1F14689E006F12C7 /* Group.swift in Sources */,
 				E6396B701F14689E006F12C7 /* Attendance.swift in Sources */,
 				E6396B711F14689E006F12C7 /* ChangePasswordViewController.swift in Sources */,
+				E622B54A1F206D1C00D26C00 /* PhotoViewController.swift in Sources */,
+				E661F10E1F1735790087B05B /* IntroViewController.swift in Sources */,
 				E6396B721F14689E006F12C7 /* AttendanceDate.swift in Sources */,
 				E6396B731F14689E006F12C7 /* UITextField.swift in Sources */,
 				E6396B741F14689E006F12C7 /* AppDelegate.swift in Sources */,
@@ -1018,25 +1072,31 @@
 				E6396B7A1F14689E006F12C7 /* SettingViewController.swift in Sources */,
 				E6396B7B1F14689E006F12C7 /* ExportEmployeeView.swift in Sources */,
 				E6396B7C1F14689E006F12C7 /* AddEmployeeViewController.swift in Sources */,
+				E622B53F1F204DB500D26C00 /* ImageUrl.swift in Sources */,
 				E6396B7D1F14689E006F12C7 /* ForgotPasswordView.swift in Sources */,
 				E6396B7E1F14689E006F12C7 /* FJFaceRecognizer.mm in Sources */,
+				E622B54B1F206D2200D26C00 /* PhotoView.swift in Sources */,
 				E6396B7F1F14689E006F12C7 /* LoginViewController.swift in Sources */,
 				E6396B801F14689E006F12C7 /* MTCompoundButton.m in Sources */,
 				E6396B811F14689E006F12C7 /* AIDatePickerController.m in Sources */,
 				E6396B821F14689E006F12C7 /* User.swift in Sources */,
 				E6396B831F14689E006F12C7 /* RegisterViewController.swift in Sources */,
+				E622B5451F204E6600D26C00 /* CalendarViewController.swift in Sources */,
+				E661F1141F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift in Sources */,
 				E6396B841F14689E006F12C7 /* MainView.swift in Sources */,
 				E6396B851F14689E006F12C7 /* TrainingDetailViewController.swift in Sources */,
 				E6396B861F14689E006F12C7 /* EmployeeGroupTableViewCell.swift in Sources */,
 				E6396B871F14689E006F12C7 /* NSDictionary.swift in Sources */,
 				E6396B881F14689E006F12C7 /* AttendanceDetailViewController.swift in Sources */,
 				E6396B891F14689E006F12C7 /* MTViewHighlighter.m in Sources */,
+				E661F10C1F1735720087B05B /* ItemIntroView.swift in Sources */,
 				E6396B8A1F14689E006F12C7 /* LoginView.swift in Sources */,
 				E6396B8B1F14689E006F12C7 /* UIColor.swift in Sources */,
 				E6396B8C1F14689E006F12C7 /* Employee.swift in Sources */,
 				E6396B8D1F14689E006F12C7 /* MenuTableViewCell.swift in Sources */,
 				E6396B8E1F14689E006F12C7 /* Dictionary.swift in Sources */,
 				E6396B8F1F14689E006F12C7 /* MenuViewController.swift in Sources */,
+				E622B5411F204DD300D26C00 /* EmployeHeaderView.swift in Sources */,
 				E6396B901F14689E006F12C7 /* SWRevealViewController.m in Sources */,
 				E6396B911F14689E006F12C7 /* ExportGroupViewController.swift in Sources */,
 				E6396B921F14689E006F12C7 /* ExportGroupView.swift in Sources */,
@@ -1048,6 +1108,7 @@
 				E6396B981F14689E006F12C7 /* ProfileViewController.swift in Sources */,
 				E6396B991F14689E006F12C7 /* TrainingDetailView.swift in Sources */,
 				E6396B9A1F14689E006F12C7 /* EmployeeViewController.swift in Sources */,
+				E661F1111F1749330087B05B /* GradientView.swift in Sources */,
 				E6396B9B1F14689E006F12C7 /* Global.swift in Sources */,
 				E6396B9C1F14689E006F12C7 /* ChosenEmployeeTableViewCell.swift in Sources */,
 			);
@@ -1106,30 +1167,38 @@
 				E64CECDC1F0F2AD300A216A3 /* AttendanceDate.swift in Sources */,
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
+				E622B5471F206AF100D26C00 /* PhotoViewController.swift in Sources */,
 				E62982461F0E3D98006A22CB /* AttendanceTime.swift in Sources */,
+				E6FD00BE1F18A44500912AFA /* GroupView.swift in Sources */,
 				E64C703A1F09DB6B0040C71C /* EmployeeGroupViewController.swift in Sources */,
 				E645D8FC1EF3981B00C91617 /* Utils.swift in Sources */,
 				E61B8E241F0CA56C00FC6034 /* SettingView.swift in Sources */,
 				E6377D7E1F021D4900023222 /* EmployeeView.swift in Sources */,
 				E64BB5F51F0BAB9C001AE835 /* SettingViewController.swift in Sources */,
 				E64CECF41F0F732900A216A3 /* ExportEmployeeView.swift in Sources */,
+				E649B48A1F1859150014E861 /* CalendarViewController.swift in Sources */,
 				E6C02F1C1F0639E700B003B7 /* AddEmployeeViewController.swift in Sources */,
 				E67035C11F00C93C000C5FA5 /* ForgotPasswordView.swift in Sources */,
 				0EEC47211F0F6E1100FBAE89 /* FJFaceRecognizer.mm in Sources */,
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
 				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
+				E622B5491F206B1900D26C00 /* PhotoView.swift in Sources */,
 				E67035CF1F00FF73000C5FA5 /* User.swift in Sources */,
 				E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */,
+				E661F1131F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift in Sources */,
 				E645D9611EF39B7D00C91617 /* MainView.swift in Sources */,
 				E63588861F170A4B0073D3F9 /* IntroViewController.swift in Sources */,
 				E64CECEC1F0F4E7600A216A3 /* TrainingDetailViewController.swift in Sources */,
 				E64C703C1F09DB9F0040C71C /* EmployeeGroupTableViewCell.swift in Sources */,
+				E64247A21F1FB6CB00C384D2 /* EmployeHeaderView.swift in Sources */,
 				E645D9291EF3982700C91617 /* NSDictionary.swift in Sources */,
 				E64CECE21F0F355A00A216A3 /* AttendanceDetailViewController.swift in Sources */,
 				E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */,
+				E64247A01F1F9B3300C384D2 /* ImageUrl.swift in Sources */,
 				E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */,
 				E645D92C1EF3982700C91617 /* UIColor.swift in Sources */,
+				E649B4881F1859050014E861 /* CalendarView.swift in Sources */,
 				E6377D7C1F021AFB00023222 /* Employee.swift in Sources */,
 				E67035CB1F00FD02000C5FA5 /* MenuTableViewCell.swift in Sources */,
 				E645D9251EF3982700C91617 /* Dictionary.swift in Sources */,
@@ -1137,14 +1206,17 @@
 				E645D95A1EF398DE00C91617 /* SWRevealViewController.m in Sources */,
 				E64CECF21F0F700900A216A3 /* ExportGroupViewController.swift in Sources */,
 				E64CECF01F0F6E5000A216A3 /* ExportGroupView.swift in Sources */,
+				E64247A41F1FBAAE00C384D2 /* PhotoCollectionViewCell.swift in Sources */,
 				E645D92E1EF3982700C91617 /* UIImageView.swift in Sources */,
 				E61BE29A1F0A41E20062339D /* DatabaseHelper.swift in Sources */,
 				E64CECE61F0F4C2D00A216A3 /* TrainingView.swift in Sources */,
 				E64BB5F31F0BAAED001AE835 /* HomeViewController.swift in Sources */,
 				E6377D821F021D7000023222 /* EmployeeTableViewCell.swift in Sources */,
 				E61B8E261F0CA6DB00FC6034 /* ProfileViewController.swift in Sources */,
+				E6FD00BC1F18A43600912AFA /* GroupViewController.swift in Sources */,
 				E64CECEA1F0F4E6100A216A3 /* TrainingDetailView.swift in Sources */,
 				E6377D801F021D6300023222 /* EmployeeViewController.swift in Sources */,
+				E661F1101F1749330087B05B /* GradientView.swift in Sources */,
 				E645D8F81EF3981B00C91617 /* Global.swift in Sources */,
 				E64CECF81F0F7C3300A216A3 /* ChosenEmployeeTableViewCell.swift in Sources */,
 			);

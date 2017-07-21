@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import DZNEmptyDataSet
+import SwiftOverlays
 
 class AttendanceDetailViewController: UIViewController {
 
@@ -33,8 +34,12 @@ class AttendanceDetailViewController: UIViewController {
         title = attendanceDate.date
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(cancel))
-        backBarButton.tintColor = UIColor.black
+        backBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = backBarButton
+
+        let exportBarButton = UIBarButtonItem(title: "EXPORT", style: .done, target: self, action: #selector(actionTapToExportButton))
+        exportBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
+        self.navigationItem.rightBarButtonItem = exportBarButton
 
         attendanceDetailView.tableView.delegate = self
         attendanceDetailView.tableView.dataSource = self
@@ -50,14 +55,14 @@ class AttendanceDetailViewController: UIViewController {
 
     func loadData() {
 
-        if group.id != "" && attendanceDate.date != "" {
+        if attendanceDate.date != "" {
             self.attendanceDetailView.indicator.startAnimating()
-            DatabaseHelper.shared.getAttendances(groupId: group.id, date: attendanceDate.date) {
+            DatabaseHelper.shared.getAttendances(date: attendanceDate.date) {
                 attendances in
                 self.attendanceDetailView.indicator.stopAnimating()
                 self.allAttendance = attendances
 
-                DatabaseHelper.shared.observeAttendances(groupId: self.group.id, date: self.attendanceDate.date) {
+                DatabaseHelper.shared.observeAttendances(date: self.attendanceDate.date) {
                     newAttendance in
 
                     var flag = false
@@ -77,7 +82,7 @@ class AttendanceDetailViewController: UIViewController {
                     self.search()
                 }
 
-                DatabaseHelper.shared.observeDeleteAttendance(groupId: self.group.id, date: self.attendanceDate.date) {
+                DatabaseHelper.shared.observeDeleteAttendance(date: self.attendanceDate.date) {
                     newAttendance in
 
                     for index in 0..<self.allAttendance.count {
@@ -120,11 +125,52 @@ class AttendanceDetailViewController: UIViewController {
                 }
             }
         }
-        
+
         attendances.removeAll()
         attendances.append(contentsOf: result)
-        
+
         attendanceDetailView.tableView.reloadData()
+    }
+
+    func actionTapToExportButton() {
+
+        SwiftOverlays.showBlockingWaitOverlay()
+
+        DispatchQueue.global(qos: .default).async {
+            let headers = "Id, Name, Date, Weekday, Check-in Time, Check-out Time"
+
+            var rows = [headers]
+
+            for attendance in self.attendances {
+
+                let row = String(format: "%@, %@, %@, %@, %@, %@",
+                                 attendance.employee?.employeeID ?? " ",
+                                 attendance.employee?.name ?? " ",
+                                 self.attendanceDate.date,
+                                 Utils.getWeekdayFromDate(date: Utils.stringtoDate(string: self.attendanceDate.date)),
+                                 attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[0].time ?? " " : " ",
+                                 attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[attendance.attendanceTimes.count - 1].time ?? " " : " ")
+
+                rows.append(row)
+            }
+
+            var result = ""
+            for row in rows {
+                result += row + "\n"
+            }
+
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let filename = (path as NSString).appendingPathComponent("Report-\(Date().iso8601).csv")
+            let fileURL = URL(fileURLWithPath: filename)
+            try! result.write(to: fileURL, atomically: true, encoding: .utf8)
+            let activityVC = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = self.view
+
+            DispatchQueue.main.sync {
+                SwiftOverlays.removeAllBlockingOverlays()
+                self.present(activityVC, animated: true, completion: nil)
+            }
+        }
     }
 
     func cancel() {
@@ -144,27 +190,31 @@ extension AttendanceDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-//        if let employeee = attendances[indexPath.row].employee {
-//
-//            let rectEmployeeID = NSString(string: employeee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
-//
-//            let rectName = NSString(string: employeee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 100, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-//
-//            var height: CGFloat = rectEmployeeID.height + rectName.height + 20 + 20 + 16 + 10 + 10
-//            
-//            if height < 100 {
-//                height = 100
-//            }
-//
-//            return height
-//        }
-//        else {
+        if let employeee = attendances[indexPath.row].employee {
+
+            let rectEmployeeID = NSString(string: employeee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - (110 + 24), height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+
+            let rectName = NSString(string: employeee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - (110 + 24), height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
+
+            var height: CGFloat = rectEmployeeID.height + rectName.height + 20 + 20 + 16 + 10 + 10 + 10
+
+            if height < 110 {
+                height = 110
+            }
+
+            return height
+        }
+        else {
             return 130
-//        }
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AttendanceDetailTableViewCell
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.selectionStyle = .none
 
         cell.bindingData(groupId: group.id, attendance: attendances[indexPath.row])
 
@@ -195,7 +245,7 @@ extension AttendanceDetailViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
-    
+
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }

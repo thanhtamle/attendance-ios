@@ -19,6 +19,8 @@ class ExportEmployeeViewController: UIViewController {
     var employees = [Employee]()
     var allEmployees = [Employee]()
 
+    var attendances = [Attendance]()
+
     override func loadView() {
         view = exportEmployeeView
         view.setNeedsUpdateConstraints()
@@ -27,18 +29,18 @@ class ExportEmployeeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //enable swipe back when it changed leftBarButtonItem
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        navigationController?.navigationBar.barTintColor = Global.colorMain
+        navigationController?.navigationBar.tintColor = Global.colorMain
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
 
-        title = group.name
+        title = "EXPORT"
 
-        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = backBarButton
-
-        let calculateBarButton = UIBarButtonItem(title: "CALCULATE", style: .done, target: self, action: #selector(actionTapToCalculateView))
-        calculateBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: Global.colorMain,NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
-        self.navigationItem.rightBarButtonItem = calculateBarButton
+        let exportBarButton = UIBarButtonItem(title: "EXPORT", style: .done, target: self, action: #selector(actionTapToExportButton))
+        exportBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
+        self.navigationItem.rightBarButtonItem = exportBarButton
 
         exportEmployeeView.tableView.delegate = self
         exportEmployeeView.tableView.dataSource = self
@@ -50,9 +52,26 @@ class ExportEmployeeViewController: UIViewController {
         let endDateAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToEndDateView))
         exportEmployeeView.endDateValueAbstractView.addGestureRecognizer(endDateAbstractViewGesture)
 
+        let groupAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToGroupView))
+        exportEmployeeView.groupValueAbstractView.addGestureRecognizer(groupAbstractViewGesture)
+
+        DispatchQueue(label: "com.attendance").sync {
+            for i in 0..<10 {
+                print(i)
+            }
+        }
+
+        for i in 10..<20 {
+            print(i)
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
         loadData()
     }
-    
+
     func loadData() {
         if group.id != "" {
             exportEmployeeView.indicator.startAnimating()
@@ -61,31 +80,31 @@ class ExportEmployeeViewController: UIViewController {
                 self.exportEmployeeView.indicator.stopAnimating()
                 self.allEmployees = employees
 
-                DatabaseHelper.shared.observeEmployees(groupId: self.group.id) {
+                DatabaseHelper.shared.observeEmployees() {
                     newEmployee in
 
                     var flag = false
 
                     for index in 0..<self.allEmployees.count {
-                        if self.allEmployees[index].id == newEmployee.id {
+                        if self.allEmployees[index].id == newEmployee.id && newEmployee.groupId == self.group.id {
                             self.allEmployees[index] = newEmployee
                             flag = true
                             break
                         }
                     }
 
-                    if !flag {
+                    if !flag && newEmployee.groupId == self.group.id {
                         self.allEmployees.append(newEmployee)
                     }
 
                     self.search()
                 }
 
-                DatabaseHelper.shared.observeDeleteEmployee(groupId: self.group.id) {
+                DatabaseHelper.shared.observeDeleteEmployee() {
                     newEmployee in
 
                     for index in 0..<self.allEmployees.count {
-                        if self.allEmployees[index].id == newEmployee.id {
+                        if self.allEmployees[index].id == newEmployee.id && newEmployee.groupId == self.group.id {
                             self.allEmployees.remove(at: index)
                             self.search()
                             break
@@ -105,7 +124,7 @@ class ExportEmployeeViewController: UIViewController {
         exportEmployeeView.tableView.reloadData()
     }
 
-    func actionTapToCalculateView() {
+    func actionTapToExportButton() {
 
         if exportEmployeeView.startDateValueField.text == "" {
             Utils.showAlert(title: "Error", message: "Start Date can not be empty!", viewController: self)
@@ -121,13 +140,74 @@ class ExportEmployeeViewController: UIViewController {
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "dd-MM-yyyy"
 
-        let startDate = dateFormatter.date(from: exportEmployeeView.startDateValueField.text!)
+        var startDate = dateFormatter.date(from: exportEmployeeView.startDateValueField.text!)
 
         let endDate = dateFormatter.date(from: exportEmployeeView.endDateValueField.text!)
 
         if (startDate?.isGreaterThanDate(dateToCompare: endDate!))! {
             Utils.showAlert(title: "Error", message: "End Date should be greater than Start Date", viewController: self)
             return
+        }
+
+        SwiftOverlays.showBlockingWaitOverlay()
+
+        var result = ""
+
+        let headers = "Id, Name, Date, Weekday, Check-in Time, Check-out Time"
+        var rows = [headers]
+
+        DispatchQueue(label: "com.attendance").sync {
+
+            while (startDate?.isLessThanDate(dateToCompare: endDate!))! || (startDate?.equalToDate(dateToCompare: endDate!))! {
+                let date = startDate
+
+
+                DatabaseHelper.shared.getAttendances(date: Utils.dateFormate(date: date!)!) {
+                    attendances in
+                    self.attendances = attendances
+
+
+
+                    for attendance in attendances {
+
+                        let row = String(format: "%@, %@, %@, %@, %@, %@",
+                                         attendance.employee?.employeeID ?? " ",
+                                         attendance.employee?.name ?? " ",
+                                         Utils.dateFormate(date: date!)!,
+                                         Utils.getWeekdayFromDate(date: date!),
+                                         attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[0].time ?? " " : " ",
+                                         attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[attendance.attendanceTimes.count - 1].time ?? " " : " ")
+
+                        rows.append(row)
+                    }
+
+                    if (date?.equalToDate(dateToCompare: endDate!))! {
+
+                        for row in rows {
+                            result += row + "\n"
+                        }
+
+                        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                        let filename = (path as NSString).appendingPathComponent("Report-\(Date().iso8601).csv")
+                        let fileURL = URL(fileURLWithPath: filename)
+                        try! result.write(to: fileURL, atomically: true, encoding: .utf8)
+                        let activityVC = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+                        activityVC.popoverPresentationController?.sourceView = self.view
+
+                        SwiftOverlays.removeAllBlockingOverlays()
+                        self.present(activityVC, animated: true, completion: nil)
+                    }
+                }
+
+                let dayComponenet = NSDateComponents()
+                dayComponenet.day = 1
+
+                let calendar = NSCalendar(identifier: .ISO8601)
+                let nextDate = calendar?.date(byAdding: dayComponenet as DateComponents, to: date!, options: [])
+
+                startDate = nextDate
+            }
+
         }
     }
 
@@ -140,9 +220,6 @@ class ExportEmployeeViewController: UIViewController {
             if fromDate != nil {
                 self.exportEmployeeView.startDateValueField.text = dateFormatter.string(from: fromDate! as Date)
             }
-            else {
-
-            }
         }
     }
 
@@ -152,11 +229,8 @@ class ExportEmployeeViewController: UIViewController {
             dateFormatter.dateStyle = .medium
             dateFormatter.dateFormat = "dd-MM-yyyy"
 
-            if fromDate != nil {
+            if endDate != nil {
                 self.exportEmployeeView.endDateValueField.text = dateFormatter.string(from: endDate! as Date)
-            }
-            else {
-
             }
         }
     }
@@ -203,8 +277,23 @@ class ExportEmployeeViewController: UIViewController {
         present(datePickerViewController, animated: true, completion: nil)
     }
 
-    func actionTapToBackButton() {
-        _ = navigationController?.popViewController(animated: true)
+    func actionTapToGroupView() {
+        let viewController = GroupViewController()
+        viewController.currentGroup = group
+        viewController.applyGroupDelegate = self
+        let nav = UINavigationController(rootViewController: viewController)
+        present(nav, animated: true, completion: nil)
+    }
+}
+
+extension ExportEmployeeViewController: ApplyGroupDelegate {
+
+    func actionTapToApplyButton(currentGroup: Group?) {
+
+        if let group = currentGroup {
+            self.group = group
+            exportEmployeeView.groupValueField.text = group.name
+        }
     }
 }
 
@@ -242,7 +331,7 @@ extension ExportEmployeeViewController: UITableViewDataSource {
         cell.accessoryType = .checkmark
 
         cell.bindingData(employee: employees[indexPath.row])
-        
+
         return cell
     }
 }
@@ -255,7 +344,7 @@ extension ExportEmployeeViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: NSIndexPath(item: indexPath.row, section: 0) as IndexPath) as! ChosenEmployeeTableViewCell
 
         let employee = employees[indexPath.row]
-
+        
         if employee.checkMark {
             employee.checkMark = false
             cell.accessoryType = .none
@@ -268,9 +357,9 @@ extension ExportEmployeeViewController: UITableViewDelegate {
 }
 
 extension ExportEmployeeViewController: DZNEmptyDataSetSource {
-
+    
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No employee list found"
+        let text = "No student list found"
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
                      NSForegroundColorAttributeName: Global.colorSelected]
         return NSAttributedString(string: text, attributes: attrs)

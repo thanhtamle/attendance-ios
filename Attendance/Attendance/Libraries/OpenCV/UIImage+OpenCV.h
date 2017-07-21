@@ -19,5 +19,6 @@
 
 - (cv::Mat)cvMatRepresentationColor;
 - (cv::Mat)cvMatRepresentationGray;
-
+- (cv::Mat)cvMatGrayFromUIImage;
+- (cv::Mat)cvMatFromUIImage;
 @end

@@ -33,7 +33,7 @@ class AddGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "ADD GROUP"
+        title = "ADD NEW GROUP"
 
         var portraitSize: CGSize!
         var landscapeSize: CGSize!

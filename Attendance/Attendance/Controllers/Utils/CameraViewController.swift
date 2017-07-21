@@ -38,6 +38,8 @@ class CameraViewController: UIImagePickerController, UINavigationControllerDeleg
 
     var type = 1
     var pickImage = 0
+
+    var tookPicture = "0"
     
     var cameraDelegate: CameraDelegate?
     
@@ -253,7 +255,7 @@ class CameraViewController: UIImagePickerController, UINavigationControllerDeleg
     
     func applyImageView() {
         if cameraDelegate != nil {
-            cameraDelegate?.tookPicture(url: "", image: self.resultImage!)
+            cameraDelegate?.tookPicture(url: tookPicture, image: self.resultImage!)
             dismiss(animated: true, completion: nil)
         }
     }

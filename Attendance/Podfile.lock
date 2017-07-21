@@ -65,6 +65,7 @@ PODS:
     - FontAwesomeKit/Core
   - FontAwesomeKit/Zocial (2.2.1):
     - FontAwesomeKit/Core
+  - FSCalendar (2.7.8)
   - GoogleToolboxForMac/DebugUtils (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/Defines (2.1.1)
@@ -100,6 +101,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - FontAwesomeKit
+  - FSCalendar
   - INSPhotoGallery
   - IQKeyboardManager
   - OpenCV (~> 2.4)
@@ -123,6 +125,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
   FirebaseStorage: 8110a1ed2034c8fbfd83890d2acc9cdbbd99afec
   FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
+  FSCalendar: '09369a2bf554ba71cd8e8cfb627e2df22a2c2af4'
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   INSPhotoGallery: 81056815e82fb7ee6f271ca017db5985b4f96d0a

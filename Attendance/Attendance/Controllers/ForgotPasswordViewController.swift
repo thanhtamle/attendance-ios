@@ -47,17 +47,17 @@ class ForgotPasswordViewController: UIViewController {
 
         var buttonSize: CGFloat = 40
         var fieldSize: CGFloat = 40
-        var imageSize: CGFloat = 45
+        var imageSize: CGFloat = 100
 
         if DeviceType.IS_IPAD {
             buttonSize = 50
             fieldSize = 50
-            imageSize = 100
+            imageSize = 200
         }
 
         let rectTitle = NSString(string: forgotPasswordView.titleLabel.text ?? "").boundingRect(with: CGSize(width: view.frame.width - 130, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 18)!], context: nil)
 
-        let height: CGFloat = 80 + imageSize + 30 + 20 + 20 + rectTitle.height + 20 + fieldSize + 40 + buttonSize + 20 + 30 + 20
+        let height: CGFloat = 50 + imageSize + 30 + 20 + 20 + rectTitle.height + 20 + fieldSize + 40 + buttonSize + 20 + 30 + 20
 
         forgotPasswordView.containerView.autoSetDimension(.height, toSize: height)
         forgotPasswordView.scrollView.contentSize = forgotPasswordView.containerView.bounds.size

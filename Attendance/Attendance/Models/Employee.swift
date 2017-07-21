@@ -16,6 +16,10 @@ class Employee: NSObject {
     var avatarUrl: String?
     var dob: String?
     var gender: String?
+    var groupId: String?
+    var label: Int64?
+
+    var photos = [ImageUrl]()
 
     var checkMark = true
 
@@ -27,6 +31,11 @@ class Employee: NSObject {
         avatarUrl = employee.avatarUrl
         dob = employee.dob
         gender = employee.gender
+        groupId = employee.groupId
+        label = employee.label
+
+        photos = []
+        photos.append(contentsOf: employee.photos)
     }
 
     convenience init(_ snapshot: DataSnapshot) {
@@ -38,16 +47,36 @@ class Employee: NSObject {
             avatarUrl = snapshotValue["avatarUrl"] as? String
             dob = snapshotValue["dob"] as? String
             gender = snapshotValue["gender"] as? String
+            groupId = snapshotValue["groupId"] as? String
+            label = snapshotValue["label"] as? Int64
+
+            let photoAfterSnapshot = snapshot.childSnapshot(forPath: "photos")
+            if let images = photoAfterSnapshot.children.allObjects as? [DataSnapshot] {
+                for snap in images {
+                    let imageUrl = ImageUrl(snap)
+                    self.photos.append(imageUrl)
+                }
+            }
         }
     }
 
     func toAny() -> Any {
+
+        var photoArray = [Any]()
+
+        for image in photos {
+            photoArray.append(image.toAny())
+        }
+
         return [
             "name": name ?? "",
             "employeeID": employeeID ?? "",
-            "avatarUrl": avatarUrl ?? "",
+            "avatarUrl": avatarUrl,
             "dob": dob ?? "",
-            "gender": gender ?? ""
+            "gender": gender ?? "",
+            "groupId": groupId ?? "",
+            "label": label ?? 0,
+            "photos": photoArray
         ]
     }
 }

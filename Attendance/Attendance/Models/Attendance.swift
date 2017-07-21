@@ -11,6 +11,7 @@ import Firebase
 class Attendance: NSObject {
 
     var employeeId: String = ""
+    var groupId: String?
     var employee: Employee?
     var attendanceTimes = [AttendanceTime]()
 
@@ -22,7 +23,8 @@ class Attendance: NSObject {
     convenience init(_ snapshot: DataSnapshot) {
         self.init()
         employeeId = snapshot.key
-        if let _ = snapshot.value as? [String:Any] {
+        if let value = snapshot.value as? [String:Any] {
+            groupId = value["groupId"] as? String
 
             let attendanceTimeSnapshot = snapshot.childSnapshot(forPath: "attendanceTimes")
             if let times = attendanceTimeSnapshot.children.allObjects as? [DataSnapshot] {
@@ -43,6 +45,7 @@ class Attendance: NSObject {
         }
 
         return [
+            "groupId": groupId ?? "",
             "attendanceTimes": attendanceTimeArray
         ]
     }

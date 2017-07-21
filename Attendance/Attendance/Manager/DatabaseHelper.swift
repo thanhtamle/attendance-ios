@@ -138,8 +138,27 @@ class DatabaseHelper: NSObject {
 
     //---------------------employees-------------------------------
 
-    func getEmployees(groupId: String, completion: @escaping ([Employee]) -> Void) {
-        let ref = self.databaseRef.child("employees").child(groupId)
+    func getIdMax(completion: @escaping (Int64) -> Void) {
+        var idMax: Int64 = -1
+        let ref = self.databaseRef.child("employees")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                for snap in data {
+                    let employeee = Employee(snap)
+                    if employeee.label! > idMax {
+                        idMax = employeee.label!
+                    }
+                }
+                completion(idMax + 1)
+            }
+            else {
+                completion(0)
+            }
+        })
+    }
+
+    func getAllEmployees(completion: @escaping ([Employee]) -> Void) {
+        let ref = self.databaseRef.child("employees")
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let data = snapshot.children.allObjects as? [DataSnapshot] {
                 var result = [Employee]()
@@ -154,9 +173,45 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func getEmployee(groupId: String, id: String, completion: @escaping (Employee?) -> Void) {
+    func getEmployees(groupId: String, completion: @escaping ([Employee]) -> Void) {
+        let ref = self.databaseRef.child("employees")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [Employee]()
+                for snap in data {
+                    let employee = Employee(snap)
+                    if employee.groupId == groupId {
+                        result.append(employee)
+                    }
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func getEmployeesNotBelongGroup(groupId: String, completion: @escaping ([Employee]) -> Void) {
+        let ref = self.databaseRef.child("employees")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [Employee]()
+                for snap in data {
+                    let employee = Employee(snap)
+                    if employee.groupId != groupId {
+                        result.append(employee)
+                    }
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func getEmployee(id: String, completion: @escaping (Employee?) -> Void) {
         var employee: Employee?
-        let ref = self.databaseRef.child("employees").child(groupId)
+        let ref = self.databaseRef.child("employees")
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let data = snapshot.children.allObjects as? [DataSnapshot] {
                 var flag = false
@@ -181,8 +236,8 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func saveEmployee(groupId: String, employee: Employee, completion: @escaping () -> Void) {
-        var ref = self.databaseRef.child("employees").child(groupId)
+    func saveEmployee(employee: Employee, completion: @escaping () -> Void) {
+        var ref = self.databaseRef.child("employees")
 
         if employee.id.isEmpty {
             ref = ref.childByAutoId()
@@ -196,8 +251,8 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func observeEmployees(groupId: String, completion: @escaping (Employee) -> Void) {
-        let ref = self.databaseRef.child("employees").child(groupId)
+    func observeEmployees(completion: @escaping (Employee) -> Void) {
+        let ref = self.databaseRef.child("employees")
 
         ref.observe(.childChanged, with: { snapshot in
             let employee = Employee(snapshot)
@@ -210,16 +265,16 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func observeDeleteEmployee(groupId: String, completion: @escaping (Employee) -> Void) {
-        let ref = self.databaseRef.child("employees").child(groupId)
+    func observeDeleteEmployee(completion: @escaping (Employee) -> Void) {
+        let ref = self.databaseRef.child("employees")
         ref.observe(.childRemoved, with: { snapshot in
             let employee = Employee(snapshot)
             completion(employee)
         })
     }
 
-    func deleteEmployee(groupId: String, employeeId: String, completion: @escaping () -> Void) {
-        let ref = self.databaseRef.child("employees").child(groupId)
+    func deleteEmployee(employeeId: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("employees")
 
         ref.child(employeeId).removeValue { (error, ref) in
             completion()
@@ -228,8 +283,8 @@ class DatabaseHelper: NSObject {
 
     //---------------------attendanceDates-------------------------------
 
-    func getAttendanceDates(groupId: String, completion: @escaping ([AttendanceDate]) -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId)
+    func getAttendanceDates(completion: @escaping ([AttendanceDate]) -> Void) {
+        let ref = self.databaseRef.child("attendances")
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let data = snapshot.children.allObjects as? [DataSnapshot] {
                 var result = [AttendanceDate]()
@@ -244,8 +299,8 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func observeAttendanceDate(groupId: String, completion: @escaping (AttendanceDate) -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId)
+    func observeAttendanceDate(completion: @escaping (AttendanceDate) -> Void) {
+        let ref = self.databaseRef.child("attendances")
 
         ref.observe(.childChanged, with: { snapshot in
             let attendanceDate = AttendanceDate(snapshot)
@@ -258,16 +313,16 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func observeDeleteAttendanceDate(groupId: String, completion: @escaping (AttendanceDate) -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId)
+    func observeDeleteAttendanceDate(completion: @escaping (AttendanceDate) -> Void) {
+        let ref = self.databaseRef.child("attendances")
         ref.observe(.childRemoved, with: { snapshot in
             let attendanceDate = AttendanceDate(snapshot)
             completion(attendanceDate)
         })
     }
 
-    func deleteAttendanceDate(groupId: String, date: String, completion: @escaping () -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+    func deleteAttendanceDate(date: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
 
         ref.child(date).removeValue { (error, ref) in
             completion()
@@ -276,8 +331,8 @@ class DatabaseHelper: NSObject {
 
     //---------------------attendance detail-------------------------------
 
-    func getAttendances(groupId: String, date: String, completion: @escaping ([Attendance]) -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+    func getAttendances(date: String, completion: @escaping ([Attendance]) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let data = snapshot.children.allObjects as? [DataSnapshot] {
                 var result = [Attendance]()
@@ -292,8 +347,8 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func saveAttendance(groupId: String, date: String, attendance: Attendance, completion: @escaping () -> Void) {
-        var ref = self.databaseRef.child("attendances").child(groupId).child(date)
+    func saveAttendance(date: String, attendance: Attendance, completion: @escaping () -> Void) {
+        var ref = self.databaseRef.child("attendances").child(date)
 
         ref = ref.child(attendance.employeeId)
 
@@ -303,8 +358,8 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func observeAttendances(groupId: String, date: String, completion: @escaping (Attendance) -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+    func observeAttendances(date: String, completion: @escaping (Attendance) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
 
         ref.observe(.childChanged, with: { snapshot in
             let attendance = Attendance(snapshot)
@@ -317,16 +372,16 @@ class DatabaseHelper: NSObject {
         })
     }
 
-    func observeDeleteAttendance(groupId: String, date: String, completion: @escaping (Attendance) -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+    func observeDeleteAttendance(date: String, completion: @escaping (Attendance) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
         ref.observe(.childRemoved, with: { snapshot in
             let attendance = Attendance(snapshot)
             completion(attendance)
         })
     }
 
-    func deleteAttendance(groupId: String, date: String, employeeId: String, completion: @escaping () -> Void) {
-        let ref = self.databaseRef.child("attendances").child(groupId).child(date)
+    func deleteAttendance(date: String, employeeId: String, completion: @escaping () -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
 
         ref.child(employeeId).removeValue { (error, ref) in
             completion()
@@ -347,8 +402,19 @@ class DatabaseHelper: NSObject {
                 completion(nil)
                 return
             }
-
+            
             completion(metadata.downloadURL()!.absoluteString)
+        }
+    }
+
+    func fetchImage(label: Int64, url: String, completion: @escaping (Int64, UIImage?) -> Void) {
+        let storage = Storage.storage()
+        var reference: StorageReference!
+
+        reference = storage.reference(forURL: url)
+        reference.getData(maxSize: 5 * 1024 * 1024) { (data, error) -> Void in
+            let image = UIImage(data: data! as Data)
+            completion(label, image)
         }
     }
 }

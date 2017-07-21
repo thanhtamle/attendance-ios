@@ -51,12 +51,12 @@ class AttendanceViewController: UIViewController {
 
         if group.id != "" {
             self.attendanceView.indicator.startAnimating()
-            DatabaseHelper.shared.getAttendanceDates(groupId: group.id) {
+            DatabaseHelper.shared.getAttendanceDates() {
                 attendanceDates in
                 self.attendanceView.indicator.stopAnimating()
                 self.allAttendanceDates = attendanceDates
 
-                DatabaseHelper.shared.observeAttendanceDate(groupId: self.group.id) {
+                DatabaseHelper.shared.observeAttendanceDate() {
                     newAttendanceDate in
 
                     var flag = false
@@ -76,7 +76,7 @@ class AttendanceViewController: UIViewController {
                     self.search()
                 }
 
-                DatabaseHelper.shared.observeDeleteAttendanceDate(groupId: self.group.id) {
+                DatabaseHelper.shared.observeDeleteAttendanceDate() {
                     newAttendanceDate in
 
                     for index in 0..<self.allAttendanceDates.count {

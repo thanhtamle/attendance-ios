@@ -60,7 +60,7 @@ class TrainingDetailViewController: UIViewController {
                 self.trainingDetailView.indicator.stopAnimating()
                 self.allEmployees = employees
 
-                DatabaseHelper.shared.observeEmployees(groupId: self.group.id) {
+                DatabaseHelper.shared.observeEmployees() {
                     newEmployee in
 
                     var flag = false
@@ -80,7 +80,7 @@ class TrainingDetailViewController: UIViewController {
                     self.search()
                 }
 
-                DatabaseHelper.shared.observeDeleteEmployee(groupId: self.group.id) {
+                DatabaseHelper.shared.observeDeleteEmployee() {
                     newEmployee in
 
                     for index in 0..<self.allEmployees.count {
@@ -182,7 +182,7 @@ extension TrainingDetailViewController: UITableViewDelegate {
 extension TrainingDetailViewController: DZNEmptyDataSetSource {
 
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No employee list found"
+        let text = "No student list found"
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
                      NSForegroundColorAttributeName: Global.colorSelected]
         return NSAttributedString(string: text, attributes: attrs)

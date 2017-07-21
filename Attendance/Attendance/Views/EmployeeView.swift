@@ -25,10 +25,10 @@ class EmployeeView: UIView {
         
         searchBar.frame = CGRect(x: 0, y: 0, width: Global.SCREEN_WIDTH, height: 44)
         searchBar.searchBarStyle = UISearchBarStyle.prominent
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "Add student to the group"
         searchBar.isTranslucent = true
         searchBar.backgroundImage = UIImage()
-        searchBar.backgroundColor = UIColor.clear
+        searchBar.backgroundColor = UIColor.white
         searchBar.barTintColor = UIColor.clear
         searchBar.tintColor = Global.colorMain
         searchBar.endEditing(true)
@@ -44,7 +44,7 @@ class EmployeeView: UIView {
         }
 
         tableView.backgroundColor = UIColor.clear
-        tableView.separatorColor = Global.colorSeparator
+        tableView.separatorStyle = .none
         tableView.register(EmployeeTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
 

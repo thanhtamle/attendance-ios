@@ -10,6 +10,7 @@ import UIKit
 import STPopup
 import INSPhotoGallery
 import SwiftOverlays
+import DZNEmptyDataSet
 
 protocol AddEmployeeDelegate: class {
     func actionTapToAddButton()
@@ -19,14 +20,19 @@ protocol AddEmployeeDelegate: class {
 class AddEmployeeViewController: UIViewController {
 
     let addEmployeeView = AddEmployeeView()
+    var employeHeaderView: EmployeHeaderView!
 
     open weak var addEmployeeDelegate: AddEmployeeDelegate?
 
-    var photos: [INSPhotoViewable] = [INSPhotoViewable]()
+    var avatar = [INSPhotoViewable]()
+    var urlPhotos = [ImageUrl]()
+    var photos = [INSPhotoViewable]()
 
     var employee: Employee?
-    var group = Group()
+    var group: Group?
     var imageUrl: String?
+
+    var isLoadHeader = false
 
     override func loadView() {
         view = addEmployeeView
@@ -36,64 +42,77 @@ class AddEmployeeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "ADD EMPLOYEE"
+        //enable swipe back when it changed leftBarButtonItem
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        var portraitSize: CGSize!
-        var landscapeSize: CGSize!
+        title = "CREATE NEW STUDENT"
 
-        if DeviceType.IS_IPAD {
-            portraitSize = CGSize(width: Global.SCREEN_WIDTH - 300, height: Global.SCREEN_HEIGHT - 500)
-            landscapeSize = CGSize(width: Global.SCREEN_HEIGHT - 450, height: Global.SCREEN_WIDTH - 200)
-        }
-        else {
-            portraitSize = CGSize(width: Global.SCREEN_WIDTH - 50, height: Global.SCREEN_HEIGHT - 240)
-            landscapeSize = CGSize(width: Global.SCREEN_HEIGHT - 200, height: Global.SCREEN_WIDTH - 100)
-        }
-        
-        self.contentSizeInPopup = portraitSize
-        self.landscapeContentSizeInPopup = landscapeSize
+        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToCancelButton))
+        backBarButton.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = backBarButton
 
-        addEmployeeView.idField.delegate = self
-        addEmployeeView.nameField.delegate = self
+        let saveBarButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(actionTapToSaveButton))
+        saveBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
+        self.navigationItem.rightBarButtonItem = saveBarButton
 
-        addEmployeeView.avatarButton.addTarget(self, action: #selector(actionTapToAvatarButton), for: .touchUpInside)
-        addEmployeeView.dobAbstract.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(actionTapToDobView)))
-        addEmployeeView.genderAbstract.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(actionTapToGenderView)))
-        addEmployeeView.addBtn.addTarget(self, action: #selector(actionTapToAddButton), for: .touchUpInside)
-        addEmployeeView.cancelBtn.addTarget(self, action: #selector(actionTapToCancelButton), for: .touchUpInside)
-
-        loadData()
+        addEmployeeView.collectionView.delegate = self
+        addEmployeeView.collectionView.dataSource = self
     }
 
     func loadData() {
-        createPhotoFromImage(image: UIImage(named: "ic_user")!)
+
+        let image = UIImage(named: "ic_user")!
+        self.avatar.removeAll()
+        let tmppho = INSPhoto(image: image, thumbnailImage: image)
+        self.avatar.append(tmppho)
 
         if let newEmployee = employee {
-            title = "EDIT EMPLOYEE"
-            addEmployeeView.idField.text = newEmployee.employeeID
-            addEmployeeView.nameField.text = newEmployee.name
-            addEmployeeView.dobField.text = newEmployee.dob
-            addEmployeeView.genderField.text = newEmployee.gender
+            title = "EDIT STUDENT"
+            employeHeaderView.idField.text = newEmployee.employeeID
+            employeHeaderView.nameField.text = newEmployee.name
+            employeHeaderView.dobField.text = newEmployee.dob
+            employeHeaderView.genderField.text = newEmployee.gender
             if let url = newEmployee.avatarUrl {
                 if url != "" {
                     imageUrl = url
-                    createPhotoFromURL(url: url)
-                    addEmployeeView.avatarButton.sd_setImage(with: URL(string: url), for: .normal)
+                    let url_go = URL.init(string: url)
+                    let tmppho = INSPhoto(imageURL: url_go, thumbnailImageURL: url_go)
+                    self.avatar.removeAll()
+                    self.avatar.append(tmppho)
+                    employeHeaderView.avatarButton.sd_setImage(with: URL(string: url), for: .normal)
                 }
             }
+
+            urlPhotos = newEmployee.photos
+
+            for item in urlPhotos {
+                let url_go = URL.init(string: item.image ?? "")
+                let tmppho = INSPhoto(imageURL: url_go, thumbnailImageURL: url_go)
+                photos.append(tmppho)
+            }
+
+            addEmployeeView.collectionView.reloadData()
         }
         else {
             employee = Employee()
         }
     }
 
-    func actionTapToAvatarButton() {
+    func actionTapToAvatarButton(_ sender: UIButton) {
+
+        var tookPicture = "0"
+
+        if sender.tag != -1 {
+            tookPicture = "1"
+        }
+
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         optionMenu.view.tintColor = Global.colorMain
 
         let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             let cameraViewController = CameraViewController()
+            cameraViewController.tookPicture = tookPicture
             cameraViewController.cameraDelegate = self
             self.present(cameraViewController, animated: false, completion: nil)
         })
@@ -101,6 +120,7 @@ class AddEmployeeViewController: UIViewController {
         let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             let cameraViewController = CameraViewController()
+            cameraViewController.tookPicture = tookPicture
             cameraViewController.cameraDelegate = self
             cameraViewController.pickImage = 1
             self.present(cameraViewController, animated: false, completion: nil)
@@ -108,7 +128,7 @@ class AddEmployeeViewController: UIViewController {
 
         let viewPictureAction = UIAlertAction(title: "View Picture", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            let galleryPreview = INSPhotosViewController(photos: self.photos)
+            let galleryPreview = INSPhotosViewController(photos: self.avatar)
             let overlayViewBar = (galleryPreview.overlayView as! INSPhotosOverlayView).navigationBar
 
             overlayViewBar?.autoPin(toTopLayoutGuideOf: galleryPreview, withInset: 0.0)
@@ -126,23 +146,10 @@ class AddEmployeeViewController: UIViewController {
         optionMenu.addAction(photoLibraryAction)
         optionMenu.addAction(viewPictureAction)
         optionMenu.addAction(cancelAction)
-        optionMenu.popoverPresentationController?.sourceView = addEmployeeView.avatarButton
-        optionMenu.popoverPresentationController?.sourceRect = addEmployeeView.avatarButton.bounds
+        optionMenu.popoverPresentationController?.sourceView = employeHeaderView.avatarButton
+        optionMenu.popoverPresentationController?.sourceRect = employeHeaderView.avatarButton.bounds
 
         self.present(optionMenu, animated: true, completion: nil)
-    }
-
-    func createPhotoFromURL(url: String) {
-        self.photos.removeAll()
-        let url_go = URL.init(string: url)
-        let tmppho = INSPhoto(imageURL: url_go, thumbnailImageURL: url_go)
-        self.photos.append(tmppho)
-    }
-
-    func createPhotoFromImage(image: UIImage) {
-        self.photos.removeAll()
-        let tmppho = INSPhoto(image: image, thumbnailImage: image)
-        self.photos.append(tmppho)
     }
 
     var fromDate : NSDate? {
@@ -152,13 +159,13 @@ class AddEmployeeViewController: UIViewController {
             dateFormatter.dateFormat = "MM-dd-yyyy"
 
             if fromDate != nil {
-                addEmployeeView.dobField.text = dateFormatter.string(from: fromDate! as Date)
+                employeHeaderView.dobField.text = dateFormatter.string(from: fromDate! as Date)
             }
         }
     }
 
     func actionTapToDobView() {
-        addEmployeeView.nameField.resignFirstResponder()
+        employeHeaderView.nameField.resignFirstResponder()
         var date = NSDate()
         if(fromDate != nil) {
             date = fromDate!
@@ -179,35 +186,40 @@ class AddEmployeeViewController: UIViewController {
     }
 
     func actionTapToGenderView() {
-        addEmployeeView.nameField.resignFirstResponder()
-        addEmployeeView.genderDropDown.dataSource = ["Male", "Female"]
-        addEmployeeView.genderDropDown.show()
+        employeHeaderView.nameField.resignFirstResponder()
+        employeHeaderView.genderDropDown.dataSource = ["Male", "Female"]
+        employeHeaderView.genderDropDown.show()
     }
 
-    func actionTapToAddButton() {
+    func actionTapToSaveButton() {
 
         if imageUrl == nil {
             Utils.showAlert(title: "Error", message: "Avatar can not be empty!", viewController: self)
             return
         }
 
-        if addEmployeeView.idField.text == "" {
+        if employeHeaderView.idField.text == "" {
             Utils.showAlert(title: "Error", message: "ID can not be empty!", viewController: self)
             return
         }
 
-        if addEmployeeView.nameField.text == "" {
+        if employeHeaderView.nameField.text == "" {
             Utils.showAlert(title: "Error", message: "Name can not be empty!", viewController: self)
             return
         }
 
-        if addEmployeeView.dobField.text == "" {
+        if employeHeaderView.dobField.text == "" {
             Utils.showAlert(title: "Error", message: "DOB can not be empty!", viewController: self)
             return
         }
 
-        if addEmployeeView.genderField.text == "" {
+        if employeHeaderView.genderField.text == "" {
             Utils.showAlert(title: "Error", message: "Gender can not be empty!", viewController: self)
+            return
+        }
+
+        if urlPhotos.count <= 1 {
+            Utils.showAlert(title: "Error", message: "There are at least two photos", viewController: self)
             return
         }
 
@@ -218,34 +230,124 @@ class AddEmployeeViewController: UIViewController {
         }
 
         employee?.avatarUrl = imageUrl
-        employee?.employeeID = addEmployeeView.idField.text
-        employee?.name = addEmployeeView.nameField.text
-        employee?.dob = addEmployeeView.dobField.text
-        employee?.gender = addEmployeeView.genderField.text
+        employee?.employeeID = employeHeaderView.idField.text
+        employee?.name = employeHeaderView.nameField.text
+        employee?.dob = employeHeaderView.dobField.text
+        employee?.gender = employeHeaderView.genderField.text
+        employee?.photos = urlPhotos
 
-        if group.id != "" {
-            DatabaseHelper.shared.saveEmployee(groupId: group.id, employee: employee!) { _ in
-                SwiftOverlays.removeAllBlockingOverlays()
-                self.addEmployeeDelegate?.actionTapToAddButton()
-            }
+        if let newGroup = group {
+            employee?.groupId = newGroup.id
         }
-        else {
-            SwiftOverlays.removeAllBlockingOverlays()
-            Utils.showAlert(title: "Attendance", message: "Add Employee error. Please try again!", viewController: self)
+
+        DatabaseHelper.shared.getIdMax { (idMax) in
+            self.employee?.label = idMax
+
+            DatabaseHelper.shared.saveEmployee(employee: self.employee!) { _ in
+                SwiftOverlays.removeAllBlockingOverlays()
+                _ = self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 
     func actionTapToCancelButton() {
-        addEmployeeDelegate?.actionTapToCancelButton()
+        _ = navigationController?.popViewController(animated: true)
+    }
+}
+
+extension AddEmployeeViewController: UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        return CGSize(width: view.bounds.width, height: 100 + 350)
+    }
 
-        let height: CGFloat = 20 + 80 + 20 + 40 + 20 + 40 + 20 + 40 + 20 + 40 + 20
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-        addEmployeeView.containerView.autoSetDimension(.height, toSize: height)
-        addEmployeeView.scrollView.contentSize = addEmployeeView.containerView.bounds.size
+        if !isLoadHeader {
+            isLoadHeader = true
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! EmployeHeaderView
+
+
+            headerView.idField.delegate = self
+            headerView.nameField.delegate = self
+
+            headerView.avatarButton.tag = -1
+            headerView.avatarButton.addTarget(self, action: #selector(actionTapToAvatarButton), for: .touchUpInside)
+            headerView.dobAbstract.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(actionTapToDobView)))
+            headerView.genderAbstract.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(actionTapToGenderView)))
+            headerView.addBtn.addTarget(self, action: #selector(actionTapToAvatarButton), for: .touchUpInside)
+            headerView.addBtn.tag = 0
+
+            employeHeaderView = headerView
+
+            loadData()
+
+            return headerView
+        }
+        else {
+            return employeHeaderView
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return urlPhotos.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PhotoCollectionViewCell
+
+        cell.photoBtn.tag = indexPath.row
+        cell.bindingData(image: urlPhotos[indexPath.row].image ?? "")
+
+        return cell
+    }
+}
+
+extension AddEmployeeViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        optionMenu.view.tintColor = Global.colorMain
+
+        let deletePhotoAction = UIAlertAction(title: "Delete Photo", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            let indexPath = NSIndexPath(item: indexPath.row, section: 0)
+
+            self.photos.remove(at: indexPath.row)
+            self.urlPhotos.remove(at: indexPath.row)
+            self.addEmployeeView.collectionView.deleteItems(at: [indexPath as IndexPath])
+        })
+
+        let viewProfilePictureAction = UIAlertAction(title: "View Photo", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+
+            let indexPath = NSIndexPath(item: indexPath.row, section: 0)
+            let cell = self.addEmployeeView.collectionView.cellForItem(at: indexPath as IndexPath) as! PhotoCollectionViewCell
+            let galleryPreview = INSPhotosViewController(photos: self.photos, initialPhoto: self.photos[indexPath.row], referenceView: cell)
+            let overlayViewBar = (galleryPreview.overlayView as! INSPhotosOverlayView).navigationBar
+
+            overlayViewBar?.autoPin(toTopLayoutGuideOf: galleryPreview, withInset: 0.0)
+
+            galleryPreview.view.backgroundColor = UIColor.black
+            galleryPreview.view.tintColor = UIColor.white
+            self.present(galleryPreview, animated: true, completion: nil)
+        })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+
+        optionMenu.addAction(deletePhotoAction)
+        optionMenu.addAction(viewProfilePictureAction)
+
+        optionMenu.addAction(cancelAction)
+        self.present(optionMenu, animated: true, completion: nil)
     }
 }
 
@@ -254,12 +356,28 @@ extension AddEmployeeViewController: CameraDelegate {
     func tookPicture(url: String, image: UIImage) {
         SwiftOverlays.showBlockingWaitOverlay()
         DatabaseHelper.shared.uploadImage(localImage: image) {
-            url in
-            if let newUrl = url {
+            path in
+            if let newUrl = path {
                 SwiftOverlays.removeAllBlockingOverlays()
-                self.createPhotoFromURL(url: newUrl)
-                self.addEmployeeView.avatarButton.sd_setImage(with: URL(string: newUrl), for: .normal)
-                self.imageUrl = newUrl
+
+                let url_go = URL.init(string: newUrl)
+                let tmppho = INSPhoto(imageURL: url_go, thumbnailImageURL: url_go)
+
+                if  url != "0" {
+                    let imageUrl = ImageUrl()
+                    imageUrl.image = newUrl
+                    self.urlPhotos.append(imageUrl)
+                    self.photos.append(tmppho)
+                    let indexPath = IndexPath(item: self.photos.count - 1, section: 0)
+                    self.addEmployeeView.collectionView.insertItems(at: [indexPath])
+                    self.addEmployeeView.collectionView.reloadItems(at: [indexPath])
+                }
+                else {
+                    self.avatar.removeAll()
+                    self.avatar.append(tmppho)
+                    self.employeHeaderView.avatarButton.sd_setImage(with: URL(string: newUrl), for: .normal)
+                    self.imageUrl = newUrl
+                }
             }
             else {
                 SwiftOverlays.removeAllBlockingOverlays()
@@ -273,16 +391,16 @@ extension AddEmployeeViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
-        case addEmployeeView.idField:
+        case employeHeaderView.idField:
             textField.resignFirstResponder()
-            addEmployeeView.nameField.becomeFirstResponder()
+            employeHeaderView.nameField.becomeFirstResponder()
             return true
-
-        case addEmployeeView.nameField:
+            
+        case employeHeaderView.nameField:
             textField.resignFirstResponder()
             actionTapToDobView()
             return true
-
+            
         default:
             textField.resignFirstResponder()
             return true

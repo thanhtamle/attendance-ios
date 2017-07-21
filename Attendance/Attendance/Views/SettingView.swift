@@ -21,13 +21,6 @@ class SettingView: UIView {
     let profileBorderView = UIView()
     let profileBorderAboveView = UIView()
 
-    let exportView = UIView()
-    let exportIconImgView = UIImageView()
-    let exportLabel = UILabel()
-    let exportArrowRightImgView = UIImageView()
-    let exportAbstractView = UIView()
-    let exportBorderView = UIView()
-
     let logoutView = UIView()
     let logoutIconImgView = UIImageView()
     let logoutLabel = UILabel()
@@ -46,14 +39,10 @@ class SettingView: UIView {
         addTapToDismiss()
 
         profileView.backgroundColor = UIColor.white
-        exportView.backgroundColor = UIColor.white
         logoutView.backgroundColor = UIColor.white
 
         profileAbstractView.backgroundColor = UIColor.clear
         profileAbstractView.touchHighlightingStyle = .lightBackground
-
-        exportAbstractView.backgroundColor = UIColor.clear
-        exportAbstractView.touchHighlightingStyle = .lightBackground
 
         logoutAbstractView.backgroundColor = UIColor.clear
         logoutAbstractView.touchHighlightingStyle = .lightBackground
@@ -76,22 +65,6 @@ class SettingView: UIView {
         profileBorderAboveView.backgroundColor = Global.colorSeparator
         logoutBorderAboveView.backgroundColor = Global.colorSeparator
 
-        exportLabel.text = "Export"
-        exportLabel.font = UIFont(name: "OpenSans-semibold", size: 17)
-        exportLabel.textAlignment = .left
-        exportLabel.textColor = UIColor.black
-        exportLabel.numberOfLines = 1
-
-        exportArrowRightImgView.clipsToBounds = true
-        exportArrowRightImgView.contentMode = .scaleAspectFit
-        exportArrowRightImgView.image = UIImage(named: "ArrowRight")
-
-        exportIconImgView.clipsToBounds = true
-        exportIconImgView.contentMode = .scaleAspectFit
-        exportIconImgView.image = UIImage(named: "Business")
-
-        exportBorderView.backgroundColor = Global.colorSeparator
-
         logoutLabel.text = "Logout"
         logoutLabel.font = UIFont(name: "OpenSans-semibold", size: 17)
         logoutLabel.textAlignment = .left
@@ -109,19 +82,12 @@ class SettingView: UIView {
         profileView.addSubview(profileBorderView)
         profileView.addSubview(profileBorderAboveView)
 
-        exportView.addSubview(exportLabel)
-        exportView.addSubview(exportArrowRightImgView)
-        exportView.addSubview(exportIconImgView)
-        exportView.addSubview(exportAbstractView)
-        exportView.addSubview(exportBorderView)
-
         logoutView.addSubview(logoutLabel)
         logoutView.addSubview(logoutIconImgView)
         logoutView.addSubview(logoutAbstractView)
 
         #if Admin
             containerView.addSubview(profileView)
-            containerView.addSubview(exportView)
         #else
             logoutView.addSubview(logoutBorderAboveView)
         #endif
@@ -182,34 +148,7 @@ class SettingView: UIView {
 
                 //------------------------------------------------------------------------
 
-                exportView.autoPinEdge(.top, to: .bottom, of: profileView, withOffset: 0)
-                exportView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-                exportView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-                exportView.autoSetDimension(.height, toSize: height)
-
-                exportIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
-                exportIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-                exportIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
-
-                exportLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-                exportLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
-                exportLabel.autoPinEdge(.left, to: .right, of: exportIconImgView, withOffset: 10)
-                exportLabel.autoPinEdge(.right, to: .left, of: exportArrowRightImgView, withOffset: -10)
-
-                exportArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
-                exportArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
-                exportArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
-
-                exportBorderView.autoPinEdge(toSuperviewEdge: .bottom)
-                exportBorderView.autoPinEdge(toSuperviewEdge: .right)
-                exportBorderView.autoPinEdge(toSuperviewEdge: .left)
-                exportBorderView.autoSetDimension(.height, toSize: 0.5)
-
-                exportAbstractView.autoPinEdgesToSuperviewEdges()
-
-                //------------------------------------------------------------------------
-
-                logoutView.autoPinEdge(.top, to: .bottom, of: exportView, withOffset: 0)
+                logoutView.autoPinEdge(.top, to: .bottom, of: profileView, withOffset: 0)
                 logoutView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
                 logoutView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
                 logoutView.autoSetDimension(.height, toSize: height)
