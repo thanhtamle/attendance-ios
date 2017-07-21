@@ -23,11 +23,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>To take photo</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
+	<string>To access microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>To pick photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-bold.ttf</string>

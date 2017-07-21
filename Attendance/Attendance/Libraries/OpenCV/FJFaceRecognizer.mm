@@ -64,6 +64,7 @@ using namespace std;
 
     return predicted_label;
 }
+
 - (void)createDataForTrain:(UIImage*)img label:(NSInteger)label {
 
     cv::Size minSize(128,128);
@@ -76,6 +77,14 @@ using namespace std;
 
 - (void)trainingFace {
     self->_faceClassifier->train(images, labels);
+}
+
+- (void)save:(NSString *)path {
+    self->_faceClassifier->save(path.UTF8String);
+}
+
+- (void)load:(NSString *)path {
+    self->_faceClassifier->load(path.UTF8String);
 }
 
 @end

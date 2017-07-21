@@ -17,6 +17,10 @@
 
 - (void)createDataForTrain:(UIImage*)img label:(NSInteger)label;
 
+- (void)save:(NSString *)path;
+
+- (void)load:(NSString *)path;
+
 - (void)trainingFace;
 
 @end

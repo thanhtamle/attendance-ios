@@ -47,7 +47,17 @@ class RealTimeCameraViewController: UIViewController {
                 self.faceRecognizer?.createData(forTrain: self.photos[index], label: Int(self.labels[index]))
             }
             self.faceRecognizer?.trainingFace()
+            self.faceRecognizer?.save(self.faceModelFileURL().path)
+            self.faceRecognizer?.load(self.faceModelFileURL().path)
         }
+    }
+
+    func faceModelFileURL() -> URL {
+        let paths: [Any] = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsURL = paths.last as! URL
+        let modelURL = documentsURL.appendingPathComponent("training-model.xml")
+
+        return modelURL
     }
 
     func actionTapToBackButton() {
