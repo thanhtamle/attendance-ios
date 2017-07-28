@@ -19,25 +19,18 @@ class DatabaseHelper: NSObject {
     //---------------------users-------------------------------
 
     func getUser(id: String, completion: @escaping (User?) -> Void) {
-        var user: User?
         let ref = self.databaseRef.child("users")
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let data = snapshot.children.allObjects as? [DataSnapshot] {
-                var flag = false
+                var result: User?
                 for snap in data {
-                    user = User(snap)
-                    if user?.id == id {
-                        flag = true
+                    let user = User(snap)
+                    if user.id == id {
+                        result = user
                         break
                     }
                 }
-
-                if flag {
-                    completion(user)
-                }
-                else {
-                    completion(nil)
-                }
+                completion(result)
             }
             else {
                 completion(nil)
@@ -347,6 +340,43 @@ class DatabaseHelper: NSObject {
         })
     }
 
+    func getAttendancesByGroup(date: String, groupId: String, completion: @escaping ([Attendance]) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result = [Attendance]()
+                for snap in data {
+                    let attendance = Attendance(snap)
+                    if attendance.groupId == groupId {
+                        result.append(attendance)
+                    }
+                }
+                completion(result)
+            } else {
+                completion([])
+            }
+        })
+    }
+
+    func getAttendance(date: String, employeeId: String, completion: @escaping (Attendance?) -> Void) {
+        let ref = self.databaseRef.child("attendances").child(date)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                var result: Attendance?
+                for snap in data {
+                    let attendance = Attendance(snap)
+                    if attendance.employeeId == employeeId {
+                        result = attendance
+                        break
+                    }
+                }
+                completion(result)
+            } else {
+                completion(nil)
+            }
+        })
+    }
+
     func saveAttendance(date: String, attendance: Attendance, completion: @escaping () -> Void) {
         var ref = self.databaseRef.child("attendances").child(date)
 
@@ -402,17 +432,44 @@ class DatabaseHelper: NSObject {
                 completion(nil)
                 return
             }
-            
+
             completion(metadata.downloadURL()!.absoluteString)
+        }
+    }
+
+    func uploadFile(file: File, completion: @escaping (String?) -> Void) {
+        let metadata = StorageMetadata()
+        metadata.contentType = file.mimeType
+
+        let ref = storageRef.child(file.nameFile)
+        ref.putData(file.data!, metadata: metadata) {
+            (metadata, error) in
+            guard let metadata = metadata else {
+                completion(nil)
+                return
+            }
+
+            let path = metadata.downloadURL()!.absoluteString
+            completion(path)
+        }
+    }
+
+    func downloadFile(url: String, completion: @escaping (Data?) -> Void) {
+        let storage = Storage.storage()
+        var reference: StorageReference!
+
+        reference = storage.reference(forURL: url)
+        reference.getData(maxSize: 50 * 1024 * 1024) { (data, error) -> Void in
+            completion(data)
         }
     }
 
     func fetchImage(label: Int64, url: String, completion: @escaping (Int64, UIImage?) -> Void) {
         let storage = Storage.storage()
         var reference: StorageReference!
-
+        
         reference = storage.reference(forURL: url)
-        reference.getData(maxSize: 5 * 1024 * 1024) { (data, error) -> Void in
+        reference.getData(maxSize: 50 * 1024 * 1024) { (data, error) -> Void in
             let image = UIImage(data: data! as Data)
             completion(label, image)
         }

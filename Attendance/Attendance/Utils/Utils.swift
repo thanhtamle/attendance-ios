@@ -11,7 +11,8 @@ import SystemConfiguration
 import UserNotifications
 
 protocol AlertDelegate {
-    func okAlertActionClicked()
+    func actionTapToNoButton()
+    func actionTapToYesButton()
 }
 
 class Utils {
@@ -31,11 +32,16 @@ class Utils {
     
     static func showAlertAction(title: String, message: String, viewController: UIViewController, alertDelegate: AlertDelegate?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        let okAction = UIAlertAction(title: "Ok", style: .default) {
+        let cancelAction = UIAlertAction(title: "NO", style: .default) {
             UIAlertAction in
             if alertDelegate != nil {
-                alertDelegate?.okAlertActionClicked()
+                alertDelegate?.actionTapToNoButton()
+            }
+        }
+        let okAction = UIAlertAction(title: "YES", style: .default) {
+            UIAlertAction in
+            if alertDelegate != nil {
+                alertDelegate?.actionTapToYesButton()
             }
         }
         alertController.addAction(cancelAction)
@@ -49,7 +55,7 @@ class Utils {
         let okAction = UIAlertAction(title: "Yes", style: .default) {
             UIAlertAction in
             if alertDelegate != nil {
-                alertDelegate?.okAlertActionClicked()
+                alertDelegate?.actionTapToYesButton()
             }
         }
         alertController.addAction(cancelAction)
@@ -200,5 +206,33 @@ class Utils {
         application.applicationIconBadgeNumber = badgeCount
         
 //        MainViewController.invitationViewController.tabBarItem.badgeValue = (badgeCount == 0) ? nil : "\(badgeCount)"
+    }
+
+    static func faceModelFileURL(fileName: String) -> URL {
+        let paths: [Any] = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsURL = paths.last as! URL
+        let modelURL = documentsURL.appendingPathComponent(fileName)
+
+        return modelURL
+    }
+
+    static func readFile(pathFile: String) -> Data? {
+        let file: FileHandle? = FileHandle(forReadingAtPath: pathFile)
+
+        if file != nil {
+            let data = file?.readDataToEndOfFile()
+            file?.closeFile()
+
+            return data
+        }
+        else {
+            return nil
+        }
+    }
+
+    static func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
 }

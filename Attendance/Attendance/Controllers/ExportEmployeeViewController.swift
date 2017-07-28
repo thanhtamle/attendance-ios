@@ -54,16 +54,6 @@ class ExportEmployeeViewController: UIViewController {
 
         let groupAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToGroupView))
         exportEmployeeView.groupValueAbstractView.addGestureRecognizer(groupAbstractViewGesture)
-
-        DispatchQueue(label: "com.attendance").sync {
-            for i in 0..<10 {
-                print(i)
-            }
-        }
-
-        for i in 10..<20 {
-            print(i)
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -170,15 +160,21 @@ class ExportEmployeeViewController: UIViewController {
 
                     for attendance in attendances {
 
-                        let row = String(format: "%@, %@, %@, %@, %@, %@",
-                                         attendance.employee?.employeeID ?? " ",
-                                         attendance.employee?.name ?? " ",
-                                         Utils.dateFormate(date: date!)!,
-                                         Utils.getWeekdayFromDate(date: date!),
-                                         attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[0].time ?? " " : " ",
-                                         attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[attendance.attendanceTimes.count - 1].time ?? " " : " ")
-
-                        rows.append(row)
+                        for employee in self.employees {
+                            if attendance.employeeId == employee.id && employee.checkMark {
+                                let row = String(format: "%@, %@, %@, %@, %@, %@",
+                                                 employee.employeeID ?? " ",
+                                                 employee.name ?? " ",
+                                                 Utils.dateFormate(date: date!)!,
+                                                 Utils.getWeekdayFromDate(date: date!),
+                                                 attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[0].time ?? " " : " ",
+                                                 attendance.attendanceTimes.count > 1
+                                                    ? attendance.attendanceTimes[attendance.attendanceTimes.count - 1].time ?? " " : " ")
+                                
+                                rows.append(row)
+                                break
+                            }
+                        }
                     }
 
                     if (date?.equalToDate(dateToCompare: endDate!))! {
@@ -328,9 +324,16 @@ extension ExportEmployeeViewController: UITableViewDataSource {
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
 
-        cell.accessoryType = .checkmark
+        let employee = employees[indexPath.row]
 
-        cell.bindingData(employee: employees[indexPath.row])
+        if employee.checkMark {
+            cell.accessoryType = .checkmark
+        }
+        else {
+            cell.accessoryType = .none
+        }
+
+        cell.bindingData(employee: employee)
 
         return cell
     }

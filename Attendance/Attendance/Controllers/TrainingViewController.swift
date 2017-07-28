@@ -25,19 +25,15 @@ class TrainingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.barTintColor = Global.colorMain
-        navigationController?.navigationBar.tintColor = Global.colorMain
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
+        //enable swipe back when it changed leftBarButtonItem
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
         title = "TRAINING"
 
-        let cameraBarButton = UIBarButtonItem(image: UIImage(named: "ic_camera_alt"), style: .done, target: self, action: #selector(actionTapToCameraButton))
-        cameraBarButton.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = cameraBarButton
-
+        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
+        backBarButton.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = backBarButton
+        
         trainingView.tableView.delegate = self
         trainingView.tableView.dataSource = self
         trainingView.tableView.emptyDataSetSource = self
@@ -120,8 +116,8 @@ class TrainingViewController: UIViewController {
         trainingView.tableView.reloadData()
     }
 
-    func actionTapToCameraButton() {
-
+    func actionTapToBackButton() {
+        _ = navigationController?.popViewController(animated: true)
     }
 }
 
@@ -139,14 +135,14 @@ extension TrainingViewController: UITableViewDataSource {
 
         let group = groups[indexPath.row]
 
-        let rectName = NSString(string: group.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 105, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
+        let rectName = NSString(string: group.name ?? "").boundingRect(with: CGSize(width: view.frame.width - (105 + 24), height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 18)!], context: nil)
 
-        var height: CGFloat = rectName.height + 20
+        var height: CGFloat = rectName.height + 10 + 10 + 10
 
-        if height <= 70 {
-            height = 70
+        if height < 80 {
+            height = 80
         }
-
+        
         return height
     }
 
@@ -155,7 +151,8 @@ extension TrainingViewController: UITableViewDataSource {
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
-
+        cell.selectionStyle = .none
+        
         let group = groups[indexPath.row]
         cell.bindingData(group: group)
 

@@ -20,6 +20,8 @@ class AttendanceDetailViewController: UIViewController {
     var attendances = [Attendance]()
     var allAttendance = [Attendance]()
 
+    var employees = [Employee]()
+
     override func loadView() {
         view = attendanceDetailView
         view.setNeedsUpdateConstraints()
@@ -55,9 +57,14 @@ class AttendanceDetailViewController: UIViewController {
 
     func loadData() {
 
+        DatabaseHelper.shared.getEmployees(groupId: group.id) {
+            employees in
+            self.employees = employees
+        }
+
         if attendanceDate.date != "" {
             self.attendanceDetailView.indicator.startAnimating()
-            DatabaseHelper.shared.getAttendances(date: attendanceDate.date) {
+            DatabaseHelper.shared.getAttendancesByGroup(date: attendanceDate.date, groupId: group.id) {
                 attendances in
                 self.attendanceDetailView.indicator.stopAnimating()
                 self.allAttendance = attendances
@@ -68,14 +75,14 @@ class AttendanceDetailViewController: UIViewController {
                     var flag = false
 
                     for index in 0..<self.allAttendance.count {
-                        if self.allAttendance[index].employeeId == newAttendance.employeeId {
+                        if self.allAttendance[index].employeeId == newAttendance.employeeId && newAttendance.groupId == self.group.id {
                             self.allAttendance[index] = newAttendance
                             flag = true
                             break
                         }
                     }
 
-                    if !flag {
+                    if !flag && newAttendance.groupId == self.group.id {
                         self.allAttendance.append(newAttendance)
                     }
 
@@ -86,7 +93,7 @@ class AttendanceDetailViewController: UIViewController {
                     newAttendance in
 
                     for index in 0..<self.allAttendance.count {
-                        if self.allAttendance[index].employeeId == newAttendance.employeeId {
+                        if self.allAttendance[index].employeeId == newAttendance.employeeId && newAttendance.groupId == self.group.id {
                             self.allAttendance.remove(at: index)
                             self.search()
                             break
@@ -143,15 +150,21 @@ class AttendanceDetailViewController: UIViewController {
 
             for attendance in self.attendances {
 
-                let row = String(format: "%@, %@, %@, %@, %@, %@",
-                                 attendance.employee?.employeeID ?? " ",
-                                 attendance.employee?.name ?? " ",
-                                 self.attendanceDate.date,
-                                 Utils.getWeekdayFromDate(date: Utils.stringtoDate(string: self.attendanceDate.date)),
-                                 attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[0].time ?? " " : " ",
-                                 attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[attendance.attendanceTimes.count - 1].time ?? " " : " ")
+                for employee in self.employees {
+                    if attendance.employeeId == employee.id {
 
-                rows.append(row)
+                        let row = String(format: "%@, %@, %@, %@, %@, %@",
+                                         employee.employeeID ?? " ",
+                                         employee.name ?? " ",
+                                         self.attendanceDate.date,
+                                         Utils.getWeekdayFromDate(date: Utils.stringtoDate(string: self.attendanceDate.date)),
+                                         attendance.attendanceTimes.count > 0 ? attendance.attendanceTimes[0].time ?? " " : " ",
+                                         attendance.attendanceTimes.count > 1 ? attendance.attendanceTimes[attendance.attendanceTimes.count - 1].time ?? " " : " ")
+
+                        rows.append(row)
+                        break
+                    }
+                }
             }
 
             var result = ""
@@ -245,7 +258,7 @@ extension AttendanceDetailViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
-
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }

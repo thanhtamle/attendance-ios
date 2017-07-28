@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RealTimeCameraViewController: UIViewController {
 
@@ -21,17 +22,19 @@ class RealTimeCameraViewController: UIViewController {
     var photos = [UIImage]()
     var labels = [Int64]()
 
+    var user: User?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //enable swipe back when it changed leftBarButtonItem
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        navigationController?.navigationBar.barTintColor = Global.colorMain
+        navigationController?.navigationBar.tintColor = Global.colorMain
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!]
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
 
         title = "CAMERA"
-
-        let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = backBarButton
 
         faceDetector = FJFaceDetector(cameraView: cameraView, scale: 2.0)
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(actionTapOnCamera))
@@ -42,13 +45,37 @@ class RealTimeCameraViewController: UIViewController {
             self.employees = employees
         }
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            for index in 0..<self.photos.count {
-                self.faceRecognizer?.createData(forTrain: self.photos[index], label: Int(self.labels[index]))
+
+        if let userId = Auth.auth().currentUser?.uid {
+            DatabaseHelper.shared.getUser(id: userId) {
+                user in
+                if let newUser = user {
+                    self.user = newUser
+                    self.saveTrainingModel()
+                }
+
+                DatabaseHelper.shared.observeUsers() {
+                    newUser in
+                    if newUser.id == userId {
+                        self.user = newUser
+                        self.saveTrainingModel()
+                    }
+                }
             }
-            self.faceRecognizer?.trainingFace()
-            self.faceRecognizer?.save(self.faceModelFileURL().path)
-            self.faceRecognizer?.load(self.faceModelFileURL().path)
+        }
+    }
+
+    func saveTrainingModel() {
+        if let newUser = user {
+            DatabaseHelper.shared.downloadFile(url: newUser.trainingFileUrl ?? "") { (data) in
+                do {
+                    try data?.write(to: self.faceModelFileURL())
+                    self.faceRecognizer?.load(self.faceModelFileURL().path)
+                }
+                catch{
+
+                }
+            }
         }
     }
 
@@ -58,10 +85,6 @@ class RealTimeCameraViewController: UIViewController {
         let modelURL = documentsURL.appendingPathComponent("training-model.xml")
 
         return modelURL
-    }
-
-    func actionTapToBackButton() {
-        _ = navigationController?.popViewController(animated: true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -92,7 +115,7 @@ class RealTimeCameraViewController: UIViewController {
         if let viewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "FaceRecognitionViewController") as? FaceRecognitionViewController {
             viewController.inputImage = img
             viewController.employees = employees
-            navigationController?.pushViewController(viewController, animated: true)
+            navigationController?.pushViewController(viewController, animated: false)
             
         }
         

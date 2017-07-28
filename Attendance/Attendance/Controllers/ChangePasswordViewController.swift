@@ -29,11 +29,11 @@ class ChangePasswordViewController: UIViewController {
         title = "CHANGE PASSWORD"
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.black
+        backBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = backBarButton
 
         let saveBarButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(actionTapToSaveButton))
-        saveBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: Global.colorMain,NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
+        saveBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white,NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
         self.navigationItem.rightBarButtonItem = saveBarButton
 
         changePasswordView.previousPasswordField.delegate = self

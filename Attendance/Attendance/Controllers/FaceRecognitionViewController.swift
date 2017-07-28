@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftOverlays
 
 class FaceRecognitionViewController: UIViewController {
 
@@ -14,6 +15,8 @@ class FaceRecognitionViewController: UIViewController {
 
     var group = Group()
     var employees = [Employee]()
+    var currentEmployee = Employee()
+    var currentAttendance: Attendance?
 
     var inputImage: UIImage!
     private var confidence: Double = 0.0
@@ -38,24 +41,31 @@ class FaceRecognitionViewController: UIViewController {
 
         inputImageView.image = inputImage
 
+
         let label = self.faceRecognizer?.predict(inputImage, confidence: 0)
         if (label == -1) {
             Utils.showAlert(title: "Hello", message: "Who are you? I was thinking that you are not member of Citynow", viewController: self)
         }
         else {
+            SwiftOverlays.showBlockingWaitOverlay()
             for item in employees {
                 if Int(item.label!) == label {
+                    currentEmployee = item
                     let name = item.name ?? ""
-                    Utils.showAlert(title: "Hello", message: "Are you " + name + "?", viewController: self)
+                    DatabaseHelper.shared.getAttendance(date: Utils.getCurrentDate() ?? "1", employeeId: item.id) {
+                        attendance in
+                        self.currentAttendance = attendance
+                        SwiftOverlays.removeAllBlockingOverlays()
+                        Utils.showAlertAction(title: "Hello", message: "Are you " + name + "?", viewController: self, alertDelegate: self)
+                    }
                     break
                 }
             }
         }
-
     }
 
     func actionTapToBackButton() {
-        _ = navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: false)
     }
 
     func faceModelFileURL() -> URL {
@@ -67,14 +77,37 @@ class FaceRecognitionViewController: UIViewController {
     }
 
     @IBAction func actionTapToCorrectButton(_ sender: Any) {
-//        faceModel.update(withFace: inputImage, name: nameLabel.text)
-        _ = navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: false)
     }
 
     @IBAction func actionTapToWrongButton(_ sender: Any) {
-//        let name: String? = "Person " + ("\(UInt(faceModel.labels().count))")
-//        faceModel.update(withFace: inputImage, name: name)
-        self.dismiss(animated: true, completion: nil)
-        
+        _ = navigationController?.popViewController(animated: false)
+    }
+}
+
+extension FaceRecognitionViewController: AlertDelegate {
+
+    func actionTapToYesButton() {
+
+        SwiftOverlays.showBlockingWaitOverlay()
+        let attendanceTime = AttendanceTime()
+        attendanceTime.time = Utils.getCurrentTime()
+
+        if currentAttendance == nil {
+            currentAttendance = Attendance()
+            currentAttendance?.employeeId = currentEmployee.id
+            currentAttendance?.groupId = currentEmployee.groupId
+        }
+
+        currentAttendance?.attendanceTimes.append(attendanceTime)
+
+        DatabaseHelper.shared.saveAttendance(date: Utils.getCurrentDate()!, attendance: currentAttendance!) {
+            SwiftOverlays.removeAllBlockingOverlays()
+            _ = self.navigationController?.popViewController(animated: false)
+        }
+    }
+
+    func actionTapToNoButton() {
+        _ = navigationController?.popViewController(animated: false)
     }
 }
