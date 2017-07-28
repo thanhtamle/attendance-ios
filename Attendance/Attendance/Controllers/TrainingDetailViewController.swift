@@ -9,15 +9,24 @@
 import UIKit
 import STPopup
 import DZNEmptyDataSet
+import INSPhotoGallery
 import SwiftOverlays
+import Firebase
 
 class TrainingDetailViewController: UIViewController {
 
     let trainingDetailView = TrainingDetailView()
 
+    var labels = [Int64]()
+    var urlPhotos = [UIImage]()
+    var photos = [INSPhotoViewable]()
+
     var group = Group()
     var employees = [Employee]()
-    var allEmployees = [Employee]()
+
+    var faceRecognizer = FJFaceRecognizer.sharedManager()
+
+    var user: User?
 
     override func loadView() {
         view = trainingDetailView
@@ -30,24 +39,18 @@ class TrainingDetailViewController: UIViewController {
         //enable swipe back when it changed leftBarButtonItem
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        title = group.name
+        title = "PHOTOS"
 
         let backBarButton = UIBarButtonItem(image: UIImage(named: "i_nav_back"), style: .done, target: self, action: #selector(actionTapToBackButton))
-        backBarButton.tintColor = UIColor.black
+        backBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = backBarButton
 
         let trainingBarButton = UIBarButtonItem(title: "TRAINING", style: .done, target: self, action: #selector(actionTapToTrainingButton))
-        trainingBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: Global.colorMain,NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
+        trainingBarButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "OpenSans-semibold", size: 15)!], for: UIControlState.normal)
         self.navigationItem.rightBarButtonItem = trainingBarButton
 
-        trainingDetailView.tableView.delegate = self
-        trainingDetailView.tableView.dataSource = self
-        trainingDetailView.tableView.emptyDataSetSource = self
-        trainingDetailView.searchBar.delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        trainingDetailView.collectionView.delegate = self
+        trainingDetailView.collectionView.dataSource = self
 
         loadData()
     }
@@ -55,40 +58,24 @@ class TrainingDetailViewController: UIViewController {
     func loadData() {
         if group.id != "" {
             trainingDetailView.indicator.startAnimating()
-            DatabaseHelper.shared.getEmployees(groupId: group.id) {
-                employees in
+            DatabaseHelper.shared.getEmployees(groupId: group.id){ (employees) in
+                self.employees = employees
+                self.search()
                 self.trainingDetailView.indicator.stopAnimating()
-                self.allEmployees = employees
+            }
+        }
 
-                DatabaseHelper.shared.observeEmployees() {
-                    newEmployee in
-
-                    var flag = false
-
-                    for index in 0..<self.allEmployees.count {
-                        if self.allEmployees[index].id == newEmployee.id {
-                            self.allEmployees[index] = newEmployee
-                            flag = true
-                            break
-                        }
-                    }
-
-                    if !flag {
-                        self.allEmployees.append(newEmployee)
-                    }
-
-                    self.search()
+        if let userId = Auth.auth().currentUser?.uid {
+            DatabaseHelper.shared.getUser(id: userId) {
+                user in
+                if let newUser = user {
+                    self.user = newUser
                 }
 
-                DatabaseHelper.shared.observeDeleteEmployee() {
-                    newEmployee in
-
-                    for index in 0..<self.allEmployees.count {
-                        if self.allEmployees[index].id == newEmployee.id {
-                            self.allEmployees.remove(at: index)
-                            self.search()
-                            break
-                        }
+                DatabaseHelper.shared.observeUsers() {
+                    newUser in
+                    if newUser.id == userId {
+                        self.user = newUser
                     }
                 }
             }
@@ -96,32 +83,68 @@ class TrainingDetailViewController: UIViewController {
     }
 
     func search() {
-        let source = allEmployees
 
-        let searchText = trainingDetailView.searchBar.text ?? ""
-        var result = [Employee]()
+        labels = [Int64]()
+        urlPhotos = [UIImage]()
+        photos = [INSPhotoViewable]()
 
-        if searchText.isEmpty {
-            result.append(contentsOf: source)
-        }
-        else {
-            let text = searchText.lowercased()
+        for item in employees {
+            for imageUrl in item.photos {
+                if let newUrl = imageUrl.image {
+                    DatabaseHelper.shared.fetchImage(label: item.label ?? 0, url: newUrl, completion: { (label, image) in
+                        let tmppho = INSPhoto(image: image, thumbnailImage: image)
+                        self.photos.append(tmppho)
+                        self.labels.append(label)
+                        self.urlPhotos.append(image ?? UIImage())
 
-            for item in source {
-                if (item.name?.lowercased().contains(text)) ?? false || (item.employeeID?.lowercased().contains(text)) ?? false || (item.dob?.lowercased().contains(text)) ?? false || (item.gender?.lowercased().contains(text)) ?? false {
-                    result.append(item)
+                        self.trainingDetailView.collectionView.reloadData()
+                    })
                 }
             }
         }
-
-        employees.removeAll()
-        employees.append(contentsOf: result)
-
-        trainingDetailView.tableView.reloadData()
     }
 
     func actionTapToTrainingButton() {
+        SwiftOverlays.showBlockingWaitOverlay()
+        DispatchQueue.global(qos: .userInitiated).async {
+            for index in 0..<self.photos.count {
+                self.faceRecognizer?.createData(forTrain: self.urlPhotos[index], label: Int(self.labels[index]))
+            }
+            self.faceRecognizer?.trainingFace()
+            self.faceRecognizer?.save(Utils.faceModelFileURL(fileName: "training-model.xml").path)
 
+            do {
+                let url = Utils.faceModelFileURL(fileName: "training-model.xml")
+                let data = try Data(contentsOf:url)
+
+                let file = File()
+                file.mimeType = "text/xml"
+                file.nameFile = "training-model.xml"
+                file.data = data
+
+                DatabaseHelper.shared.uploadFile(file: file) {
+                    url in
+
+                    if let newUser = self.user {
+                        newUser.trainingFileUrl = url
+
+                        DatabaseHelper.shared.saveUser(user: newUser) {
+                            SwiftOverlays.removeAllBlockingOverlays()
+                            Utils.showAlert(title: "Attendance", message: "Training data successfully!", viewController: self)
+                        }
+                    }
+                    else {
+                        SwiftOverlays.removeAllBlockingOverlays()
+                        Utils.showAlert(title: "Attendance", message: "Training data error. Please try again!", viewController: self)
+                    }
+                }
+                
+
+            } catch {
+                SwiftOverlays.removeAllBlockingOverlays()
+                Utils.showAlert(title: "Attendance", message: "Training data error. Please try again!", viewController: self)
+            }
+        }
     }
 
     func actionTapToBackButton() {
@@ -129,87 +152,55 @@ class TrainingDetailViewController: UIViewController {
     }
 }
 
-extension TrainingDetailViewController: UITableViewDataSource {
+extension TrainingDetailViewController: UICollectionViewDataSource {
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return employees.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return urlPhotos.count
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let employee = employees[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PhotoCollectionViewCell
 
-        let rectEmployeeID = NSString(string: employee.employeeID ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans-bold", size: 18)!], context: nil)
-
-        let rectName = NSString(string: employee.name ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        let rectDob = NSString(string: employee.dob ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        let rectGender = NSString(string: employee.gender ?? "").boundingRect(with: CGSize(width: view.frame.width - 110, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont(name: "OpenSans", size: 16)!], context: nil)
-
-        var height: CGFloat = rectEmployeeID.height + rectName.height + rectDob.height + rectGender.height + 16 + 10 + 10
-
-        if height < 100 {
-            height = 100
-        }
-
-        return height
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TrainingDetailTableViewCell
-        cell.layoutMargins = UIEdgeInsets.zero
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets.zero
-
-        cell.bindingData(employee: employees[indexPath.row])
+        cell.photoBtn.tag = indexPath.row
+        cell.photoBtn.image = urlPhotos[indexPath.row]
         return cell
     }
 }
 
-extension TrainingDetailViewController: UITableViewDelegate {
+extension TrainingDetailViewController: UICollectionViewDelegate {
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    }
-}
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        optionMenu.view.tintColor = Global.colorMain
 
-extension TrainingDetailViewController: DZNEmptyDataSetSource {
+        let viewProfilePictureAction = UIAlertAction(title: "View Photo", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
 
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No student list found"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
-                     NSForegroundColorAttributeName: Global.colorSelected]
-        return NSAttributedString(string: text, attributes: attrs)
-    }
-}
+            let indexPath = NSIndexPath(item: indexPath.row, section: 0)
+            let cell = self.trainingDetailView.collectionView.cellForItem(at: indexPath as IndexPath) as! PhotoCollectionViewCell
+            let galleryPreview = INSPhotosViewController(photos: self.photos, initialPhoto: self.photos[indexPath.row], referenceView: cell)
+            let overlayViewBar = (galleryPreview.overlayView as! INSPhotosOverlayView).navigationBar
 
-extension TrainingDetailViewController: UISearchBarDelegate {
+            overlayViewBar?.autoPin(toTopLayoutGuideOf: galleryPreview, withInset: 0.0)
 
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
+            galleryPreview.view.backgroundColor = UIColor.black
+            galleryPreview.view.tintColor = UIColor.white
+            self.present(galleryPreview, animated: true, completion: nil)
+        })
 
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        search()
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        searchBar.text = ""
-        search()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        optionMenu.addAction(viewProfilePictureAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
     }
 }

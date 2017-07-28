@@ -33,6 +33,9 @@ class SettingViewController: UIViewController {
         let profileAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToProfileView))
         settingView.profileAbstractView.addGestureRecognizer(profileAbstractViewGesture)
 
+        let trainingAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToTrainingView))
+        settingView.trainingAbstractView.addGestureRecognizer(trainingAbstractViewGesture)
+
         let logoutAbstractViewGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapToLogoutView))
         settingView.logoutAbstractView.addGestureRecognizer(logoutAbstractViewGesture)
     }
@@ -43,7 +46,12 @@ class SettingViewController: UIViewController {
     }
 
     func refreshView() {
-        let height: CGFloat = 60
+
+        var height: CGFloat = 60
+
+        #if Admin
+            height = 180
+        #endif
 
         settingView.containerView.autoSetDimension(.height, toSize: height)
         settingView.scrollView.contentSize = CGSize(width: view.frame.width, height: height)
@@ -54,14 +62,23 @@ class SettingViewController: UIViewController {
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
+    func actionTapToTrainingView() {
+        let viewController = TrainingViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+
     func actionTapToLogoutView() {
         Utils.showAlertAction(title: "Logout", message: "Are you sure want to logout?", viewController: self, alertDelegate: self)
     }
 }
 
 extension SettingViewController: AlertDelegate {
+    
+    func actionTapToNoButton() {
 
-    func okAlertActionClicked() {
+    }
+
+    func actionTapToYesButton() {
         if Auth.auth().currentUser != nil {
             do {
                 try Auth.auth().signOut()

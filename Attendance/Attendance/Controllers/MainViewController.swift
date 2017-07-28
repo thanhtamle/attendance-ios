@@ -11,7 +11,7 @@ import DZNEmptyDataSet
 
 class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavigationControllerDelegate {
 
-    static var realTimeCameraViewController = PhotoViewController()
+    static var realTimeCameraViewController = RealTimeCameraViewController()
     static var calendarViewController = CalendarViewController()
     static var employeeGroupViewController = EmployeeGroupViewController()
     static var exportEmployeeViewController = ExportEmployeeViewController()
@@ -38,7 +38,10 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate, UINavi
         UITabBarItem.appearance().setTitleTextAttributes(attributesSelected, for: .selected)
 
 
-        MainViewController.realTimeCameraViewController = PhotoViewController()
+        let realTimeStoryBoard = UIStoryboard(name: "RealTime", bundle: nil)
+        if let viewController = realTimeStoryBoard.instantiateViewController(withIdentifier: "RealTimeCameraViewController") as? RealTimeCameraViewController {
+            MainViewController.realTimeCameraViewController = viewController
+        }
 
         MainViewController.calendarViewController = CalendarViewController()
         MainViewController.employeeGroupViewController = EmployeeGroupViewController()

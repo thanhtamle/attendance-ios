@@ -44,10 +44,6 @@
 		E622B5431F204E2300D26C00 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E649B4871F1859050014E861 /* CalendarView.swift */; };
 		E622B5441F204E2600D26C00 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD00BD1F18A44500912AFA /* GroupView.swift */; };
 		E622B5451F204E6600D26C00 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E649B4891F1859150014E861 /* CalendarViewController.swift */; };
-		E622B5471F206AF100D26C00 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5461F206AF100D26C00 /* PhotoViewController.swift */; };
-		E622B5491F206B1900D26C00 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5481F206B1900D26C00 /* PhotoView.swift */; };
-		E622B54A1F206D1C00D26C00 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5461F206AF100D26C00 /* PhotoViewController.swift */; };
-		E622B54B1F206D2200D26C00 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622B5481F206B1900D26C00 /* PhotoView.swift */; };
 		E62982441F0E3973006A22CB /* Attendance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62982431F0E3973006A22CB /* Attendance.swift */; };
 		E62982461F0E3D98006A22CB /* AttendanceTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62982451F0E3D98006A22CB /* AttendanceTime.swift */; };
 		E63588861F170A4B0073D3F9 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63588851F170A4B0073D3F9 /* IntroViewController.swift */; };
@@ -242,6 +238,8 @@
 		E67035CB1F00FD02000C5FA5 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */; };
 		E67035CD1F00FD15000C5FA5 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */; };
 		E67035CF1F00FF73000C5FA5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67035CE1F00FF73000C5FA5 /* User.swift */; };
+		E6922BCD1F258CD4005D67A2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6922BCC1F258CD4005D67A2 /* File.swift */; };
+		E6922BCE1F25966E005D67A2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6922BCC1F258CD4005D67A2 /* File.swift */; };
 		E6C02F1A1F0639D900B003B7 /* AddEmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */; };
 		E6C02F1C1F0639E700B003B7 /* AddEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C02F1B1F0639E700B003B7 /* AddEmployeeViewController.swift */; };
 		E6C02F1F1F06580100B003B7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C02F1E1F06580100B003B7 /* CameraViewController.swift */; };
@@ -287,8 +285,6 @@
 		E61BE29B1F0A451A0062339D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E61BE29D1F0A51320062339D /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		E61BE29F1F0A513F0062339D /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
-		E622B5461F206AF100D26C00 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
-		E622B5481F206B1900D26C00 /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		E62982431F0E3973006A22CB /* Attendance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attendance.swift; sourceTree = "<group>"; };
 		E62982451F0E3D98006A22CB /* AttendanceTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceTime.swift; sourceTree = "<group>"; };
 		E63588851F170A4B0073D3F9 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -382,6 +378,7 @@
 		E67035CA1F00FD02000C5FA5 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		E67035CC1F00FD15000C5FA5 /* MenuHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
 		E67035CE1F00FF73000C5FA5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E6922BCC1F258CD4005D67A2 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		E6C02F191F0639D900B003B7 /* AddEmployeeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEmployeeView.swift; sourceTree = "<group>"; };
 		E6C02F1B1F0639E700B003B7 /* AddEmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEmployeeViewController.swift; sourceTree = "<group>"; };
 		E6C02F1E1F06580100B003B7 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -560,7 +557,6 @@
 				E63588891F170B8D0073D3F9 /* ItemIntroView.swift */,
 				E649B4871F1859050014E861 /* CalendarView.swift */,
 				E6FD00BD1F18A44500912AFA /* GroupView.swift */,
-				E622B5481F206B1900D26C00 /* PhotoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -570,7 +566,6 @@
 			children = (
 				E6C02F1D1F0657FA00B003B7 /* Utils */,
 				E645D95E1EF39B7100C91617 /* MainViewController.swift */,
-				E622B5461F206AF100D26C00 /* PhotoViewController.swift */,
 				0EEC47071F0F6DDC00FBAE89 /* RealTimeCameraViewController.swift */,
 				0EEC47051F0F6DB700FBAE89 /* FaceRecognitionViewController.swift */,
 				E64BB5F21F0BAAED001AE835 /* HomeViewController.swift */,
@@ -640,6 +635,7 @@
 				E62982431F0E3973006A22CB /* Attendance.swift */,
 				E62982451F0E3D98006A22CB /* AttendanceTime.swift */,
 				E642479F1F1F9B3300C384D2 /* ImageUrl.swift */,
+				E6922BCC1F258CD4005D67A2 /* File.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1059,7 +1055,6 @@
 				E6396B6F1F14689E006F12C7 /* Group.swift in Sources */,
 				E6396B701F14689E006F12C7 /* Attendance.swift in Sources */,
 				E6396B711F14689E006F12C7 /* ChangePasswordViewController.swift in Sources */,
-				E622B54A1F206D1C00D26C00 /* PhotoViewController.swift in Sources */,
 				E661F10E1F1735790087B05B /* IntroViewController.swift in Sources */,
 				E6396B721F14689E006F12C7 /* AttendanceDate.swift in Sources */,
 				E6396B731F14689E006F12C7 /* UITextField.swift in Sources */,
@@ -1075,7 +1070,6 @@
 				E622B53F1F204DB500D26C00 /* ImageUrl.swift in Sources */,
 				E6396B7D1F14689E006F12C7 /* ForgotPasswordView.swift in Sources */,
 				E6396B7E1F14689E006F12C7 /* FJFaceRecognizer.mm in Sources */,
-				E622B54B1F206D2200D26C00 /* PhotoView.swift in Sources */,
 				E6396B7F1F14689E006F12C7 /* LoginViewController.swift in Sources */,
 				E6396B801F14689E006F12C7 /* MTCompoundButton.m in Sources */,
 				E6396B811F14689E006F12C7 /* AIDatePickerController.m in Sources */,
@@ -1089,6 +1083,7 @@
 				E6396B871F14689E006F12C7 /* NSDictionary.swift in Sources */,
 				E6396B881F14689E006F12C7 /* AttendanceDetailViewController.swift in Sources */,
 				E6396B891F14689E006F12C7 /* MTViewHighlighter.m in Sources */,
+				E6922BCE1F25966E005D67A2 /* File.swift in Sources */,
 				E661F10C1F1735720087B05B /* ItemIntroView.swift in Sources */,
 				E6396B8A1F14689E006F12C7 /* LoginView.swift in Sources */,
 				E6396B8B1F14689E006F12C7 /* UIColor.swift in Sources */,
@@ -1167,7 +1162,6 @@
 				E64CECDC1F0F2AD300A216A3 /* AttendanceDate.swift in Sources */,
 				E645D9301EF3982700C91617 /* UITextField.swift in Sources */,
 				E645D8D21EF3952D00C91617 /* AppDelegate.swift in Sources */,
-				E622B5471F206AF100D26C00 /* PhotoViewController.swift in Sources */,
 				E62982461F0E3D98006A22CB /* AttendanceTime.swift in Sources */,
 				E6FD00BE1F18A44500912AFA /* GroupView.swift in Sources */,
 				E64C703A1F09DB6B0040C71C /* EmployeeGroupViewController.swift in Sources */,
@@ -1183,7 +1177,6 @@
 				E67035BD1F00ADFE000C5FA5 /* LoginViewController.swift in Sources */,
 				E645D95C1EF398DE00C91617 /* MTCompoundButton.m in Sources */,
 				E645D9591EF398DE00C91617 /* AIDatePickerController.m in Sources */,
-				E622B5491F206B1900D26C00 /* PhotoView.swift in Sources */,
 				E67035CF1F00FF73000C5FA5 /* User.swift in Sources */,
 				E67035BF1F00AE06000C5FA5 /* RegisterViewController.swift in Sources */,
 				E661F1131F175C1C0087B05B /* EmployeeGroupCollectionViewCell.swift in Sources */,
@@ -1197,6 +1190,7 @@
 				E645D95B1EF398DE00C91617 /* MTViewHighlighter.m in Sources */,
 				E64247A01F1F9B3300C384D2 /* ImageUrl.swift in Sources */,
 				E67035B91F009EF4000C5FA5 /* LoginView.swift in Sources */,
+				E6922BCD1F258CD4005D67A2 /* File.swift in Sources */,
 				E645D92C1EF3982700C91617 /* UIColor.swift in Sources */,
 				E649B4881F1859050014E861 /* CalendarView.swift in Sources */,
 				E6377D7C1F021AFB00023222 /* Employee.swift in Sources */,

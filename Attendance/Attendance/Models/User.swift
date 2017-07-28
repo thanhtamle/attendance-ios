@@ -15,6 +15,7 @@ class User: NSObject {
     var name: String?
     var phone: String?
     var thumbnailUrl: String?
+    var trainingFileUrl: String?
 
     convenience init(user: User) {
         self.init()
@@ -23,6 +24,7 @@ class User: NSObject {
         email = user.email
         phone = user.phone
         thumbnailUrl = user.thumbnailUrl
+        trainingFileUrl = user.trainingFileUrl
     }
 
     convenience init(_ snapshot: DataSnapshot) {
@@ -33,6 +35,7 @@ class User: NSObject {
             email = snapshotValue["email"] as? String
             phone = snapshotValue["phone"] as? String
             thumbnailUrl = snapshotValue["thumbnailUrl"] as? String
+            trainingFileUrl = snapshotValue["trainingFileUrl"] as? String
         }
     }
 
@@ -41,7 +44,8 @@ class User: NSObject {
             "name": name ?? "",
             "email": email ?? "",
             "phone": phone ?? "",
-            "thumbnailUrl": thumbnailUrl ?? ""
+            "thumbnailUrl": thumbnailUrl ?? "",
+            "trainingFileUrl": trainingFileUrl ?? ""
         ]
     }
 }

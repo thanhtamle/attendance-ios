@@ -188,6 +188,54 @@ class EmployeeGroupViewController: UIViewController {
         viewController.group = group
         navigationController?.pushViewController(viewController, animated: true)
     }
+
+    func actionHoldGroupView(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+            let index = longPressGestureRecognizer.view?.tag
+
+            let optionMenu = UIAlertController(title: self.groups[index!].name, message: nil, preferredStyle: .actionSheet)
+            optionMenu.view.tintColor = Global.colorMain
+
+            let editAction = UIAlertAction(title: "Delete", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+
+                let group = self.groups[index!]
+                let userId = Auth.auth().currentUser?.uid
+
+                if group.id != "" && userId != nil {
+                    SwiftOverlays.showBlockingWaitOverlay()
+                    DatabaseHelper.shared.deleteGroup(userId: userId!, groupId: group.id){
+                        SwiftOverlays.removeAllBlockingOverlays()
+                    }
+                }
+                else {
+                    Utils.showAlert(title: "Attendance", message: "Delete error. Please try again!", viewController: self)
+                }
+            })
+
+            let deleteAction = UIAlertAction(title: "Edit", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                let viewController = AddGroupViewController()
+                viewController.addGroupDelegate = self
+                viewController.group = self.groups[index!]
+                self.viewPopupController = STPopupController(rootViewController: viewController)
+                self.viewPopupController.containerView.layer.cornerRadius = 4
+                self.viewPopupController.present(in: self)
+            })
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+                (alert: UIAlertAction!) -> Void in
+            })
+
+            optionMenu.addAction(editAction)
+            optionMenu.addAction(deleteAction)
+            optionMenu.addAction(cancelAction)
+            optionMenu.popoverPresentationController?.sourceView = self.view
+            optionMenu.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            
+            self.present(optionMenu, animated: true, completion: nil)
+        }
+    }
 }
 
 extension EmployeeGroupViewController: AddEmployeeDelegate, AddGroupDelegate {
@@ -308,6 +356,10 @@ extension EmployeeGroupViewController: UICollectionViewDataSource {
 
         let group = groups[indexPath.row]
         cell.bindingData(group: group)
+
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(actionHoldGroupView))
+        cell.addGestureRecognizer(longPressRecognizer)
+        longPressRecognizer.view?.tag = indexPath.row
 
         return cell
     }

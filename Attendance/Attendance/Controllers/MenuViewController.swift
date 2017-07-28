@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MenuViewController: UIViewController, AlertDelegate {
+class MenuViewController: UIViewController {
 
     let menuView = MenuView()
 
@@ -61,8 +61,11 @@ class MenuViewController: UIViewController, AlertDelegate {
 
         menuView.tableView.reloadData()
     }
+}
 
-    func okAlertActionClicked() {
+extension MenuViewController: AlertDelegate {
+
+    func actionTapToYesButton() {
         if Auth.auth().currentUser != nil {
             do {
                 try Auth.auth().signOut()
@@ -71,12 +74,16 @@ class MenuViewController: UIViewController, AlertDelegate {
                 appDelegate.window?.rootViewController = nav
             }
             catch let error as NSError {
-                Utils.showAlertAction(title: "Logout", message: error.localizedDescription, viewController: self, alertDelegate: self)
+                Utils.showAlert(title: "Logout", message: error.localizedDescription, viewController: self)
             }
         }
         else {
-            Utils.showAlertAction(title: "Logout", message: "Logout error. Please try again!", viewController: self, alertDelegate: self)
+            Utils.showAlert(title: "Logout", message: "Logout error. Please try again!", viewController: self)
         }
+    }
+
+    func actionTapToNoButton() {
+
     }
 }
 

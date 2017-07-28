@@ -19,13 +19,18 @@ class SettingView: UIView {
     let profileArrowRightImgView = UIImageView()
     let profileAbstractView = UIView()
     let profileBorderView = UIView()
-    let profileBorderAboveView = UIView()
+
+    let trainingView = UIView()
+    let trainingIconImgView = UIImageView()
+    let trainingLabel = UILabel()
+    let trainingArrowRightImgView = UIImageView()
+    let trainingAbstractView = UIView()
+    let trainingBorderView = UIView()
 
     let logoutView = UIView()
     let logoutIconImgView = UIImageView()
     let logoutLabel = UILabel()
     let logoutAbstractView = UIView()
-    let logoutBorderAboveView = UIView()
 
     var constraintsAdded = false
 
@@ -39,10 +44,14 @@ class SettingView: UIView {
         addTapToDismiss()
 
         profileView.backgroundColor = UIColor.white
+        trainingView.backgroundColor = UIColor.white
         logoutView.backgroundColor = UIColor.white
 
         profileAbstractView.backgroundColor = UIColor.clear
         profileAbstractView.touchHighlightingStyle = .lightBackground
+
+        trainingAbstractView.backgroundColor = UIColor.clear
+        trainingAbstractView.touchHighlightingStyle = .lightBackground
 
         logoutAbstractView.backgroundColor = UIColor.clear
         logoutAbstractView.touchHighlightingStyle = .lightBackground
@@ -62,8 +71,22 @@ class SettingView: UIView {
         profileIconImgView.image = UIImage(named: "User")
 
         profileBorderView.backgroundColor = Global.colorSeparator
-        profileBorderAboveView.backgroundColor = Global.colorSeparator
-        logoutBorderAboveView.backgroundColor = Global.colorSeparator
+
+        trainingLabel.text = "Training"
+        trainingLabel.font = UIFont(name: "OpenSans-semibold", size: 17)
+        trainingLabel.textAlignment = .left
+        trainingLabel.textColor = UIColor.black
+        trainingLabel.numberOfLines = 1
+
+        trainingArrowRightImgView.clipsToBounds = true
+        trainingArrowRightImgView.contentMode = .scaleAspectFit
+        trainingArrowRightImgView.image = UIImage(named: "ArrowRight")
+
+        trainingIconImgView.clipsToBounds = true
+        trainingIconImgView.contentMode = .scaleAspectFit
+        trainingIconImgView.image = UIImage(named: "Business")
+
+        trainingBorderView.backgroundColor = Global.colorSeparator
 
         logoutLabel.text = "Logout"
         logoutLabel.font = UIFont(name: "OpenSans-semibold", size: 17)
@@ -80,7 +103,12 @@ class SettingView: UIView {
         profileView.addSubview(profileIconImgView)
         profileView.addSubview(profileAbstractView)
         profileView.addSubview(profileBorderView)
-        profileView.addSubview(profileBorderAboveView)
+
+        trainingView.addSubview(trainingLabel)
+        trainingView.addSubview(trainingArrowRightImgView)
+        trainingView.addSubview(trainingIconImgView)
+        trainingView.addSubview(trainingAbstractView)
+        trainingView.addSubview(trainingBorderView)
 
         logoutView.addSubview(logoutLabel)
         logoutView.addSubview(logoutIconImgView)
@@ -88,8 +116,7 @@ class SettingView: UIView {
 
         #if Admin
             containerView.addSubview(profileView)
-        #else
-            logoutView.addSubview(logoutBorderAboveView)
+            containerView.addSubview(trainingView)
         #endif
 
         containerView.addSubview(logoutView)
@@ -134,11 +161,6 @@ class SettingView: UIView {
                 profileArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
                 profileArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
 
-                profileBorderAboveView.autoPinEdge(toSuperviewEdge: .top)
-                profileBorderAboveView.autoPinEdge(toSuperviewEdge: .right)
-                profileBorderAboveView.autoPinEdge(toSuperviewEdge: .left)
-                profileBorderAboveView.autoSetDimension(.height, toSize: 0.5)
-
                 profileBorderView.autoPinEdge(toSuperviewEdge: .bottom)
                 profileBorderView.autoPinEdge(toSuperviewEdge: .right)
                 profileBorderView.autoPinEdge(toSuperviewEdge: .left)
@@ -148,7 +170,34 @@ class SettingView: UIView {
 
                 //------------------------------------------------------------------------
 
-                logoutView.autoPinEdge(.top, to: .bottom, of: profileView, withOffset: 0)
+                trainingView.autoPinEdge(.top, to: .bottom, of: profileView, withOffset: 0)
+                trainingView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+                trainingView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+                trainingView.autoSetDimension(.height, toSize: height)
+
+                trainingIconImgView.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+                trainingIconImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                trainingIconImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+
+                trainingLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+                trainingLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+                trainingLabel.autoPinEdge(.left, to: .right, of: trainingIconImgView, withOffset: 10)
+                trainingLabel.autoPinEdge(.right, to: .left, of: trainingArrowRightImgView, withOffset: -10)
+
+                trainingArrowRightImgView.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
+                trainingArrowRightImgView.autoSetDimensions(to: CGSize(width: 15, height: 15))
+                trainingArrowRightImgView.autoAlignAxis(toSuperviewAxis: .horizontal)
+
+                trainingBorderView.autoPinEdge(toSuperviewEdge: .bottom)
+                trainingBorderView.autoPinEdge(toSuperviewEdge: .right)
+                trainingBorderView.autoPinEdge(toSuperviewEdge: .left)
+                trainingBorderView.autoSetDimension(.height, toSize: 0.5)
+
+                trainingAbstractView.autoPinEdgesToSuperviewEdges()
+
+                //------------------------------------------------------------------------
+
+                logoutView.autoPinEdge(.top, to: .bottom, of: trainingView, withOffset: 0)
                 logoutView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
                 logoutView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
                 logoutView.autoSetDimension(.height, toSize: height)
@@ -179,11 +228,6 @@ class SettingView: UIView {
                 logoutLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
                 logoutLabel.autoPinEdge(.left, to: .right, of: logoutIconImgView, withOffset: 10)
                 logoutLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-
-                logoutBorderAboveView.autoPinEdge(toSuperviewEdge: .top)
-                logoutBorderAboveView.autoPinEdge(toSuperviewEdge: .right)
-                logoutBorderAboveView.autoPinEdge(toSuperviewEdge: .left)
-                logoutBorderAboveView.autoSetDimension(.height, toSize: 0.5)
 
                 logoutAbstractView.autoPinEdgesToSuperviewEdges()
             #endif

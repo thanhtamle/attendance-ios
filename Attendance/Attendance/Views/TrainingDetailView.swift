@@ -10,49 +10,35 @@ import UIKit
 
 class TrainingDetailView: UIView {
 
-    var constraintsAdded = false
-
-    let searchBar = UISearchBar()
-    let tableView = UITableView()
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+
+    var constraintsAdded = false
 
     convenience init() {
         self.init(frame: .zero)
 
-        backgroundColor = Global.colorBg
+        backgroundColor = UIColor.clear
         tintColor = Global.colorMain
         addTapToDismiss()
 
-        searchBar.frame = CGRect(x: 0, y: 0, width: Global.SCREEN_WIDTH, height: 44)
-        searchBar.searchBarStyle = UISearchBarStyle.prominent
-        searchBar.placeholder = "Search"
-        searchBar.isTranslucent = true
-        searchBar.backgroundImage = UIImage()
-        searchBar.backgroundColor = UIColor.clear
-        searchBar.barTintColor = UIColor.clear
-        searchBar.tintColor = Global.colorMain
-        searchBar.endEditing(true)
+        let p: CGFloat = 5
 
-        for view in searchBar.subviews {
-            for subview in view.subviews {
-                if subview is UITextField {
-                    let textField: UITextField = subview as! UITextField
-                    textField.backgroundColor = UIColor.clear
-                    break
-                }
-            }
-        }
+        collectionView.backgroundColor = Global.colorBg
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.indicatorStyle = .white
 
-        tableView.backgroundColor = UIColor.clear
-        tableView.separatorColor = Global.colorSeparator
-        tableView.register(TrainingDetailTableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.tableFooterView = UIView()
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset = UIEdgeInsetsMake(p, p, p, p)
+        layout.minimumLineSpacing = 0
+
+        let width = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 4 - p * 2
+        layout.itemSize = CGSize(width: width, height: width)
 
         indicator.hidesWhenStopped = true
         indicator.backgroundColor = Global.colorBg
 
-        addSubview(searchBar)
-        addSubview(tableView)
+        addSubview(collectionView)
         addSubview(indicator)
         setNeedsUpdateConstraints()
     }
@@ -62,10 +48,10 @@ class TrainingDetailView: UIView {
         if !constraintsAdded {
             constraintsAdded = true
 
-            tableView.autoAlignAxis(toSuperviewAxis: .vertical)
-            tableView.autoMatch(.width, to: .width, of: self)
-            tableView.autoPinEdge(.top, to: .bottom, of: searchBar)
-            tableView.autoPinEdge(toSuperviewMargin: .bottom)
+            collectionView.autoAlignAxis(toSuperviewAxis: .vertical)
+            collectionView.autoMatch(.width, to: .width, of: self)
+            collectionView.autoPinEdge(toSuperviewMargin: .top)
+            collectionView.autoPinEdge(toSuperviewMargin: .bottom)
 
             indicator.autoPinEdgesToSuperviewEdges()
         }

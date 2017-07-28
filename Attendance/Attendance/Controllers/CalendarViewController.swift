@@ -43,38 +43,6 @@ class CalendarViewController: UIViewController {
         calendarView.tableView.delegate = self
         calendarView.tableView.dataSource = self
         calendarView.tableView.emptyDataSetSource = self
-
-        DatabaseHelper.shared.getAllEmployees { (employees) in
-            for employee in employees {
-                let attendance = Attendance()
-
-                attendance.employeeId = employee.id
-
-                var attendanceTime = AttendanceTime()
-                attendanceTime.time = Utils.getCurrentTime()
-                attendance.attendanceTimes.append(attendanceTime)
-
-                attendanceTime = AttendanceTime()
-                attendanceTime.time = Utils.getCurrentTime()
-                attendance.attendanceTimes.append(attendanceTime)
-
-                attendanceTime = AttendanceTime()
-                attendanceTime.time = Utils.getCurrentTime()
-                attendance.attendanceTimes.append(attendanceTime)
-
-                attendanceTime = AttendanceTime()
-                attendanceTime.time = Utils.getCurrentTime()
-                attendance.attendanceTimes.append(attendanceTime)
-
-                attendanceTime = AttendanceTime()
-                attendanceTime.time = Utils.getCurrentTime()
-                attendance.attendanceTimes.append(attendanceTime)
-
-                DatabaseHelper.shared.saveAttendance(date: Utils.getCurrentDate()!, attendance: attendance) {
-
-                }
-            }
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
