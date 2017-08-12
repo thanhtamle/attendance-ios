@@ -43,6 +43,36 @@ class RealTimeCameraViewController: UIViewController {
 
         DatabaseHelper.shared.getAllEmployees { (employees) in
             self.employees = employees
+
+            DatabaseHelper.shared.observeEmployees() {
+                newEmployee in
+
+                var flag = false
+
+                for index in 0..<self.employees.count {
+                    if self.employees[index].id == newEmployee.id {
+                        self.employees[index] = newEmployee
+                        flag = true
+                        break
+                    }
+                }
+
+                if !flag {
+                    self.employees.append(newEmployee)
+                }
+            }
+
+            DatabaseHelper.shared.observeDeleteEmployee() {
+                newEmployee in
+
+                for index in 0..<self.employees.count {
+                    if self.employees[index].id == newEmployee.id {
+                        self.employees.remove(at: index)
+                        break
+                    }
+                }
+            }
+
         }
 
 
